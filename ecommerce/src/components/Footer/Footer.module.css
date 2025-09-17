@@ -86,7 +86,7 @@ width: 10vw;
 
 .linkIcons .icons{
     border: none;
-    color: white;
+    color: rgb(125, 125, 125);
     scale: 2;
     background-color: black;
     border-radius: 50%;

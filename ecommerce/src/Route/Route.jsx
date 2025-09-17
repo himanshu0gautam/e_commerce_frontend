@@ -4,7 +4,7 @@ import Home from "../pages/Home.jsx";
 import Jewellery from "../pages/Jewellery.jsx";
 import Grocery from '../pages/Grocery.jsx'
 import Electronics from "../pages/Electronics.jsx";
-import Cloths from "../pages/Cloths.jsx";
+import Cloths from "../pages/Fashion.jsx";
 import HomeAndFurniture from "../pages/HomeAndFurniture.jsx";
 import Layout from "../Layout.jsx";
 

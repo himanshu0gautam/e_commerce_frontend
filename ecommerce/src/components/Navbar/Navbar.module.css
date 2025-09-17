@@ -4,11 +4,10 @@
     align-items: center;
     justify-content: space-around;
     padding-right: 4rem;
-   
+    padding-left: 4rem;
 }
 .logo{
-    width: 12rem;
-    padding-left: 5rem;
+    width: 13rem;
 }
 .searchContainer{
     display: flex;
@@ -17,7 +16,7 @@
 .searachBar{
    background-color: #fff;
    margin-left: 2rem;
-   padding: 0.8rem 1rem;
+   padding: .9rem 1rem;
    width: 25rem;
    background-color: rgb(243, 243, 245); 
    border-top-left-radius: .4rem;
@@ -37,10 +36,10 @@
     border-bottom-left-radius: 0rem;
     border-top-right-radius: .4rem;
     border-bottom-right-radius:.4rem;
-    width: 2rem;              /* ✅ fixed width instead of padding */
-    height: 1.6rem;
+    width: 2.9rem;              /* ✅ fixed width instead of padding */
+    height: 2.8rem;
     object-fit: contain;
-    padding: .5rem;
+    padding: .6rem;
 }
 .UserConatiner{
     display: flex;
@@ -52,15 +51,15 @@
 .Bell{
     /* width: 2rem !important;
     height: 2rem !important; */
-    font-size: 1.4rem; /* This controls the icon size */
+    font-size: 1.6rem; /* This controls the icon size */
     padding-top: .2rem;
 }
 .UserIcon{
-    font-size: 1rem;
+    font-size: 1.2rem;
 
 }
 .cart{
-    font-size: 1.2rem;
+    font-size: 1.3rem;
 }
 .iconNames{
     display: flex;
