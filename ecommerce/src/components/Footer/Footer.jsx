@@ -1,6 +1,5 @@
 import React from "react";
 import style from "./Footer.module.css";
-import { RiChatSmileAiFill } from "react-icons/ri";
 import { SlSocialFacebook } from "react-icons/sl";
 import { SlSocialLinkedin } from "react-icons/sl";
 import { IoLogoInstagram } from "react-icons/io5";
