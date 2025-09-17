@@ -8,8 +8,7 @@ import { LuBell } from "react-icons/lu";
 import { GrCart } from "react-icons/gr";
 const Navbar = () => {
   return (
-    <header>
-
+    <header className={style.headerContainer}>
         <div className={style.mainContainer}>
 
         <div>
@@ -50,7 +49,7 @@ const Navbar = () => {
             <button className={style.sellerBtn}>Become a Seller</button>
         </div>
 
-    </div>
+        </div>
     </header>
   )
 }
