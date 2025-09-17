@@ -68,10 +68,7 @@ const Footer = () => {
     <main className={style.mainFooter}>
       <section className={style.linkSection}>
         <div className={style.iconsTags}>
-          <div className={style.smillIcons}>
-          {/* <BsEmojiSmile className={style.SIcons}/> */}
-          😊
-          </div>
+        
             <div className={style.imagelogo}>
               <img src="../../../assists/WhatsApp_Image_2025-09-16_at_17.10.43_d3e706c2_processed_by_imagy-removebg-preview.png" alt="" />
             <p>B2B MARKET PLACE</p>
