@@ -2,16 +2,12 @@ import { createBrowserRouter } from "react-router-dom";
 
 import Home from "../pages/Home.jsx";
 import Jewellery from "../pages/Jewellery.jsx";
-import Grocery from '../pages/Grocery.jsx'
 import Electronics from "../pages/Electronics.jsx";
-import Cloths from "../pages/Fashion.jsx";
+import Fashion from '../pages/Fashion.jsx'
 import Layout from "../layout/Layout.jsx";
-import Cloths from "../pages/Cloths.jsx";
-import Electronics from "../pages/Electronics.jsx";
 import Grocery from '../pages/Grocery.jsx';
-import Home from "../pages/Home.jsx";
 import HomeAndFurniture from "../pages/HomeAndFurniture.jsx";
-import Jewellery from "../pages/Jewellery.jsx";
+
 
 
 
@@ -41,8 +37,8 @@ const router = createBrowserRouter([
                 element:<HomeAndFurniture/>
             },
             {
-                path:'cloths',
-                element: <Cloths/>
+                path:'fashion',
+                element: <Fashion/>
             },
         ]
     }
