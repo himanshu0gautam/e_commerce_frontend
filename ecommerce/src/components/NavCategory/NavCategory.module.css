@@ -10,6 +10,7 @@
     font-family:  Helvetica , Arial, sans-serif;
     gap: 3rem;
     font-size: .9rem;
+    position: relative;
     
 }
 .allCat{
@@ -24,6 +25,10 @@
 .cat {
   position: relative;
   cursor: default;
+}
+
+.cat:hover .DropDown {
+  display: block; /* ✅ show submenu on hover */
 }
 
 .cat::after {
