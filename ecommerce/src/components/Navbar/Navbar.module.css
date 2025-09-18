@@ -13,6 +13,7 @@
 
 .logo{
     width: 13rem;
+    cursor: default;
 }
 .searchContainer{
     display: flex;
@@ -52,19 +53,22 @@
     justify-content: space-around;
     gap: 3rem;
     margin-left: 3rem;
+   
 }
 .Bell{
     /* width: 2rem !important;
     height: 2rem !important; */
     font-size: 1.6rem; /* This controls the icon size */
     padding-top: .2rem;
+    cursor: default;
 }
 .UserIcon{
     font-size: 1.2rem;
-
+     cursor: default;
 }
 .cart{
     font-size: 1.3rem;
+     cursor: default;
 }
 .iconNames{
     display: flex;
@@ -72,6 +76,7 @@
     font-family:  Helvetica , Arial, sans-serif;
     font-size: 1rem;
     gap: .5rem;
+     cursor: default;
 }
 .sellerBtn{
     background-color:  black;
@@ -83,5 +88,6 @@
     padding-bottom: .8rem;
     font-size: 1rem;
     margin-left: 1rem;
+     cursor: default;
 
 }
