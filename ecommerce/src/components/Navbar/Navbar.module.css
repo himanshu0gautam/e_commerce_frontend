@@ -1,3 +1,4 @@
+/* -------- Default (Desktop) -------- */
 .mainContainer{
     display: flex;
     padding-top: 1rem;
@@ -91,4 +92,82 @@
     margin-left: 1rem;
      cursor: default;
 
+}
+
+
+
+/* -------- Tablet View (768px – 1024px) -------- */
+@media (max-width : 1024px){
+.mainContainer {
+    padding: 1rem 1rem; 
+    justify-content: space-between; 
+}
+.logo {
+    width: 10rem; 
+}
+ .searachBar {
+    width: 18rem; 
+}
+.UserConatiner {
+    gap: 2rem; 
+    
+}
+ .sellerBtn {
+    font-size: 0.9rem;
+    padding: .6rem .7rem; 
+    display:none;
+  }
+}
+
+
+/* -------- Mobile View (up to 767px) -------- */
+@media (max-width: 767px) {
+  .mainContainer {
+    flex-direction: column;
+    align-items: stretch; 
+    padding: 1rem; 
+    gap: 1rem; 
+    position: relative;
+  }
+.logo{
+    margin-left: 3rem;
+    padding-top: .1rem;
+    width: 10rem;
+}
+  .searchContainer {
+    width: 100%; 
+    margin-top: .5rem; 
+  }
+
+  .searachBar {
+    width: 100%; 
+    margin-left: 0; 
+    font-size: 0.85rem;  
+  }
+
+  .search {
+    height: 2.6rem; 
+    width: 2.6rem;
+  }
+
+  .UserConatiner {
+   position: absolute;
+   right:1rem;
+   top: 1rem;
+   display: flex;
+    gap: 1rem; 
+    margin: 0;
+    justify-content: flex-end; 
+    width: auto; 
+  }
+  .UserConatiner  div p{
+    display: none;
+  }
+
+  .sellerBtn {
+    width: 100%;
+    text-align: center; 
+    font-size: 0.9rem; 
+    margin: 0;
+  }
 }

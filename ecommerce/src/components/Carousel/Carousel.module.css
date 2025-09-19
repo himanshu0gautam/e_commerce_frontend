@@ -57,14 +57,19 @@
 }
 
 
-.carouselData{
-    position: absolute;
-    left: 7%;
-    top: 10%;
-    z-index: 2;
-    align-items: center;
-    justify-content: space-between;
+.carouselData {
+  position: absolute;
+  top: 50%;    
+  left: 50%;   
+  transform: translate(-50%, -50%); /* exact middle */
+  z-index: 2;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  width: 100%; 
+  /* text-align: center;  */
 }
+
 .overlay {
   position: absolute;
   top: 0;
@@ -80,8 +85,10 @@
 .fixedData{
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    gap: 18rem;
+    justify-content: center;
+    gap: 15rem;
+    position: relative;
+    padding: 2rem;
 }
 .leftData{
     color: white;
@@ -202,4 +209,33 @@
 .rightInfo p{
     padding-top: .5rem;
     font-size: .9rem;
+}
+
+@media (max-width:1024px) {
+    .Carousel{
+    width: 100%;
+    height: 65vh;
+    overflow: hidden;
+    position: relative;
+    font-family:  Helvetica , Arial, sans-serif;
+    cursor: default;
+    
+}
+.fixedData{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8rem;
+    position: relative;
+    padding: 2rem;
+}
+
+}
+@media (max-width:767px) {
+    .Carousel{
+        margin-top: -1rem;
+    }
+    .rightData{
+        display: none;
+    }
 }

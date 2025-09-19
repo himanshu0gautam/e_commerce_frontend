@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState ,useRef ,useEffect } from 'react';
 import style from './NavCategory.module.css';
 import DropDown from '../Dropdown/DropDown';
 import { RxTextAlignJustify } from "react-icons/rx";
 
 const NavCategory = () => {
+  const mobileMenuRef = useRef(null); 
   const [openDropdown, setOpenDropdown] = useState(null); // store which category is open
-
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); //  mobile hamburger state
   console.log(openDropdown);
   
 
@@ -98,10 +99,38 @@ const NavCategory = () => {
     Electronics: categoriesData.filter((c) => c.heading === "Electronics"),
   };
 
+  useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (
+      mobileMenuRef.current && 
+      !mobileMenuRef.current.contains(event.target) // check click bahar hua
+    ) {
+      setIsMobileMenuOpen(false); // menu close
+    }
+  };
+
+  if (isMobileMenuOpen) {
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+  }
+
+  return () => {
+    // cleanup function
+    document.removeEventListener("mousedown", handleClickOutside);
+    document.removeEventListener("touchstart", handleClickOutside);
+  };
+}, [isMobileMenuOpen]);
+
+
   return (
     <div className={style.container}>
-      <div className={style.allCat}>
-        <RxTextAlignJustify className={style.alignIcon} /> All Categories
+   
+      <div 
+      className={style.allCat}
+      onClick={()=>setIsMobileMenuOpen((prev)=>!prev)}
+      >
+        <RxTextAlignJustify className={style.alignIcon} /> 
+        <span>All Categories</span>
       </div>
 
       {topCategories.map((catName) => {
@@ -132,7 +161,22 @@ const NavCategory = () => {
           </div>
         );
       })}
+
+     {/* Mobile Menu (toggle) */}
+    {isMobileMenuOpen && (
+      <div ref={mobileMenuRef} className={style.mobileMenu}>
+      {topCategories.map((catName)=>(
+        <div key={catName} className={style.mobileCat}>
+          {catName}
+        </div>
+      ))}
     </div>
+    )}
+     
+    </div>
+    
+   
+
   );
 
 };

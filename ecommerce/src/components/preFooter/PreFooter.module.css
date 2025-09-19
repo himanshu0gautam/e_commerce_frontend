@@ -157,3 +157,138 @@
     color: white;
     border: .001rem solid white;
 }
+@media (max-width:1024px) {
+.first{
+    padding: 3rem 8rem;
+
+}
+.third{
+    justify-content: center;
+}
+
+.card{
+    width: 10rem;
+    height: 8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.icon1{
+    display: none;
+}
+.card div{
+    display: flex;
+    flex-direction: column;
+}
+
+}
+
+
+
+
+
+
+@media (max-width: 767px) {
+  .third {
+    display: none;      
+  }
+
+  .innerContainer {
+    flex: 1 1 100%;  
+    max-width: 100%;
+  }
+  .first{
+    padding: 2rem 2rem;
+    
+  }
+  .inner{
+    align-items: center;
+  }
+  .inner h1{
+    font-size: 1rem;
+  }
+  .second{
+   padding: 0rem 2rem;
+   align-items: center;
+   justify-content: space-evenly;
+  }
+  .inner2 h1{
+    font-size: 1.5rem;
+    text-align: center;
+    justify-content: center;
+  }
+  .inner2 p{
+    font-size: .7rem;
+    text-align: center;
+  }
+  .card {
+    width: 10rem;      
+    flex-direction: column; 
+    text-align: center;   
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .icon1 {
+    margin-bottom: 1rem; 
+  }
+  .inner {
+    align-items: center;         
+    text-align: center;         
+  }
+.inner h1 {
+    font-size: 1.2rem;          
+}
+
+.inner p {
+    font-size: 0.8rem;         
+}
+.third{
+    justify-content: space-evenly;
+}
+
+.fourth{
+    padding: 1rem 2rem;
+    align-items: center;
+}
+.business{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 2rem;
+}
+.business h2{
+    font-size: 1.2rem;
+}
+.business p{
+    font-size: .8rem;
+    line-height: 1rem;
+    display: flex;
+    text-align: center;
+}
+.btn1{
+    background-color: white;
+    
+    font-size: .6rem;
+    border-radius: .8rem;
+    font-weight: 200;
+    border: .001rem solid transparent;
+    transition: transform 0.2s ease-in-out;
+
+}
+.btn2{
+    background-color: rgb(29, 27, 42);
+    
+    font-size: .6rem;
+    border-radius: .8rem;
+    font-weight: 200;
+    border: .001rem solid white;
+    transition: transform 0.2s ease-in-out;
+
+}
+.businessBtn{
+    display: flex;
+    
+    
+}
+}

@@ -23,7 +23,7 @@ const router = createBrowserRouter([
                 element: <Jewellery/>
             },
             {
-                path:'allcategorie',
+                path:'allcategories',
                 element: <AllCategories/>
             },
             {
