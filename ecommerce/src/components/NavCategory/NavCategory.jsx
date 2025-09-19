@@ -6,6 +6,9 @@ import { RxTextAlignJustify } from "react-icons/rx";
 const NavCategory = () => {
   const [openDropdown, setOpenDropdown] = useState(null); // store which category is open
 
+  console.log(openDropdown);
+  
+
   const categoriesData = [
     {
       heading: "Men's Fashion",
@@ -90,42 +93,48 @@ const NavCategory = () => {
     "Jewellery"
   ];
 
+  const dropdownMap = {
+    Fashion: categoriesData.filter((c) => c.heading.includes("Fashion")),
+    Electronics: categoriesData.filter((c) => c.heading === "Electronics"),
+  };
+
   return (
     <div className={style.container}>
       <div className={style.allCat}>
         <RxTextAlignJustify className={style.alignIcon} /> All Categories
       </div>
 
-      {topCategories.map((catName, idx) => (
-        <div
-          key={idx}
-          className={style.catWrapper}
-          onMouseEnter={() => setOpenDropdown(catName)}
-          onMouseLeave={() => setOpenDropdown(null)}
-        >
-          <div className={style.cat}>{catName}</div>
+      {topCategories.map((catName) => {
+        const hasDropdown = Array.isArray(dropdownMap[catName]) && dropdownMap[catName].length > 0;
 
-          {catName === "Fashion" && (
-            <DropDown
-              visible={openDropdown === "Fashion"}
-              categories={categoriesData.filter(cat =>
-                cat.heading.includes("Fashion")
-              )}
-            />
-          )}
-          {catName === "Electronics" && (
-            <DropDown
-              visible={openDropdown === "Electronics"}
-              categories={categoriesData.filter(cat =>
-                cat.heading === "Electronics"
-              )}
-            />
-          )}
-          
-        </div>
-      ))}
+        return (
+          <div
+            key={catName}
+            className={style.catWrapper}
+            // only attach handlers if dropdown exists
+            onMouseEnter={() => hasDropdown && setOpenDropdown(catName)}
+            onMouseLeave={() => hasDropdown && setOpenDropdown(null)}
+            onFocus={() => hasDropdown && setOpenDropdown(catName)}
+            onBlur={() => hasDropdown && setOpenDropdown(null)}
+            aria-haspopup={hasDropdown ? "menu" : undefined}
+            aria-expanded={openDropdown === catName}
+          >
+            <div className={style.cat}>{catName}</div>
+
+            {hasDropdown && (
+              <DropDown
+                visible={openDropdown === catName}
+                categories={dropdownMap[catName]}
+                // optional: pass a close callback if DropDown contains interactive elements
+                onClose={() => setOpenDropdown(null)}
+              />
+            )}
+          </div>
+        );
+      })}
     </div>
   );
+
 };
 
 export default NavCategory;
