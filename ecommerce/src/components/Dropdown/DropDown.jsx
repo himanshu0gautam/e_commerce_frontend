@@ -1,12 +1,7 @@
 import React from 'react'
 import style from './DropDown.module.css'
 const DropDown = ({categories ,visible }) => {
-
-
     if (!categories) return null; // safeguard
-
-    console.log(categories );
-    
 
   return (
         <header className={`${style.dropDownContainer} ${visible ? style.show : ""}`}>

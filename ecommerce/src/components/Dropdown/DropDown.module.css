@@ -7,7 +7,7 @@
     position: absolute;
     width: 70%;
     padding: 2rem;
-    display: flex;
+    display: flex;  
     gap: 2rem;
     box-shadow: rgb(95, 94, 94) 1px 1px 1px;
     font-family:  Helvetica , Arial, sans-serif;
@@ -38,4 +38,43 @@
 .dropDownContainer .dropdowncat span:hover{
    color: rgb(163, 170, 180);
     cursor: pointer;
+}
+
+
+/* --- Tablet View --- */
+@media (max-width: 1024px) {
+    .dropDownContainer {
+        width: 80%;
+        left: 2rem;
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+}
+
+/* --- Mobile View --- */
+@media (max-width: 768px) {
+    .dropDownContainer {
+        position: fixed; /* full width dropdown on mobile */
+        top: 60px; /* below nav bar */
+        left: 0;
+        right: 0;
+        width: 100%;
+        padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+        box-shadow: rgb(95, 94, 94) 0px 2px 4px;
+        z-index: 1000;
+    }
+
+    .dropDownContainer .dropdowncat {
+        width: 100%;
+    }
+
+    .dropDownContainer .dropdowncat h3 {
+        font-size: 1rem;
+    }
+
+    .dropDownContainer .dropdowncat span p {
+        font-size: 0.9rem;
+    }
 }
