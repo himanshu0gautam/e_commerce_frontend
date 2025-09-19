@@ -18,7 +18,7 @@ const router = createBrowserRouter([
         children : [
             {
                 index : true,
-                element: <FeaturesSupplier />
+                element: <AllCategories />
             },
             {
                 path:'jewellery',
