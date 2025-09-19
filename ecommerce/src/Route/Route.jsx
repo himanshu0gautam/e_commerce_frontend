@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import AllCategories from "../components/All-categories/AllCategories.jsx";
 import Jewellery from "../pages/Jewellery.jsx";
 import Electronics from "../pages/Electronics.jsx";
 import Fashion from '../pages/Fashion.jsx'
@@ -7,7 +6,7 @@ import Layout from "../layout/Layout.jsx";
 import Grocery from '../pages/Grocery.jsx';
 import HomeAndFurniture from "../pages/HomeAndFurniture.jsx";
 import Home from "../pages/Home.jsx";
-
+import AllCategories from "../components/All-categories/AllCategories.jsx";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +21,10 @@ const router = createBrowserRouter([
             {
                 path:'jewellery',
                 element: <Jewellery/>
+            },
+            {
+                path:'allcategorie',
+                element: <AllCategories/>
             },
             {
                 path:'grocery',

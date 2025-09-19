@@ -43,7 +43,13 @@
     border: .1rem solid rgb(246, 242, 242);
     border-radius : .75rem;
     box-shadow: 0 1px 1px rgba(172, 166, 166, 0.47); /* ✅ shadow add */
+    transition: transform 0.3s ease-in-out;
 }
+
+.imgCont:hover{
+    transform: scale(1.02);
+}
+
 .imgCont span{
     color:  rgb(135, 134, 134);
     font-size: .8rem;

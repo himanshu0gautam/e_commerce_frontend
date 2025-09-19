@@ -34,7 +34,7 @@
   content: "";
   position: absolute;
   left: 0;
-  bottom: -2px; /* place underline below text */
+  bottom: -2px; 
   width: 100%;
   height: 2px;
   background: linear-gradient(to left, #10b981, #14b8a6, #0ea5e9);

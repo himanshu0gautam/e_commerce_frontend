@@ -1,6 +1,12 @@
+.mainContainer{
+    margin-top: 0.9rem;
+}
+
 .container {
+    margin-top: 1rem;
     display: flex;
     width: 100%;
+
     /* gap: 24px; */
     box-sizing: border-box;
     flex-wrap: wrap;
@@ -72,10 +78,11 @@
 
 .right {
     flex: 1;
-    width: 80%;
+    width: 80%; 
 }
 
 .productsCard {
+    padding-left: 2rem;
     width: 100%;
     background-color: #f6f7f8;
     border-radius: 12px;
@@ -87,9 +94,9 @@
 .productsGrid {
     flex-wrap: wrap;
     justify-content: start;
-    padding: 0rem 2.5rem;
+    padding: 0rem 2rem;
     display: flex;
-    gap: 16px;
+    gap:0.4rem;
     margin-top: 12px;
 }
 

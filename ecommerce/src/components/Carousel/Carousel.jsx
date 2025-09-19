@@ -5,6 +5,7 @@ import style from './Carousel.module.css'
 import { IoShieldOutline } from "react-icons/io5";
 import { LuUsersRound } from "react-icons/lu";
 import { PiChartLineUpBold } from "react-icons/pi";
+
 function Carousel() {
     const images =[
         assets.Carousel1,

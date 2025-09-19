@@ -29,7 +29,7 @@ const AllCategories = () => {
 
   return (
 
-  <>
+  <section className={styles.mainContainer}>
   <h3 style={{marginLeft:"1.3rem"}}>Filter</h3>
     <div className={styles.container}>
       
@@ -41,19 +41,19 @@ const AllCategories = () => {
           <div className={styles.chipRow}>
             <input className={styles.chips} type="checkbox" value="" id="checkDefault" />
 
-            <label className={styles.chip} for="checkDefault"> All </label>
+            <label className={styles.chip} htmlFor="checkDefault"> All </label>
           </div>
           <div className={styles.chipRow}>
             <input className={styles.chips} type="checkbox" value="" id="checkDefault" />
-            <label className={styles.chip} for="checkDefault"> Gold </label>
+            <label className={styles.chip} htmlFor="checkDefault"> Gold </label>
           </div>
           <div className={styles.chipRow}>
             <input className={styles.chips} type="checkbox" value="" id="checkDefault" />
-            <label className={styles.chip} for="checkDefault"> Diamond </label>
+            <label className={styles.chip} htmlFor="checkDefault"> Diamond </label>
           </div>
           <div className={styles.chipRow}>
             <input className={styles.chips} type="checkbox" value="" id="checkDefault" />
-            <label className={styles.chip} for="checkDefault"> Silver </label>
+            <label className={styles.chip} htmlFor="checkDefault"> Silver </label>
           </div>
 
         </div>
@@ -179,10 +179,10 @@ const AllCategories = () => {
           <div className={styles.meta}>Showing <strong>128</strong> products</div>
 
           <div className={styles.productsGrid}>
-            {sampleProducts.map(p => (
-              <div key={p.id} className={styles.product}>
+            {sampleProducts.map((p,index)=> (
+              <div key={index} className={styles.product}>
                 <div style={{display:'flex', justifyContent:'space-between'}}>
-                  <img className={styles.thumb} alt="thumb" src={`https://i.pinimg.com/1200x/02/07/92/02079273975fd0b91982cf298f10ca39.jpg`} />
+                  <img className={styles.thumb} alt="thumb" src={`https://images.pexels.com/photos/6641218/pexels-photo-6641218.jpeg`} />
                 </div>
                 <div className={styles.productTitle}>{p.title}</div>
                 <div className={styles.meta}>{p.Name}</div>
@@ -194,7 +194,7 @@ const AllCategories = () => {
         </div>
       </main> 
     </div>
-    </>
+    </section>
   )
 }
 
