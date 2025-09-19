@@ -103,20 +103,20 @@ const Footer = () => {
         </section>
         <section className={style.aboutSection}>
           <h2>Quick Links</h2>
-          {Links.map((link) => (
-            <p>{link.text}</p>
+          {Links.map((link,index) => (
+            <p key={index}>{link.text}</p>
           ))}
         </section>
         <section className={style.catogoriesSection}>
           <h2>Popular Categories</h2>
-          {Catogories.map((cat) => (
-            <p>{cat.text}</p>
+          {Catogories.map((cat,index) => (
+            <p key={index}>{cat.text}</p>
           ))}
         </section>
         <section className={style.contectSection}>
           <h2>Contact Us</h2>
-          {contact.map((con) => (
-            <div className={style.contact}>
+          {contact.map((con,index) => (
+            <div key={index} className={style.contact}>
               <p>{con.icons}</p>
               <p>{con.text}</p>
             </div>
@@ -127,8 +127,8 @@ const Footer = () => {
       <section className={style.lastSection}>
         <span>@2025 emojija.com. All right reserved</span>
         <div className={style.policy}>
-          {policy.map((policy) => (
-            <p>{policy.text}</p>
+          {policy.map((policy,index) => (
+            <p key={index}>{policy.text}</p>
           ))}
         </div>
       </section>

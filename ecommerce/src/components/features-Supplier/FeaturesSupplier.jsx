@@ -40,6 +40,13 @@ const FeaturesSupplier = () => {
                             </div>
 
 
+                            <div className={styles.metaList}>
+                                <div>Response Rate: <strong>98%</strong></div>
+                                <div>Response Time: <strong>&lt; 2 hours</strong></div>
+                                <div>Years in Business: <strong>{item.year}</strong></div>
+                            </div>
+
+
                             <div className={styles.actions}>
                                 <button className={styles.contactBtn}>Contact Supplier</button>
                                 <button className={styles.viewBtn}>View Profile</button>
@@ -48,6 +55,9 @@ const FeaturesSupplier = () => {
                     ))}
                 </div>
 
+                    <div className={styles.supplierProfile}>
+                <button className={styles.MoreSupplier}>View all Supplier</button>
+                    </div>
             </div>
         </>
     )

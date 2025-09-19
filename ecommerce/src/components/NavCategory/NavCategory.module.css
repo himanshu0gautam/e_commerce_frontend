@@ -10,7 +10,7 @@
     font-family:  Helvetica , Arial, sans-serif;
     gap: 3rem;
     font-size: .9rem;
-    
+    position: relative;
 }
 .allCat{
     display: flex;
@@ -26,11 +26,15 @@
   cursor: default;
 }
 
+.cat:hover .DropDown {
+  display: block; /* ✅ show submenu on hover */
+}
+
 .cat::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -2px; /* place underline below text */
+  bottom: -2px; 
   width: 100%;
   height: 2px;
   background: linear-gradient(to left, #10b981, #14b8a6, #0ea5e9);

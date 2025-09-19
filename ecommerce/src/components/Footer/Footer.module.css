@@ -2,8 +2,9 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-     background-color: rgb(17, 24, 40);
+    background-color: rgb(17, 24, 40);
     font-family:  Helvetica , Arial, sans-serif;
+    padding: 5rem 7rem 0rem 7rem;
 }
 
 .line{
@@ -16,7 +17,7 @@
     width: 100%;
     display: flex;
     gap: 1.7rem;
-    padding: 3rem;
+    padding: 0rem;
    
 }
 
@@ -109,7 +110,8 @@ width: 10vw;
 }
 
 .linkIcons .icons:hover{
-    scale: 1.7;
+    scale: 1.5;
+    color: white;
 }
 
 /*section 2*/
@@ -144,8 +146,8 @@ width: 10vw;
 
 /*section 5*/
 .lastSection{
-    padding-left: 2rem;
-    padding-right: 2rem;
+    /* padding-left: 2rem;
+    padding-right: 2rem; */
     display: flex;
     justify-content: space-between;
     margin-bottom: 2rem;
