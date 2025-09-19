@@ -4,6 +4,7 @@
     /* gap: 24px; */
     box-sizing: border-box;
     flex-wrap: wrap;
+    gap: 4px;
 }
 
 .left {
@@ -13,7 +14,7 @@
     border-radius: 6px;
     padding: 20px;
     /* box-shadow: 0 1px 0 rgba(16, 24, 40, 0.04) inset; */
-     box-shadow: 0px 0px 1px 0px black;
+    box-shadow: 0px 0px 1px 0px black;
 }
 
 .filtersTitle {
@@ -47,13 +48,13 @@
 }
 
 .chip {
-     display: flex;
+    display: flex;
     flex-direction: column;
     font-size: 14px;
     color: #374151;
 }
 
-.color{
+.color {
     width: 15px;
     height: 14px;
     border-radius: 999px;
@@ -80,10 +81,13 @@
     border-radius: 12px;
     padding: 8px;
     box-shadow: 0px 0px 1px 0px black;
+
 }
 
 .productsGrid {
     flex-wrap: wrap;
+    justify-content: start;
+    padding: 0rem 2.5rem;
     display: flex;
     gap: 16px;
     margin-top: 12px;
@@ -91,8 +95,7 @@
 
 .product {
     background: #fff;
-    max-width: 200px;
-    /* background-color: aqua; */
+    max-width: 300px;
     border: 1px solid #e6e9ee;
     border-radius: 12px;
     padding: 12px;
@@ -160,29 +163,33 @@
 }
 
 @media screen and (max-width: 600px) {
-    .left{
+    .left {
         display: none;
     }
 
-    .productsCard{
+    .productsCard {
         width: 100%;
         padding: 0;
         border-radius: 1px;
     }
-    .productsGrid{
+
+    .productsGrid {
         flex-wrap: wrap;
         display: flex;
-        justify-content:space-around;
+        justify-content: space-around;
     }
-    .product {  
+
+    .product {
         max-width: 160px;
         padding: 2px;
     }
-    .thumb{
+
+    .thumb {
         width: 100%;
         object-fit: cover;
     }
-    .badge{
+
+    .badge {
         display: none;
     }
 }
