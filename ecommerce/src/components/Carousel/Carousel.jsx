@@ -86,6 +86,7 @@ function Carousel() {
                         className={`${style.dot} ${curridx === index ? style.active : ""}`}
                         onClick={()=> setCurridx(index)}
                         >
+                            {curridx === index && <span className={style.fill}></span>}
                         </span>
                     )
                 })}

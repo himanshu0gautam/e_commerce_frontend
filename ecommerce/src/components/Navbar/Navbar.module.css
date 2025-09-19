@@ -3,8 +3,9 @@
     padding-top: 1rem;
     align-items: center;
     justify-content: space-around;
-    padding-right: 4rem;
-   width: 100%;
+    /* padding-right: 4rem; */
+    padding: 1rem 4.5rem 0rem 4.5rem;
+    width: 100%;
 }
 
 .headerContainer{

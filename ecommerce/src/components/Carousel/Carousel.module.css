@@ -1,10 +1,11 @@
 .Carousel{
     width: 100%;
-    height: 60vh;
+    height: 65vh;
     overflow: hidden;
     position: relative;
     font-family:  Helvetica , Arial, sans-serif;
-   
+    cursor: default;
+    
 }
 .CarouselImg{
     object-fit: cover;
@@ -24,27 +25,45 @@
 
 
 .dot {
+  position: relative;
   height: .4rem;
   width: 4rem;
-  background-color: rgb(79, 79, 79);
+  background-color: rgb(255, 255, 255);
   border-radius: .4rem;
+  overflow: hidden;
 }
 
+.fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0%;
+  background-color: rgb(28, 154, 251);
+  animation: fillAnim 4s linear forwards; /* 4s = interval duration */
+}
 
-.dot:hover {
-  background-color: #0ad6ffc8;
+@keyframes fillAnim {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 .active {
-  background-color: #fffcfc;
+  background-color: #000000; /* base background for active dot */
 }
 
 
 .carouselData{
     position: absolute;
-    left: 10%;
+    left: 7%;
     top: 10%;
     z-index: 2;
+    align-items: center;
+    justify-content: space-between;
 }
 .overlay {
   position: absolute;
@@ -61,7 +80,8 @@
 .fixedData{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+    gap: 18rem;
 }
 .leftData{
     color: white;
@@ -119,7 +139,7 @@
     display: flex;
     flex-direction: column;
     color: white;
-    margin-left: 6rem;
+    /* margin-left: rem; */
 
 }
 .icon1{
@@ -170,6 +190,10 @@
     /* -webkit-backdrop-filter: blur(10px); Safari support */
     gap: 0.3rem;
     color: white; /* text ko visible banane ke liye */
+   transition: transform 0.2s ease-in-out;
+}
+.rightInfo:hover{
+    transform: scale(1.02);
 }
 
 .rightInfo span{

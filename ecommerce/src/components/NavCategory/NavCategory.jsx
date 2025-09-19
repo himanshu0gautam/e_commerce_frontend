@@ -104,6 +104,7 @@ const NavCategory = () => {
           onMouseLeave={() => setOpenDropdown(null)}
         >
           <div className={style.cat}>{catName}</div>
+
           {catName === "Fashion" && (
             <DropDown
               visible={openDropdown === "Fashion"}
@@ -120,6 +121,7 @@ const NavCategory = () => {
               )}
             />
           )}
+          
         </div>
       ))}
     </div>
