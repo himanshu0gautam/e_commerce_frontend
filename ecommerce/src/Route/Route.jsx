@@ -7,6 +7,7 @@ import Fashion from '../pages/Fashion.jsx'
 import Layout from "../layout/Layout.jsx";
 import Grocery from '../pages/Grocery.jsx';
 import HomeAndFurniture from "../pages/HomeAndFurniture.jsx";
+import FeaturesSupplier from "../components/features-Supplier/FeaturesSupplier.jsx";
 
 
 
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
         children : [
             {
                 index : true,
-                element: <Home />
+                element: <FeaturesSupplier />
             },
             {
                 path:'jewellery',
