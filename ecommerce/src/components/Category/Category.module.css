@@ -66,11 +66,89 @@
     border-top-right-radius: .75rem;
     box-shadow: 0 1px 1px rgba(160, 158, 158, 0.25);
 }
+.imgConatiner{
+    width: 100%;
+    border-radius: 0rem;
+}
+ .imgCont img{
+   height: 15rem;
+    width: 18rem;
+    object-fit: cover;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+
+
+
 @media (max-width:1024px) {
     .outer{
    justify-content: space-evenly;
-    }
-    .outer div {
+    padding: 0rem;
+    gap: 0rem;
+}
+.imgCont{
+    border-radius: 0rem;
+}
+    
+.outer div {
     margin: 0; 
+}
+.outer{
+    justify-content: flex-start;
+    gap: 4rem;
+}
+}
+
+
+
+
+
+
+
+
+@media (max-width:767px) {
+.container{
+    padding: 0rem .5rem;
+    align-items: center;
+    text-align: center;
+} 
+.container h1{
+    font-size: 1.3rem;
+}   
+.container p{
+    font-size: .9rem;
+
+}
+.outer{
+    padding: 0rem;
+    gap: .7rem; 
+}
+.imgCont{
+    border-radius: 0rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+ .imgCont img{
+   height: 5rem;
+    width: 7.5rem;
+    object-fit: cover;
+    display: flex;
+    justify-content: space-around;
+
+}
+.imgConatiner{
+    width: 100%;
+    border-radius: 0rem;
+}
+  .outer div p{
+    font-size: .9rem;
+    padding-bottom: 0rem;
   }
+  .outer div span{
+    font-size: .8rem;
+  }
+  
 }

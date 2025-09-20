@@ -109,7 +109,8 @@
     width: 18rem; 
 }
 .UserConatiner {
-    gap: 2rem; 
+    gap: 1rem; 
+    margin-left: 1rem;
     
 }
  .sellerBtn {

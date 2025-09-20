@@ -234,8 +234,28 @@
 @media (max-width:767px) {
     .Carousel{
         margin-top: -1rem;
+        height: 45vh;
+    }
+
+    .carouselData{
+        /* width: 10rem;
+        height: 10rem; */
+    }
+    .leftData h2{
+        font-size: 1.5rem;
+        color: aqua;
+    }
+    .leftData p{
+        font-size: .9rem;
     }
     .rightData{
         display: none;
+    }
+    .info{
+        margin-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    .info span{
+        font-size: .9rem;
     }
 }
