@@ -2,6 +2,7 @@ import React, { useState ,useRef ,useEffect } from 'react';
 import style from './NavCategory.module.css';
 import DropDown from '../Dropdown/DropDown';
 import { RxTextAlignJustify } from "react-icons/rx";
+import { NavLink } from 'react-router-dom';
 
 const NavCategory = () => {
   const mobileMenuRef = useRef(null); 
@@ -126,11 +127,15 @@ const NavCategory = () => {
     <div className={style.container}>
    
       <div 
-      className={style.allCat}
       onClick={()=>setIsMobileMenuOpen((prev)=>!prev)}
-      >
-        <RxTextAlignJustify className={style.alignIcon} /> 
-        <span>All Categories</span>
+      > <NavLink to='/allcategories' className={({isActive})=> isActive  ?( style.allCatLink) : (style.activeallCatLink)}>
+        <div 
+        className={style.allCat}
+        >
+        <RxTextAlignJustify className={style.alignIcon} /> <p>All Categories</p>
+
+        </div>
+        </NavLink>
       </div>
 
       {topCategories.map((catName) => {
