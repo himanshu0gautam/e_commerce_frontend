@@ -182,3 +182,64 @@
     }
 
 }
+
+/* Tablet styles (641px - 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .FeaturesSupplier {
+        padding: 36px 12px;
+    }
+    .supplierProfile {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 18px;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    .profileCard {
+        min-width: 220px;
+        max-width: 260px;
+        padding: 18px;
+        margin: 0;
+    }
+    .profileTop {
+        gap: 8px;
+    }
+    .bussinessName { font-size: 13px; }
+    .city { font-size: 12px; }
+}
+
+/* Mobile carousel styles (up to 640px) */
+@media (max-width: 640px) {
+    .FeaturesSupplier {
+        padding: 20px 8px;
+    }
+    .supplierProfile {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 8px;
+        margin-left: 0;
+    }
+    .supplierProfile::-webkit-scrollbar { display: none; }
+
+    .profileCard {
+        flex: 0 0 78%; /* nearly full width per card for carousel feel */
+        min-width: 78%;
+        max-width: 78%;
+        margin: 0 6px;
+        scroll-snap-align: center;
+        box-sizing: border-box;
+        padding: 16px;
+    }
+
+    .profileTop { align-items: center; }
+    .supplierImg { width: 64px; height: 64px; }
+    .bussinessName { font-size: 14px; }
+    .city { font-size: 12px; }
+    .metaList { font-size: 12px; }
+
+    .MoreSupplier { width: calc(100% - 16px); margin: 12px 8px; }
+}

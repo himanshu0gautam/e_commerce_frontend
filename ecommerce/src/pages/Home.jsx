@@ -3,6 +3,7 @@ import PrefFooter from '../components/preFooter/PrefFooter'
 import CategorySection from './CategorySection'
 import FeaturesSupplier from "../components/features-Supplier/FeaturesSupplier";
 import PopularProduct from '../components/popular-Product/PopularProduct';
+
 const Home = () => {
   return (
     <div>

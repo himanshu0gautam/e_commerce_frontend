@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Route, Router } from "react-router-dom";
 import AllCategories from "../components/All-categories/AllCategories.jsx";
 import Home from "../pages/Home.jsx";
 import Jewellery from "../pages/Jewellery.jsx";
@@ -7,7 +7,7 @@ import Fashion from '../pages/Fashion.jsx'
 import Layout from "../layout/Layout.jsx";
 import Grocery from '../pages/Grocery.jsx';
 import HomeAndFurniture from "../pages/HomeAndFurniture.jsx";
-import FeaturesSupplier from "../components/features-Supplier/FeaturesSupplier.jsx";
+import Books from "../pages/Books.jsx"
 
 
 
@@ -41,7 +41,16 @@ const router = createBrowserRouter([
                 path:'fashion',
                 element: <Fashion/>
             },
-        ]
+            {
+                path:'Books',
+                element: <Books />
+            },
+            {
+                path: '/allcategories',
+                element: <AllCategories />
+            },
+        ],
     },
+]);
 
 export default router;
