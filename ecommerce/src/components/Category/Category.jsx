@@ -9,7 +9,7 @@ const topCategories = [
    {name : "Home & Furniture",img:(assets.HomeandFurniture),pdt: '950K+ products'},
    {name : "Grocery", img:(assets.Grocery),pdt: '1.2M+ products'},
    {name : "Books" , img:(assets.Books),pdt: '1.5M+ products'},
-   {name : "Jewellery",img:(assets.Jewellery),pdt: '2.1M+ products'}
+   {name : "Jewellery",img:(assets.Jewellery),pdt: '2.1M+ products'},
 ];
   return (
     <div>
