@@ -22,7 +22,7 @@
     align-items: center;
     justify-content: flex-start;
     padding: 1rem 2rem;
-    gap: 3rem;
+    gap: 0rem;
 }
 .outer div{
     margin: 2rem 1rem;
@@ -76,7 +76,9 @@
     object-fit: cover;
     display: flex;
     justify-content: space-around;
-
+    border-top-left-radius: .75rem;
+    border-top-right-radius: .75rem;
+    
 }
 
 
@@ -97,7 +99,7 @@
 }
 .outer{
     justify-content: flex-start;
-    gap: 4rem;
+    gap: 7.5rem;
 }
 }
 
