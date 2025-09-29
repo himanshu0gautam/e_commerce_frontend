@@ -15,6 +15,9 @@ import { WishList } from "../pages/WishList.jsx";
 import Notification  from "../pages/Notification.jsx"
 import Suppliers  from "../pages/Suppliers.jsx";
 import Books from "../pages/Books.jsx"
+import SupplierProfile from "../components/SupplierProfile/SupplierProfile.jsx";
+import UserDetails from "../pages/signIn/UserDetails.jsx";
+
 
 
 
@@ -30,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "jewellery",
         element: <Jewellery />
+      },
+      {
+        path:"Books",
+        element:<Books/>
       },
       {
         path: "allcategories",
@@ -70,6 +77,10 @@ const router = createBrowserRouter([
       {
         path:"/suppliers",
         element : <Suppliers/>
+      },
+      {
+        path :"/supplierprofile",
+        element : <SupplierProfile/>
       }
     ]
   },
@@ -80,6 +91,10 @@ const router = createBrowserRouter([
       {
         path: "login",   // child route -> /auth/signin
         element: <Login />
+      },
+      {
+        path :"userdetails",
+        element : <UserDetails/>
       }
     ]
   }

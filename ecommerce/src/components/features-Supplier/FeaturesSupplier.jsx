@@ -11,11 +11,16 @@ const FeaturesSupplier = () => {
                     <div className={styles.subtitle}>Connect with verified suppliers across India who deliver quality and reliability</div>
                 </div>
 
-                <SupplierCard/>
+                <div className={styles.supplierProfile}>
+                    <SupplierCard/>                  
+                </div>
+                
 
-                    <div className={styles.supplierProfile}>
+                   
+            <div className={styles.btn}>
                 <Link to="/suppliers" className={styles.MoreSupplier}>View all Supplier</Link>
-                    </div>
+            </div>
+            
             </div>
         </>
     )

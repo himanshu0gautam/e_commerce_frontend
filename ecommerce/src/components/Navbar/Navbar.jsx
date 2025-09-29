@@ -14,6 +14,7 @@ import { MdLogout } from "react-icons/md";
 const Navbar = () => {
 
     const [isOpen,setOpen]= useState(false);
+    const [isLogin,setIsLogin] = useState(true);
     console.log(isOpen);
     
   return (
@@ -48,11 +49,13 @@ const Navbar = () => {
                 <p>Cart</p>
             </div>
 
-            <div className={style.iconNames}>
+
+            {!isLogin && (<div className={style.iconNames}>
                 <FaRegUser className={style.UserIcon}/>
                 <p>SignIn</p>
-            </div>
-            <div 
+            </div>)}
+
+            {isLogin && (<div 
             className={style.iconNamesLoginWrapper} 
             onMouseEnter={() => setOpen(true)}
             onMouseLeave={() => setOpen(false)}
@@ -70,7 +73,8 @@ const Navbar = () => {
                 <Link to='/notification'className={style.dropdownItem}> <LuBell className={style.dropdownItemIcon}/>Notifications</Link>
                 <Link to='/'className={style.dropdownItem}> <MdLogout className={style.dropdownItemIcon}/>Logout</Link>
             </div>
-            </div>
+            </div>)}
+
 
         </div>
         <div>

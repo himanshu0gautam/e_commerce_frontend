@@ -1,0 +1,45 @@
+.mainCont {
+  padding: 3rem 8rem;
+}
+
+.mainCont h1 {
+  font-weight: 500;
+  padding-bottom: 1rem;
+}
+
+.mainCont p {
+  color: #9A9B9B;
+}
+
+.supplierProfile {
+  display: flex;
+  flex-wrap: wrap;         /* allow wrapping on larger screens */
+  justify-content: start; /* center cards */
+  gap: 2rem;
+}
+
+/* -------- Tablet (641px - 1024px) -------- */
+@media (min-width: 40.063rem) and (max-width: 64rem) {
+  .mainCont {
+    padding: 2rem 4rem;
+  }
+
+  .supplierProfile {
+    justify-content: flex-start;
+    gap: 1.5rem;
+  }
+}
+
+/* -------- Mobile (up to 640px) -------- */
+@media (max-width: 40rem) {
+  .mainCont {
+    padding: 1rem 2rem;
+  }
+
+  .supplierProfile {
+    flex-direction: column; /* stack vertically */
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+}

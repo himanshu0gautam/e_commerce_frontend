@@ -9,7 +9,8 @@ import HomeandFurniture from '../assets/HomeandFurniture.png'
 import Jewellery from '../assets/Jewellery.png'
 import Electronics from '../assets/Electronics.png'
 import Books from '../assets/Books.png'
-
+import Loginbg1 from '../assets/Loginbg1.jpg'
+import Loginbg2 from "../assets/Loginbg2.jpg"
 export const  assets = {
     Logo,
     search,
@@ -22,4 +23,6 @@ export const  assets = {
     HomeandFurniture,
     Electronics,
     Books,
+    Loginbg1,
+    Loginbg2
 }
