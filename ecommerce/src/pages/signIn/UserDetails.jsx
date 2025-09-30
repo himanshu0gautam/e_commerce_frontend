@@ -2,9 +2,7 @@ import { useState } from "react";
 import style from "./UserDetails.module.css";
 import { useLocation } from "react-router-dom";
 import { assets } from "../../assets/assets";
-
-import axios from 'axios'; 
-
+import axios from 'axios';
 
 const UserDetails = () => {
   const location = useLocation();
