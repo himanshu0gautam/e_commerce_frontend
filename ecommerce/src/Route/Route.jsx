@@ -17,6 +17,8 @@ import Suppliers  from "../pages/Suppliers.jsx";
 import Books from "../pages/Books.jsx"
 import SupplierProfile from "../components/SupplierProfile/SupplierProfile.jsx";
 import UserDetails from "../pages/signIn/UserDetails.jsx";
+import SupplierDashboard from "../pages/SupplierDashboard.jsx";
+import AdminUsers from "../pages/AdminUsers.jsx";
 
 
 
@@ -81,6 +83,14 @@ const router = createBrowserRouter([
       {
         path :"/supplierprofile",
         element : <SupplierProfile/>
+      },
+      {
+        path:'/supplierdashboard',
+        element : <SupplierDashboard/>
+      },
+      ,{
+        path:"/adminuser",
+        element:<AdminUsers/>
       }
     ]
   },
