@@ -8,7 +8,7 @@ const NavCategory = () => {
   const mobileMenuRef = useRef(null); 
   const [openDropdown, setOpenDropdown] = useState(null); // store which category is open
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); //  mobile hamburger state
-  console.log(openDropdown);
+  // console.log(openDropdown);
   
 
   const categoriesData = [

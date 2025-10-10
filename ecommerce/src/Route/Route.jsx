@@ -19,8 +19,8 @@ import SupplierProfile from "../components/SupplierProfile/SupplierProfile.jsx";
 import UserDetails from "../pages/signIn/UserDetails.jsx";
 import SupplierDashboard from "../pages/SupplierDashboard.jsx";
 import AdminUsers from "../pages/AdminUsers.jsx";
-
-
+import Registerr from "../pages/signIn/Registerr.jsx";
+import Loginn from "../pages/signIn/Loginn.jsx";
 
 
 const router = createBrowserRouter([
@@ -91,6 +91,13 @@ const router = createBrowserRouter([
       ,{
         path:"/adminuser",
         element:<AdminUsers/>
+      },{
+        path :  "/registerr",
+        element : < Registerr/>
+      },
+      {
+        path : "/loginn",
+        element : <Loginn/>
       }
     ]
   },

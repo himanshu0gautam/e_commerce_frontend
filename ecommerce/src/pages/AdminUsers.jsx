@@ -7,38 +7,54 @@ const AdminUsers = () => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
+  
 
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     try {
-  //       const res = await fetch("https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/allusers", {
-  //       method: "GET",
-  //       withcredentials: "include",
-  //       headers: { "Content-Type": "application/json" },
-  //       });
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await fetch("https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/allusers", {
+        method: "GET",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        });
         
-  //       // if (!response.ok) throw new Error("Network response was not ok");
+        if (!response.ok) throw new Error("Network response was not ok");
 
 
 
-  //       console.log("res",res);
+        console.log("res",res);
         
-  //       const data = await res.json();
-  //       console.log("Fetched Data:", data);  // 👈 Check this in console
-  //       // console.log("Users Array:", data.users); 
+        const data = await res.json();
+        console.log("Fetched Data:", data);  // 👈 Check this in console
+        // console.log("Users Array:", data.users); 
 
-  //       // setUsers(data.users || []); 
-  //     } catch (err) {
-  //       console.error("Error fetching users:", err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+        // setUsers(data.users || []); 
+      } catch (err) {
+        console.error("Error fetching users:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  //   fetchUsers();
-  // }, []); 
+    fetchUsers();
+  }, []); 
 
-//   useEffect(() => {
+  const handleLogin = async()=>{
+
+    
+    try {
+      const res = await axios.post("https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/login",{phone,password})
+      if(res.status == 200){
+        console.log("yes logged in")
+      }
+    } catch (error) {
+     console.log("erorr here ", error) 
+    }
+  }
+
+  
+
+
 //   const fetchUsers = async () => {
 //     try {
 //       const res = await fetch(
@@ -73,27 +89,27 @@ const AdminUsers = () => {
 // }, []);
 
 
- useEffect(() => {
-  const fetchUsers = async () => {
-    try {
-      const res = await axios.get(
-        "https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/allusers",
-        {
-          withCredentials: true, // ✅ must match backend
-        }
-      );
+//  useEffect(() => {
+//   const fetchUsers = async () => {
+//     try {
+//       const res = await axios.get(
+//         "https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/allusers",
+//         {
+//           withCredentials: true, // ✅ must match backend
+//         }
+//       );
 
-      console.log("Axios Response:", res);
-      setUsers(res.data.users || []);
-    } catch (err) {
-      console.error("Error fetching users:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+//       console.log("Axios Response:", res);
+//       setUsers(res.data.users || []);
+//     } catch (err) {
+//       console.error("Error fetching users:", err);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
 
-  fetchUsers();
-}, []);
+//   fetchUsers();
+// }, []);
 
   console.log(users.users);
   //show loading message while fetching
@@ -110,6 +126,7 @@ const AdminUsers = () => {
   
   return (
     <div className={styles.adminWrapper}>
+   
       <h2>Registered Users</h2>
       <br />
       <div className={styles.searchBar}>

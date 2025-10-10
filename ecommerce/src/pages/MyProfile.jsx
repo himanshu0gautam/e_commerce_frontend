@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../PagesStyles/MyProfile.module.css";
 import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
+import axios from "axios";
 
 // Temporary JSON data (simulate API response)
 const tempUserData = {
@@ -51,7 +52,15 @@ const MyProfile = () => {
   if (!userData) return <p className={styles.loading}>Loading...</p>;
 
   
-  
+  const my = async()=>{
+      try {
+          const res = await axios.get("https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/me")
+           console.log("User data",res);
+      } catch (error) {
+          console.error("User data failed",error)
+      }
+      
+  }
   return (
     <div className={styles.profileWrapper}>
       {/* Sidebar */}
@@ -102,6 +111,8 @@ const MyProfile = () => {
       <main className={styles.mainContent}>
         {activeSection === "profile" && (
           <div className={styles.profileSection}>
+
+            <h3 onClick={(e)=>{e.preventDefault();my()}}>Get data</h3>
             <h2>
               Personal Information  {personalInfoEdit ? (
                 <span onClick={()=>setPersonalInfoEdit((prev)=>!prev)}  className={styles.edit}>cancel</span>
