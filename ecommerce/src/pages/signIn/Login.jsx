@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./Auth.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -29,21 +29,22 @@ const handleOtp = async()=>{
    const loginUser = async () => {
     try {
       const res = await axios.post(
-        'https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/login',
-        { password, phone }
+        'http://192.168.1.49:3000/api/auth/login',
+        { password, phone },
+        {withCredentials:true}
       )
       if (res.status === 200) {
-        console.log('Login successfully', res)
-        navigate('/',{ state : res.data})
-      }
+    console.log("Login successfully", res);
+    // localStorage.setItem("token", res.data.token); // Save token
+}
     } catch (error) {
       console.error('error in login:', error)
       navigate('/auth/login')
     }
   }
-    const gotoLogin = ()=>{
-      navigate('/loginn')
-    }
+    // const gotoLogin = ()=>{
+    //   navigate('/login')
+    // }
 
   return (
    <main className={style.mainSignInContainer}>

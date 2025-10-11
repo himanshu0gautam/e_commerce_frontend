@@ -15,7 +15,7 @@ const Loginn = () => {
   const loginUser = async () => {
     try {
       const res = await axios.post(
-        'https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/login',
+        'http://192.168.1.49:3000/api/auth/login',
         { password, phone }
       )
       if (res.status === 200) {
