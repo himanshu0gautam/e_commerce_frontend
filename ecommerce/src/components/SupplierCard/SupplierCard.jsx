@@ -7,10 +7,10 @@ const SupplierCard = () => {
     { id: 1, verfiy: "verified", bussinessName: "kaira jeweller pvt.ltd", city: "delhi", rating: "4.8", model: "jeweller", year: "15+ yr" },
     { id: 2, verfiy: "verified", bussinessName: "kaira jeweller pvt.ltd", city: "delhi", rating: "4.8", model: "jeweller", year: "15+ yr" },
     { id: 3, verfiy: "verified", bussinessName: "kaira jeweller pvt.ltd", city: "delhi", rating: "4.8", model: "jeweller", year: "15+ yr" },
-    { id: 4, verfiy: "verified", bussinessName: "kaira jeweller pvt.ltd", city: "delhi", rating: "4.8", model: "jeweller", year: "15+ yr" },
-    { id: 4, verfiy: "verified", bussinessName: "kaira jeweller pvt.ltd", city: "delhi", rating: "4.8", model: "jeweller", year: "15+ yr" },
-    { id: 4, verfiy: "verified", bussinessName: "kaira jeweller pvt.ltd", city: "delhi", rating: "4.8", model: "jeweller", year: "15+ yr" },
-    { id: 4, verfiy: "verified", bussinessName: "kaira jeweller pvt.ltd", city: "delhi", rating: "4.8", model: "jeweller", year: "15+ yr" },
+    { id: 5, verfiy: "verified", bussinessName: "kaira jeweller pvt.ltd", city: "delhi", rating: "4.8", model: "jeweller", year: "15+ yr" },
+    { id: 6, verfiy: "verified", bussinessName: "kaira jeweller pvt.ltd", city: "delhi", rating: "4.8", model: "jeweller", year: "15+ yr" },
+    { id: 7, verfiy: "verified", bussinessName: "kaira jeweller pvt.ltd", city: "delhi", rating: "4.8", model: "jeweller", year: "15+ yr" },
+    { id: 8, verfiy: "verified", bussinessName: "kaira jeweller pvt.ltd", city: "delhi", rating: "4.8", model: "jeweller", year: "15+ yr" },
 
 ]
 
