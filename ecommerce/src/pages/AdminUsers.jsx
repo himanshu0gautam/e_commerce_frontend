@@ -8,18 +8,16 @@ const AdminUsers = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
+ 
   //   const fetchUsers = async () => {
   //     try {
-  //       const res = await fetch("https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/allusers", {
+  //       const res = await fetch("http://192.168.1.51:3000/api/auth/allusers", {
   //       method: "GET",
-  //       withcredentials: "include",
+  //       withcredentials: true,
   //       headers: { "Content-Type": "application/json" },
   //       });
         
   //       // if (!response.ok) throw new Error("Network response was not ok");
-
-
 
   //       console.log("res",res);
         
@@ -52,11 +50,11 @@ const AdminUsers = () => {
 //         }
 //       );
 
-//       // 🧠 Check what exactly you’re getting
+      
 //       const text = await res.text();
 //       console.log("Raw Response:", text);
 
-//       // Try parsing JSON only if it’s valid
+      
 //       try {
 //         const data = JSON.parse(text);
 //         console.log("Parsed JSON:", data);
@@ -77,7 +75,7 @@ const AdminUsers = () => {
   const fetchUsers = async () => {
     try {
       const res = await axios.get(
-        "https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/allusers",
+        "http://192.168.1.51:3000/api/auth/allusers",
         {
           withCredentials: true, // ✅ must match backend
         }
