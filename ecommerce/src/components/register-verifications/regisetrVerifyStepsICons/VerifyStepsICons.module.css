@@ -1,0 +1,21 @@
+.sellerRegisterSteps{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.sellerStepContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  align-items: center;
+}
+
+.iconsConatiner{
+  scale: 1.4;
+  padding: 0.6rem;
+  border-radius: 50%;
+  border: 1px solid rgba(135, 135, 135, 0.548);
+  color: rgba(135, 135, 135, 0.548);
+}
+
+

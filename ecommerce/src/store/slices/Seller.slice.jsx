@@ -1,5 +1,13 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {loginSeller,selleSendOtpForgetPassword,sellerForgetPasswordVerifyOtp,sellerResetPassword} from '../actions/SellerAction'
+import {loginSeller,
+    selleSendOtpForgetPassword,
+    sellerForgetPasswordVerifyOtp,
+    sellerResetPassword,
+    sellerPhoneVerificatioBySendOtp,
+    sellerVerifyPhoneOtp,
+    sellerEmailVerificationBySendOtp,
+    sellerVerifyEmailOtp
+} from '../actions/SellerAction'
 
 const sellerSlice = createSlice({
     name:'seller',
@@ -59,10 +67,53 @@ const sellerSlice = createSlice({
             state.loading = false
         })
         .addCase(sellerResetPassword.rejected,(state,action) => {
-            state.error = false,
+            state.loading = false,
             state.error = action.payload
         })
-
+        .addCase(sellerPhoneVerificatioBySendOtp.pending,(state) => {
+            state.loading = false
+        })
+        .addCase(sellerPhoneVerificatioBySendOtp.fulfilled,(state) => {
+            state.loading = false
+            state.success = true
+        })
+        .addCase(sellerPhoneVerificatioBySendOtp.rejected,(state,action) => {
+            state.loading = false
+            state.error = action.payload
+        })
+        .addCase(sellerVerifyPhoneOtp.pending,(state) => {
+            state.loading = false
+        })
+        .addCase(sellerVerifyPhoneOtp.fulfilled,(state) => {
+            state.loading = false
+            state.success = true
+        })
+        .addCase(sellerVerifyPhoneOtp.rejected,(state,action) => {
+            state.loading = false
+            state.error = action.payload
+        })
+        .addCase(sellerEmailVerificationBySendOtp.pending,(state) => {
+            state.loading = false
+        })
+        .addCase(sellerEmailVerificationBySendOtp.fulfilled,(state) => {
+            state.loading = false
+            state.success = true
+        })
+        .addCase(sellerEmailVerificationBySendOtp.rejected,(state,action) => {
+            state.loading = false
+            state.error = action.payload
+        })
+        .addCase(sellerVerifyEmailOtp.pending,(state) => {
+            state.loading = false
+        })
+        .addCase(sellerVerifyEmailOtp.fulfilled,(state) => {
+            state.loading = false
+            state.success = true
+        })
+        .addCase(sellerVerifyEmailOtp.rejected,(state,action) => {
+            state.loading = false
+            state.error = action.payload
+        })
     }
 })
 

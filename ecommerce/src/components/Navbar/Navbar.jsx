@@ -65,6 +65,10 @@ const Navbar = () => {
         navigate()
     }
 
+    const routeTosellerRegister = () => {
+        navigate('/seller/register')
+    }
+
     return (
         <header className={style.headerContainer}>
             <div className={style.mainContainer}>
@@ -129,7 +133,7 @@ const Navbar = () => {
                             </div>
                         </div>
                     )}
-                    <button className={style.sellerBtn}>Become a Seller</button>
+                    <button  onClick={routeTosellerRegister} className={style.sellerBtn}>Become a Seller</button>
                 </div>
             </div>
         </header>

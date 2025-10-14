@@ -1,40 +1,40 @@
-.sellerRegisterContainer{
-     width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 0.3rem;
-  position: relative; 
-  height: 91vh;
-  align-items: center;
-  overflow: hidden;
-}
-
-.bgImage {
-  position: absolute;
-  top: 0;
-  left: 0;
+.RegisterMainContainer {
+  margin-top: 1rem;
+  border-top: 1px solid #d1d1d1; /* softer than black */
+  padding: 4rem;
   width: 100%;
-  height: 100%;
-  background-image: url("../../../assets//Loginbg1.jpg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  filter: blur(6px);
-  transform: scale(1.05);
-  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f6fa; /* softer, cooler gray */
 }
 
-.sellerRegisterInnerContainer{
-    background-color: rgb(255, 255, 255);
-    border-radius: 0.5rem;
-    width: 25%;
-    display: flex;
-    justify-content: center;
-    padding: 2rem;
-    z-index: 9999;
-    color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.RegisterMainContainer .RegisterInnerConatiner {
+  background-color: #ffffff; /* keeps it clean */
+  width: 90%; /* optional, makes it centered and neat */
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* subtle, elegant shadow */
+  border-radius: 12px; /* slightly more rounded */
+  border: 1px solid #e0e0e0; /* optional: adds depth */
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
+.RegisterInnerConatiner .heading{
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.heading h2{
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+
+.RegisterInnerConatiner p{
+  font-size: 1rem;
+  opacity: 0.5;
+}
