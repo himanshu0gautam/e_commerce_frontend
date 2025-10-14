@@ -21,9 +21,11 @@ import SupplierDashboard from "../pages/SupplierDashboard.jsx";
 import AdminUsers from "../pages/AdminUsers.jsx";
 import Registerr from "../pages/signIn/Registerr.jsx";
 import Loginn from "../pages/signIn/Loginn.jsx";
-import SellerDashboard from "../layout/SellerDashboard/SellerDashboard.jsx";
-import CreateProduct from "../pages/sellerDashboard/CreateProduct.jsx"
-
+import SellerLogin from "../pages/seller/sellerLogIn/SellerLogin.jsx";
+import ForGetPassword from "../pages/seller/sellerForgetPassword/sendotp/ForGetPassword.jsx";
+import SellerVerfyOtp from "../pages/seller/sellerForgetPassword/sellerVerifyotp/SellerVerfyOtp.jsx";
+import ResetPassword from "../pages/seller/sellerForgetPassword/ResetPassword/ResetPassword.jsx";
+import SellerRegister from "../pages/seller/sellerRegister/SellerRegister.jsx";
 
 const router = createBrowserRouter([
   {
@@ -118,12 +120,32 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path:"/sellerDashboard",
-    element: <SellerDashboard />,
-    children:[
+    path: "/seller",
+    element: <SignInRoute />,
+    children: [
       {
-        path: "createProduct",
-        element: <CreateProduct />
+        path: "login",   // child route -> /auth/signin
+        element: <SellerLogin />
+      },
+      {
+        path: "register",   // child route -> /auth/signin
+        element: <SellerRegister />
+      },
+      {
+        path: "seller-forget-password",   // child route -> /auth/signin
+        element: <ForGetPassword/>
+      },
+      {
+        path: "verify-otp",   // child route -> /auth/signin
+        element: <SellerVerfyOtp/>
+      },
+      {
+        path: "reset-password",   // child route -> /auth/signin
+        element: <ResetPassword/>
+      },
+      {
+        path :"userdetails",
+        element : <UserDetails/>
       }
     ]
   }
