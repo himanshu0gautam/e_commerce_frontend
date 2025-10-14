@@ -25,45 +25,45 @@ const Navbar = () => {
         const stateUser = location.state?.user;
 
         const storedUser = JSON.parse(localStorage.getItem('user'));
-        
+
         const currentUser = stateUser || storedUser;
 
         if (currentUser) {
             setUser(currentUser);
             setIsLogin(true);
-            
+
 
             if (stateUser && !storedUser) {
-                 localStorage.setItem('user', JSON.stringify(stateUser));
+                localStorage.setItem('user', JSON.stringify(stateUser));
             }
-            
+
         } else {
 
             if (storedUser) {
-                setUser(storedUser); 
+                setUser(storedUser);
                 setIsLogin(true);
             } else {
                 setIsLogin(false);
                 setUser(null);
             }
         }
-    }, [location.state]); 
+    }, [location.state]);
 
     const logOutUser = async () => {
         try {
 
-            await axios.get('https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/logout'); 
-            
+            await axios.get('https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/logout');
 
-            localStorage.removeItem('user'); 
+
+            localStorage.removeItem('user');
             setIsLogin(false);
             setUser(null);
-            setOpen(false); 
+            setOpen(false);
             navigate('/');
         } catch (error) {
             console.error("Logout error:", error);
 
-            localStorage.removeItem('user'); 
+            localStorage.removeItem('user');
             setIsLogin(false);
             setUser(null);
             setOpen(false);
@@ -103,38 +103,38 @@ const Navbar = () => {
                         </div>
                     )}
 
-                   {isLogin && (
-                    <div
-                        className={style.iconNamesLoginWrapper}
-                        onMouseEnter={() => setOpen(true)}
-                        onMouseLeave={() => setOpen(false)}
-                    >
-                        {/* User Button */}
-                        <div className={isOpen ? `${style.UserHover} ${style.UserHoverActive}` : style.UserHover}>
-                        <BiUserCircle className={style.UserIcon} />
-                        <p>{user?.username || "User"}</p>
-                        <IoIosArrowDown className={isOpen ? style.arrowRev : style.arrow} />
-                        </div>
+                    {isLogin && (
+                        <div
+                            className={style.iconNamesLoginWrapper}
+                            onMouseEnter={() => setOpen(true)}
+                            onMouseLeave={() => setOpen(false)}
+                        >
+                            {/* User Button */}
+                            <div className={isOpen ? `${style.UserHover} ${style.UserHoverActive}` : style.UserHover}>
+                                <BiUserCircle className={style.UserIcon} />
+                                <p>{user?.username || "User"}</p>
+                                <IoIosArrowDown className={isOpen ? style.arrowRev : style.arrow} />
+                            </div>
 
-                        {/* Dropdown */}
-                        <div className={isOpen ? style.dropdown : style.removeDropdown}>
-                        <Link to='/myprofile' className={style.dropdownItem} onClick={() => setOpen(false)}>
-                            <BiUserCircle className={style.dropdownItemIcon} /> MyProfile
-                        </Link>
-                        <Link to='/orders' className={style.dropdownItem} onClick={() => setOpen(false)}>
-                            <BsBox2 className={style.dropdownItemIcon} /> Orders
-                        </Link>
-                        <Link to='/wishList' className={style.dropdownItem} onClick={() => setOpen(false)}>
-                            <FaRegHeart className={style.dropdownItemIcon} /> Wishlist
-                        </Link>
-                        <Link to='/notification' className={style.dropdownItem} onClick={() => setOpen(false)}>
-                            <LuBell className={style.dropdownItemIcon} /> Notifications
-                        </Link>
-                        <Link to='/' className={style.dropdownItem} onClick={(e) => { e.preventDefault(); logOutUser(); setOpen(false); }}>
-                            <MdLogout className={style.dropdownItemIcon} /> Logout
-                        </Link>
+                            {/* Dropdown */}
+                            <div className={isOpen ? style.dropdown : style.removeDropdown}>
+                                <Link to='/myprofile' className={style.dropdownItem} onClick={() => setOpen(false)}>
+                                    <BiUserCircle className={style.dropdownItemIcon} /> MyProfile
+                                </Link>
+                                <Link to='/orders' className={style.dropdownItem} onClick={() => setOpen(false)}>
+                                    <BsBox2 className={style.dropdownItemIcon} /> Orders
+                                </Link>
+                                <Link to='/wishList' className={style.dropdownItem} onClick={() => setOpen(false)}>
+                                    <FaRegHeart className={style.dropdownItemIcon} /> Wishlist
+                                </Link>
+                                <Link to='/notification' className={style.dropdownItem} onClick={() => setOpen(false)}>
+                                    <LuBell className={style.dropdownItemIcon} /> Notifications
+                                </Link>
+                                <Link to='/' className={style.dropdownItem} onClick={(e) => { e.preventDefault(); logOutUser(); setOpen(false); }}>
+                                    <MdLogout className={style.dropdownItemIcon} /> Logout
+                                </Link>
+                            </div>
                         </div>
-                    </div>
                     )}
 
 
