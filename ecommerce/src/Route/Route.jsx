@@ -21,6 +21,8 @@ import SupplierDashboard from "../pages/SupplierDashboard.jsx";
 import AdminUsers from "../pages/AdminUsers.jsx";
 import Registerr from "../pages/signIn/Registerr.jsx";
 import Loginn from "../pages/signIn/Loginn.jsx";
+import SellerDashboard from "../layout/SellerDashboard/SellerDashboard.jsx";
+import CreateProduct from "../pages/sellerDashboard/CreateProduct.jsx"
 
 
 const router = createBrowserRouter([
@@ -112,6 +114,16 @@ const router = createBrowserRouter([
       {
         path :"userdetails",
         element : <UserDetails/>
+      }
+    ]
+  },
+  {
+    path:"/sellerDashboard",
+    element: <SellerDashboard />,
+    children:[
+      {
+        path: "createProduct",
+        element: <CreateProduct />
       }
     ]
   }
