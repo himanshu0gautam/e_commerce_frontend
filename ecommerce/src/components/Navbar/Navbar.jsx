@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { assets } from '../../assets/assets';
-import { Link, useNavigate, useLocation } from 'react-router-dom'; // useLocation is imported
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import style from './Navbar.module.css';
 
 import { FaRegUser, FaRegHeart } from "react-icons/fa";
@@ -21,9 +21,7 @@ const Navbar = () => {
     const location = useLocation();
 
     useEffect(() => {
-
         const stateUser = location.state?.user;
-
         const storedUser = JSON.parse(localStorage.getItem('user'));
 
         const currentUser = stateUser || storedUser;
@@ -35,11 +33,12 @@ const Navbar = () => {
 
             if (stateUser && !storedUser) {
                 localStorage.setItem('user', JSON.stringify(stateUser));
+                localStorage.setItem('user', JSON.stringify(stateUser));
             }
 
         } else {
-
             if (storedUser) {
+                setUser(storedUser);
                 setUser(storedUser);
                 setIsLogin(true);
             } else {
@@ -56,25 +55,29 @@ const Navbar = () => {
 
 
             localStorage.removeItem('user');
+            localStorage.removeItem('user');
             setIsLogin(false);
             setUser(null);
+            setOpen(false);
             setOpen(false);
             navigate('/');
         } catch (error) {
             console.error("Logout error:", error);
 
             localStorage.removeItem('user');
+            localStorage.removeItem('user');
             setIsLogin(false);
             setUser(null);
             setOpen(false);
         }
     }
+    const NavigateToBcomeASeller = () => {
+        navigate()
+    }
 
     return (
         <header className={style.headerContainer}>
             <div className={style.mainContainer}>
-
-
                 <div>
                     <Link to="/"><img src={assets.Logo} alt="logo" className={style.logo} /></Link>
                 </div>
@@ -136,8 +139,6 @@ const Navbar = () => {
                             </div>
                         </div>
                     )}
-
-
                     <button className={style.sellerBtn}>Become a Seller</button>
                 </div>
             </div>
