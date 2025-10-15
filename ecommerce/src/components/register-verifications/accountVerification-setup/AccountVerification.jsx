@@ -11,10 +11,16 @@ import {
 import { toast } from "react-toastify";
 import { MdOutlineMarkEmailRead } from "react-icons/md";
 import { RiSecurePaymentFill } from "react-icons/ri";
+import {updateSellerRegistrationField} from '../../../store/slices/Seller.slice'
 
-const AccountVerification = ({updateSteps}) => {
+const AccountVerification = () => {
   const dispatch = useDispatch();
-  const { loading, succes, error } = useSelector((state) => state.seller);
+  const { loading, success, error ,registration:{fieldError} } = useSelector((state) => state.seller);
+
+
+  const [password, setpassword] = useState()
+  const [confirmPassowrd, setconfirmPassowrd] = useState()
+  const [passworderror, setPassworderror] = useState("");
 
   const [showEmailVerifyOtp, setshowEmailVerifyOtp] = useState(false);
   const [showOtpForm, setshowOTPForm] = useState(false);
@@ -27,6 +33,26 @@ const AccountVerification = ({updateSteps}) => {
 
   const [resendTimer, setresendTimer] = useState(0);
   const [resendEmailOtpTimer, setresendEmailOtpTimer] = useState(0);
+  
+
+  const handelPasswordChange = (e) =>{
+    e.preventDefault()
+    setpassword(e.target.value)
+    if(confirmPassowrd && e.target.value === confirmPassowrd){
+        setPassworderror("")
+    }
+  }
+
+  const handelConfirmPassword = (e) => {
+    e.preventDefault()
+    setconfirmPassowrd(e.target.value)
+
+    if (password !== e.target.value) {
+      setPassworderror("Passwords do not match!");
+    } else {
+      setPassworderror("");
+    }
+  }
 
   useEffect(() => {
     if (resendTimer <= 0) return;
@@ -56,7 +82,6 @@ const AccountVerification = ({updateSteps}) => {
         sellerPhoneVerificatioBySendOtp(phone)
       ).unwrap();
       toast.success(res.message);
-      updateSteps("phone",phone)
       setshowOTPForm(true);
       setresendTimer(60);
     } catch (err) {
@@ -72,6 +97,8 @@ const AccountVerification = ({updateSteps}) => {
       ).unwrap();
       toast.success(res.message);
       setshowOTPForm(false);
+      dispatch(updateSellerRegistrationField({field:"phone",value:phone}))
+      resendTimer(0);
     } catch (err) {
       toast.error(err || "Invalid OTP");
     }
@@ -85,7 +112,6 @@ const AccountVerification = ({updateSteps}) => {
     try {
       const res = await dispatch(sellerEmailVerificationBySendOtp(email));
       toast.success(res.payload.message);
-      updateSteps("email",email)
       setshowEmailVerifyOtp(true);
       setresendEmailOtpTimer(60);
     } catch (error) {
@@ -102,6 +128,7 @@ const AccountVerification = ({updateSteps}) => {
       toast.success(res.payload.message);
       setshowEmailVerifyOtp(false);
       setresendEmailOtpTimer(0);
+      dispatch(updateSellerRegistrationField({field:"email",value:email}))
     } catch (error) {
       toast.error(error || "invalid Otp");
     }
@@ -114,23 +141,38 @@ const AccountVerification = ({updateSteps}) => {
         <h2>Account Setup & Verification</h2>
         <p>Create your seller account and verify your contact details</p>
       </header>
+
+      {/* USER ACCOUNT DETAILS */}
+      
       <section className={style.UsernameSection}>
         <p>Account Credentials</p>
         <div className={style.UsernameForm}>
           <div className={style.UernameInput}>
             <label>Username*</label>
-            <input type="text" placeholder="Choose a unique username" onChange={(e) => updateSteps("fullname", e.target.value)}/>
-            <span>This will be your seller ID on the platform</span>
+            <input type="text" 
+            placeholder="Choose a unique username" 
+            onChange={(e) => dispatch(updateSellerRegistrationField({field:"fullname",value:e.target.value}))}
+            />
+            <span>{"This will be your seller ID on the platform"}</span>
           </div>
           <div className={style.UsernamePassword}>
             <div className={style.Password}>
               <label>Password*</label>
-              <input type="text" placeholder="Create a strong password" />
-              <span>Min. 8 characters with numbers & symbols</span>
+              <input type="text" 
+              placeholder="Create a strong password" 
+              value={password}
+              onChange={handelPasswordChange}
+              />
+              <span style={passworderror ? {color:"red"} : {}}>{passworderror ?? fieldError ? passworderror || fieldError: "Min. 8 characters with numbers & symbols" }</span>
             </div>
             <div className={style.Password}>
               <label>Conform Password*</label>
-              <input type="text" placeholder="Create a strong password" onChange={(e) => updateSteps("password", e.target.value)}/>
+              <input type="text" placeholder="Create a strong password"
+              onChange={(e) => {
+                handelConfirmPassword(e);
+                dispatch(updateSellerRegistrationField({field:"password",value:e.target.value}))
+              }}
+              />
             </div>
           </div>
         </div>
@@ -155,7 +197,7 @@ const AccountVerification = ({updateSteps}) => {
             </button>
           </div>
           {error && <span className={style.errorMessage}>{error}</span>}
-          {succes && <span className={style.successMessage}>{succes}</span>}
+          {success && <span className={style.successMessage}>{success}</span>}
         </form>
         {showOtpForm && (
           <form className={style.VerifyOtpform} onSubmit={handelVerifyPhoneOtp}>
@@ -172,7 +214,7 @@ const AccountVerification = ({updateSteps}) => {
               </button>
             </div>
             {error && <span className={style.errorMessage}>{error}</span>}
-            {succes && <span className={style.successMessage}>{succes}</span>}
+            {success && <span className={style.successMessage}>{success}</span>}
           </form>
         )}
       </section>
@@ -199,7 +241,7 @@ const AccountVerification = ({updateSteps}) => {
             </button>
           </div>
           {error && <span className={style.errorMessage}>{error}</span>}
-          {succes && <span className={style.successMessage}>{succes}</span>}
+          {success && <span className={style.successMessage}>{success}</span>}
         </form>
         {showEmailVerifyOtp && (
           <form className={style.VerifyOtpform} onSubmit={handelVerifyEmailOtp}>
@@ -216,7 +258,7 @@ const AccountVerification = ({updateSteps}) => {
               </button>
             </div>
             {error && <span className={style.errorMessage}>{error}</span>}
-            {succes && <span className={style.successMessage}>{succes}</span>}
+            {success && <span className={style.successMessage}>{success}</span>}
           </form>
         )}
       </section>

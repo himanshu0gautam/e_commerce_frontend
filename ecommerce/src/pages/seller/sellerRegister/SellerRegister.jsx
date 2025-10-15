@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react'
 import { MdOutlineManageAccounts } from "react-icons/md";
 import VerifyStepIcons from '../../../components/register-verifications/regisetrVerifyStepsICons/VerifyStepIcons';
 import style from './sellerREgister.module.css'
@@ -7,52 +6,20 @@ import { CiBank } from "react-icons/ci";
 import { LuWarehouse } from "react-icons/lu";
 import AccountVerification from '../../../components/register-verifications/accountVerification-setup/AccountVerification';
 import Pagination from '../../../components/register-verifications/pagination/Pagination';
+import BusinessDeails from '../../../components/register-verifications/BusinessDetails/BusinessDeails';
+import WareHouseDetails from '../../../components/register-verifications/warehouseDetails/WareHouseDetails';
+import BankingDetails from '../../../components/register-verifications/bankingDetails/BankingDetails';
+// import {currentStep} from '../../../store/slices/Seller.slice'
+import { useSelector } from 'react-redux';
 
 const SellerRegister = () => {
 
-  const [currentStep, setCurrentStep] = useState(1);
+  const {sellerData,currentStep} = useSelector(state => state.seller.registration)
+
+  console.log(sellerData);
+  
+  // const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 4;
-
-  const [sellerData, setsellerData] = useState({
-    phone: "",
-  email: "",
-  fullname: "",
-  password: "",
-  gst_no: "",
-  organisation_email: "",
-  primary_contact_person_name: "",
-  primary_contact_person_phone: "",
-  primary_contact_person_email: "",
-  business_owner_name: "",
-  business_owner_phone: "",
-  business_owner_email: "",
-  company_name: "",
-  warehouse_pincode: "",
-  warehouse_state: "",
-  warehouse_full_address: "",
-  warehouse_order_procising_capacity: "",
-  bank_account_holder_name: "",
-  bank_account_no: "",
-  bank_IFCS: "",
-  bank_name: "",
-  account_type: "",
-  nature_of_business: "",
-  business_category: "",
-  declaration: false
-  })
-
- const updateSteps = (field, value) => {
-  setsellerData((prev) => ({
-    ...prev,
-    [field]: value,
-  }));
-};
-
-
-  useEffect(() => {
-  console.log("Updated seller data:", sellerData);
-}, [sellerData]);
-
 
   const steps = [
     {icon:<MdOutlineManageAccounts/>,name:"Account Setup"},
@@ -68,12 +35,14 @@ const SellerRegister = () => {
           <h2>Seller Verification Process</h2>
           <p>Complete all steps to become a verified B2B seller</p>
         </header>
-        <VerifyStepIcons steps={steps}/>
-        <AccountVerification updateSteps={updateSteps}/>
+        <VerifyStepIcons currentStep={currentStep}
+         totalSteps={totalSteps} steps={steps}/>
+        {currentStep === 1 && <AccountVerification/>}
+        {currentStep === 2 && <BusinessDeails />}
+        {currentStep === 3 && <BankingDetails />}
+        {currentStep === totalSteps && <WareHouseDetails />}
         <hr />
         <Pagination  
-          currentStep={currentStep}
-        setCurrentStep={setCurrentStep}
          totalSteps={totalSteps}/>
       </div>
     </div>
