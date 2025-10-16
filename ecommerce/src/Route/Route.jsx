@@ -94,7 +94,7 @@ const router = createBrowserRouter([
         path:'/supplierdashboard',
         element : <SupplierDashboard/>
       },
-      ,{
+      {
         path:"/adminuser",
         element:<AdminUsers/>
       },{
