@@ -11,9 +11,9 @@ const Header = () => {
         <input type="text" placeholder="Search orders, products, buyers..." />
       </div>
       <div className={styles.headerIcons}>
-        <FaBell  className={styles.icons}/>
-        <FaEnvelope className={styles.icons}/>
-        <FaUserCircle className={styles.icons}/>
+        {/* <FaBell  className={styles.icons}/>
+        <FaEnvelope className={styles.icons}/> */}
+        <div className={styles.icons}><FaUserCircle /><span>Himanshu</span></div>
       </div>
     </header>
   );

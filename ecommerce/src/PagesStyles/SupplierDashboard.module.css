@@ -13,7 +13,7 @@
 /* Sidebar */
 .sidebar {
   width: 260px;
-  background: #111827; /* dark navy/black */
+  background: #111827; 
   color: white;
   display: flex;
   flex-direction: column;
@@ -93,5 +93,5 @@
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  background: #f9fafb;
+  background: #ffffff;
 }

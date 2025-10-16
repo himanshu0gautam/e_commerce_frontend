@@ -18,6 +18,7 @@ import Books from "../pages/Books.jsx"
 import SupplierProfile from "../components/SupplierProfile/SupplierProfile.jsx";
 import UserDetails from "../pages/signIn/UserDetails.jsx";
 import SupplierDashboard from "../pages/SupplierDashboard.jsx";
+// const SupplierDashboard = lazy(() => import ("../pages/SupplierDashboard.jsx"))
 import AdminUsers from "../pages/AdminUsers.jsx";
 import Registerr from "../pages/signIn/Registerr.jsx";
 import Loginn from "../pages/signIn/Loginn.jsx";
@@ -26,6 +27,7 @@ import ForGetPassword from "../pages/seller/sellerForgetPassword/sendotp/ForGetP
 import SellerVerfyOtp from "../pages/seller/sellerForgetPassword/sellerVerifyotp/SellerVerfyOtp.jsx";
 import ResetPassword from "../pages/seller/sellerForgetPassword/ResetPassword/ResetPassword.jsx";
 import SellerRegister from "../pages/seller/sellerRegister/SellerRegister.jsx";
+import React, { Suspense, lazy } from "react";
 
 const router = createBrowserRouter([
   {
@@ -105,6 +107,7 @@ const router = createBrowserRouter([
       }
     ]
   },
+  
   {
     path: "/auth",
     element: <SignInRoute />,
