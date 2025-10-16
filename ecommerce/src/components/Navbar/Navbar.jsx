@@ -23,17 +23,22 @@ const Navbar = () => {
     useEffect(() => {
         const stateUser = location.state?.user;
         const storedUser = JSON.parse(localStorage.getItem('user'));
+
         const currentUser = stateUser || storedUser;
 
         if (currentUser) {
             setUser(currentUser);
             setIsLogin(true);
 
+
             if (stateUser && !storedUser) {
                 localStorage.setItem('user', JSON.stringify(stateUser));
+                localStorage.setItem('user', JSON.stringify(stateUser));
             }
+
         } else {
             if (storedUser) {
+                setUser(storedUser);
                 setUser(storedUser);
                 setIsLogin(true);
             } else {
@@ -41,20 +46,25 @@ const Navbar = () => {
                 setUser(null);
             }
         }
-    }, [location]); // Changed to depend on location for reactivity
+    }, [location.state]);
 
     const logOutUser = async () => {
         try {
-            await axios.get('http://192.168.1.49:3000/api/auth/logout', { withCredentials: true }); // added withCredentials
 
+            await axios.get('https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/logout');
+
+
+            localStorage.removeItem('user');
             localStorage.removeItem('user');
             setIsLogin(false);
             setUser(null);
+            setOpen(false);
             setOpen(false);
             navigate('/');
         } catch (error) {
             console.error("Logout error:", error);
 
+            localStorage.removeItem('user');
             localStorage.removeItem('user');
             setIsLogin(false);
             setUser(null);

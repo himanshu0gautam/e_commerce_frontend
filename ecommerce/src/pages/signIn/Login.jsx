@@ -42,9 +42,30 @@ const handleOtp = async()=>{
       navigate('/auth/login')
     }
   }
+<<<<<<< HEAD
+    const gotoLogin = ()=>{
+      navigate('/loginn')
+    }
+    const handlefgtpsswd = async()=>{
+      try {
+        if(phone === ''){
+          console.log("number is required")
+          return 
+        }
+        const res = await axios.post("https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/forgetpassword ",{phone})
+        if(res.status === 200){
+          console.log("Forget Password Otp sent");
+        }
+      } catch (error) {
+        console.error('Something went wrong:', error)
+        navigate('/auth/login')
+      }
+    }
+=======
     // const gotoLogin = ()=>{
     //   navigate('/login')
     // }
+>>>>>>> 35b1c819b722d5b3d293473ec72781184eebb574
 
   return (
    <main className={style.mainSignInContainer}>
@@ -56,7 +77,7 @@ const handleOtp = async()=>{
       <h1>Login</h1>
       <div className={style.phoneInput}>
         <p className={style.prefix}>+91 |</p>
-        <input type="text" placeholder="Phone" onChange={(e) => setphone(e.target.value)} />
+        <input type="text" placeholder="Phone" onChange={(e) => setphone(e.target.value)}  required/>
       </div>
       <div className={style.phoneInput}>
         <input
@@ -66,15 +87,20 @@ const handleOtp = async()=>{
           onChange={(e) => setpassword(e.target.value)}
         />
       </div>
+      <div className={style.fgtdiv}>
+        <p className={style.fgt} onClick={(e)=>{e.preventDefault();handlefgtpsswd()}}>forgot password ?</p>
+      </div>
       <button onClick={(e) => { e.preventDefault(); loginUser() }}>Login</button>
+
     </form>
+    
 
     {/* Right side - OTP Signup */}
     <form className={style.form}>
       <h1>Login & SignUp</h1>
       <div className={style.phoneInput}>
         <p className={style.prefix}>+91 |</p>
-        <input type="text" placeholder="Phone" onChange={(e) => setphone(e.target.value)} />
+        <input type="text" placeholder="Phone" onChange={(e) => setphone(e.target.value)} required />
       </div>
       <div className={style.radio}>
         <input type="checkbox" id="terms" />
@@ -86,7 +112,7 @@ const handleOtp = async()=>{
         </label>
       </div>
       <button onClick={(e) => { e.preventDefault(); handleOtp() }}>Continue</button>
-      <p>Have trouble logging in? <span>Get help</span></p>
+      <p >Have trouble logging in? <span>Get help</span></p>
     </form>
   </section>
 </main>
