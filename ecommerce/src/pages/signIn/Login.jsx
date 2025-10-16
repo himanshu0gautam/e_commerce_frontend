@@ -42,7 +42,29 @@ const Login = () => {
       navigate('/auth/login')
     }
   }
-  
+    const gotoLogin = ()=>{
+      navigate('/loginn')
+    }
+    const handlefgtpsswd = async()=>{
+      try {
+        if(phone === ''){
+          console.log("number is required")
+          return 
+        }
+        const res = await axios.post("https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/forgetpassword ",{phone})
+        if(res.status === 200){
+          console.log("Forget Password Otp sent");
+        }
+      } catch (error) {
+        console.error('Something went wrong:', error)
+        navigate('/auth/login')
+      }
+    }
+
+  return (
+   <main className={style.mainSignInContainer}>
+  <div className={style.bgImage}></div>
+
   <section className={style.SignInContainer}>
     {/* Left side - Password login */}
     <form className={style.form}>

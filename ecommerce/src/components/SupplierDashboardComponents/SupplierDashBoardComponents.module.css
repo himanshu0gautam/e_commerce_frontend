@@ -849,3 +849,176 @@ tr {
   align-items: center;
   gap: 1rem;
 }
+
+/* Order css*/
+.contFirst{
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  background: #ececf0;
+  padding:  .3rem;
+  width: fit-content;
+  border: none;
+  border-radius: 1rem; 
+}
+.filterbtn{
+  padding: 0.5rem .9rem;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+  font-size: .95rem;
+  font-weight: 550;
+}
+.contSecond{
+  border: .15rem solid #ececf0 ;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  min-height: 400px; /* 👈 ensures fixed area even with few rows */
+  overflow-y: auto;  /* adds scroll when there are many rows */
+}
+.table {
+  width: 100%;
+  padding: 1rem;
+
+  border-collapse: collapse; 
+  /*to remove spaces btw cell*/
+}
+.tablehead{
+  width: 100%;
+  justify-content: space-between;
+}
+.tablehead:hover{
+  background-color: #f3f3f5;
+}
+.tablehead th {
+  text-align: start;  
+  font-weight: 550;
+  padding: 1rem 0.4rem;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+.tablebody{
+  width: 100%;
+  justify-content: space-between;
+  /* background-color: #00A63D; */
+}
+.tablebody td{
+  padding: 1rem 0.4rem;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease;
+  border-top: .12rem solid #e5e5e5 ;
+}
+.tablebody:hover{
+  background-color: #f3f3f5;
+}
+
+ 
+.topBar{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+}
+.topBar div{
+  display: flex;
+  /* gap: 1rem; */
+}
+.eyeAction{
+  display: flex;
+  /* align-items: center; */
+  justify-content: flex-start;
+}
+.eyeAction .eye {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;       /* fix width */
+  height: 32px;      /* fix height */
+  padding: 6px;      /* fixed padding */
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.eyeAction .eye:hover {
+  background: #e2e0e0; /* only change background */
+  cursor: pointer;
+}
+.searchCustomerWrap{
+  gap: 0;
+  display: flex;
+  border: .1rem solid #a1a1a1;
+  padding: .4rem 1rem;
+  border-radius: .75rem;
+  box-shadow: inset;
+}
+.searchCustomer{
+ width: 22rem;
+ font-size: 1rem;
+ border: none;
+ outline: none;
+ background: transparent;
+}
+.dropdownBtn{
+  padding: .5rem 1rem;
+  border: .1rem solid #a1a1a1;
+  display: flex;
+  align-items: center;
+}
+.gapping{
+  gap: 1rem;
+}
+.wrap{
+  position: relative; /* makes this a positioning context */
+  display: inline-block;
+}
+.dropdownBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* gap: 1rem; */
+  background: #f3f3f5;
+  min-width: 10rem ;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+.dropdownBtn div{
+  min-width: 7rem;
+  padding:  0rem 1rem;
+}
+
+.drop {
+  position: absolute;
+  top: 110%; /* slightly below the button */
+  left: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 10; /* ensure it appears above */
+  min-width: 10rem;
+  width: fit-content;
+  /* padding: 8px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.drop p{
+ padding: .5rem 1rem;
+ min-width: 10rem;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ cursor: default;
+}
+.drop p:hover{
+  background-color: #c4c4cf43;
+  padding: .5rem 1rem;
+}
