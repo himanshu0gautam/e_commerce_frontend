@@ -6,27 +6,27 @@ import axios from "axios";
 const Login = () => {
   const [phone, setphone] = useState("");
   const [password, setpassword] = useState('')
-  
+
   const navigate = useNavigate();
 
-const handleOtp = async()=>{
-        try {
-            const res = await axios.post("https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/send-otp",{phone})
-            if(res.status === 200){
-                console.log("otp sent sucessfully");
-                navigate("/loginn",{state :{ phone : phone}})
-            }
-        } catch (error) {
-            console.error('Error sending otp:',error)
-            
-               
-                navigate("/registerr",{state : { phone : phone}})
-            
-        }
+  const handleOtp = async () => {
+    try {
+      const res = await axios.post("https://unhortative-mayola-unsavagely.ngrok-free.dev/api/auth/send-otp", { phone })
+      if (res.status === 200) {
+        console.log("otp sent sucessfully");
+        navigate("/loginn", { state: { phone: phone } })
+      }
+    } catch (error) {
+      console.error('Error sending otp:', error)
+
+
+      navigate("/registerr", { state: { phone: phone } })
 
     }
 
-   const loginUser = async () => {
+  }
+
+  const loginUser = async () => {
     try {
       const res = await axios.post(
         'http://192.168.1.49:3000/api/auth/login',
@@ -108,10 +108,9 @@ const handleOtp = async()=>{
       <button onClick={(e) => { e.preventDefault(); handleOtp() }}>Continue</button>
       <p >Have trouble logging in? <span>Get help</span></p>
     </form>
-  </section>
-</main>
 
-  );
+  </section>
+
 };
 
 export default Login;
