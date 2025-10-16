@@ -42,7 +42,6 @@ const handleOtp = async()=>{
       navigate('/auth/login')
     }
   }
-<<<<<<< HEAD
     const gotoLogin = ()=>{
       navigate('/loginn')
     }
@@ -61,11 +60,6 @@ const handleOtp = async()=>{
         navigate('/auth/login')
       }
     }
-=======
-    // const gotoLogin = ()=>{
-    //   navigate('/login')
-    // }
->>>>>>> 35b1c819b722d5b3d293473ec72781184eebb574
 
   return (
    <main className={style.mainSignInContainer}>
