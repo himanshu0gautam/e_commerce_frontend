@@ -1,0 +1,34 @@
+.pageContainer {
+    display: flex;
+    justify-content: space-between; /* subtle dark background */
+    padding: 1rem;
+    border-radius: 0.8rem;
+}
+
+.pageContainer .ButtonSection {
+    display: flex;
+    gap: 0.9rem;
+}
+
+.pageContainer .ButtonSection button {
+    background-color: #2A2A2A; /* dark gray, softer than black */
+    color: #E0E0E0; /* soft white for readability */
+    padding: 0.6rem 1rem;
+    border-radius: 0.6rem;
+    border: 1px solid #3A3A3A; /* subtle border for depth */
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.pageContainer .ButtonSection button:hover {
+    background-color: #4A4A4A; /* slightly lighter on hover */
+    border-color: #5A5A5A;
+}
+
+.pageContainer .ButtonSection button:active {
+    background-color: #3A3A3A; /* pressed effect */
+}
+
+.pageContainer .ButtonSection button:disabled {
+    display: none;
+}
