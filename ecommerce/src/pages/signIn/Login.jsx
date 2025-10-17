@@ -110,6 +110,8 @@ const Login = () => {
     </form>
 
   </section>
+  </main>
+  )
 
   </main>
  );
