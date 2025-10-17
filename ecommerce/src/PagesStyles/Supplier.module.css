@@ -12,10 +12,11 @@
 }
 
 .supplierProfile {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;         /* allow wrapping on larger screens */
   justify-content: start; /* center cards */
-  gap: 2rem;
+  gap: 1rem;
 }
 
 /* -------- Tablet (641px - 1024px) -------- */
