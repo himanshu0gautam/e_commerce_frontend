@@ -28,6 +28,7 @@ import SellerVerfyOtp from "../pages/seller/sellerForgetPassword/sellerVerifyotp
 import ResetPassword from "../pages/seller/sellerForgetPassword/ResetPassword/ResetPassword.jsx";
 import SellerRegister from "../pages/seller/sellerRegister/SellerRegister.jsx";
 import React, { Suspense, } from "react";
+import Admin from "../pages/adminDeshbord/Admin.jsx";
 
 const router = createBrowserRouter([
   {
@@ -149,6 +150,16 @@ const router = createBrowserRouter([
       {
         path :"userdetails",
         element : <UserDetails/>
+      }
+    ]
+  },
+  {
+    path:"/admin",
+    element:<SignInRoute/>,
+    children:[
+      {
+        path:'seller-status',
+        element:<Admin/>
       }
     ]
   }
