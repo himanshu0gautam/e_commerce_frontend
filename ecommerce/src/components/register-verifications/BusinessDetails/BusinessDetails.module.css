@@ -1,0 +1,225 @@
+.BusinessDeailsContainer{
+    width: 100%;
+}
+
+.BusinessDeailsContainer .heading{
+    padding-top: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.BusinessDeailsContainer .heading h2{
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.BusinessDeailsContainer .heading p{
+    font-size: 0.9rem;
+    opacity: 0.6;
+    font-weight: 200;
+}
+
+
+.BusinessDeailsContainer .Verification{
+    padding: 2rem;
+    margin-top: 1.7rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background-color: rgba(219, 217, 217, 0.333);
+    border-radius: 0.7rem;
+}
+
+.BusinessDeailsContainer .Verification .IconsAndHeading{
+    display: flex;
+    gap: 0.7rem;
+    align-items: center;
+}
+
+.BusinessDeailsContainer .Verification .IconsAndHeading .Icon{
+    scale:1.5
+}
+
+.BusinessDeailsContainer .Verification .IconsAndHeading h2{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.BusinessDeailsContainer .Verification .form{
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.BusinessDeailsContainer .Verification .form span{
+    opacity: 0.5;
+    font-size: 0.9rem;
+}
+
+.BusinessDeailsContainer .Verification .form .Input{
+    display: flex;
+    gap: 3rem;
+}
+
+.BusinessDeailsContainer .Verification .form .Input input{
+    width: 90%;
+    background-color: rgba(222, 221, 221, 0.308);
+    border: 1px solid transparent; /* reserve space for focus border */
+    padding: 0.6rem;
+    border-radius: 0.3rem;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.BusinessDeailsContainer .Verification .form .Input input:focus {
+    outline: none;
+    border: 1px solid #a9a9a9; /* now width doesn't jump */
+    box-shadow: 0 0 5px rgba(53, 53, 53, 0.5);
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.BusinessDeailsContainer .Verification .form .Input button {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 10%;
+    background-color: #111; /* dark blackish tone */
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.BusinessDeailsContainer .Verification .form .Input button:hover {
+    background-color: #333333; /* slightly lighter blackish shade */
+    color: #f1f1f1; /* soft white for hover contrast */
+    transform: scale(1.02); /* subtle zoom effect */
+}
+
+.BusinessDeailsContainer .Verification .VerifyOtpform{
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.BusinessDeailsContainer .Verification .VerifyOtpform .Input{
+    display: flex;
+    gap: 3rem;
+}
+
+.BusinessDeailsContainer .Verification .VerifyOtpform .Input input{
+    width: 80%;
+    background-color: rgba(222, 221, 221, 0.308);
+    border: 1px solid transparent; /* reserve space for focus border */
+    padding: 0.6rem;
+    border-radius: 0.3rem;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.BusinessDeailsContainer .Verification .VerifyOtpform .Input input:focus {
+    outline: none;
+    border: 1px solid #a9a9a9; /* now width doesn't jump */
+    box-shadow: 0 0 5px rgba(53, 53, 53, 0.5);
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.BusinessDeailsContainer .Verification .VerifyOtpform .Input button {
+    width: 20%;
+    background: linear-gradient(135deg, #0d6d2d, #0a4f1f); /* deep green gradient */
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+.BusinessDeailsContainer .Verification .VerifyOtpform .Input button:hover {
+    background: linear-gradient(135deg, #107d34, #0b5f25); /* brighter green for hover */
+    color: #f8f8f8;
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+}
+
+.BusinessDeailsContainer .errorMessage {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.BusinessDeailsContainer .successMessage {
+  color: green;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+/* ORGANIZATION DETAILS SECTION */
+
+.BusinessDeailsContainer .UsernameSection{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.BusinessDeailsContainer .UsernameSection p{
+    font-size: 1.2rem;
+    opacity: 1;
+    font-weight: 200;
+    margin-bottom: 0.7rem;
+}
+
+
+.BusinessDeailsContainer .UsernameForm{
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.UsernameSection .UsernameForm .UernameInput{
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.UsernameForm .UsernamePassword{
+    display: flex;
+    gap: 5rem;
+}
+
+.UsernameForm .UsernamePassword .Password{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.UsernameForm input {
+    background-color: rgba(222, 221, 221, 0.308);
+    border: 1px solid transparent; /* reserve space for focus border */
+    padding: 0.6rem;
+    border-radius: 0.3rem;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.UsernameForm input:focus {
+    outline: none;
+    border: 1px solid #a9a9a9; /* now width doesn't jump */
+    box-shadow: 0 0 5px rgba(53, 53, 53, 0.5);
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.UsernameForm span{
+    opacity: 0.5;
+    font-size: 0.9rem;
+}

@@ -1,0 +1,55 @@
+.sellerSuccessFullyregister{
+    width: 70%;
+    padding: 3rem;
+     background-color: #ffffff; 
+}
+
+.sellerSuccessFullyregister header{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.sellerSuccessFullyregister header .icon{
+    font-size: 5em;
+    color: green;
+}
+
+.sellerSuccessFullyregister header h2{
+    text-align: center;
+    font-size: 3rem;
+}
+
+.sellerSuccessFullyregister .paraContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.3rem;
+}
+
+.sellerSuccessFullyregister .paraContainer .highlight{
+    color: rgb(22, 19, 243);
+    font-size: 1rem;
+}
+
+.sellerSuccessFullyregister .paraContainer p{
+    font-size: 1.3rem;
+    color: grey;
+}
+
+.sellerSuccessFullyregister .btn{
+    margin-top: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sellerSuccessFullyregister .btn button{
+    background-color: black;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
