@@ -8,6 +8,7 @@ import {
   sellerVerifyPhoneOtp,
   sellerEmailVerificationBySendOtp,
   sellerVerifyEmailOtp,
+  sellerRegistration,
 } from "../actions/SellerAction";
 
 const sellerSlice = createSlice({
@@ -27,15 +28,11 @@ const sellerSlice = createSlice({
         email: "",
         fullname: "",
         password: "",
-        confirmPassword: "",
         gst_no: "",
         organisation_email: "",
         primary_contact_person_name: "",
         primary_contact_person_phone: "",
         primary_contact_person_email: "",
-        business_owner_name: "",
-        business_owner_phone: "",
-        business_owner_email: "",
         company_name: "",
         owner_name:"",
         owner_email:"",
@@ -50,6 +47,7 @@ const sellerSlice = createSlice({
         warehouse_full_address: "",
         warehouse_order_procising_capacity: "",
         bank_account_holder_name: "",
+        pan_number:"",
         bank_account_no: "",
         bank_IFCS: "",
         bank_name: "",
@@ -162,6 +160,17 @@ const sellerSlice = createSlice({
         state.success = true;
       })
       .addCase(sellerVerifyEmailOtp.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(sellerRegistration.pending, (state) => {
+        state.loading = false;
+      })
+      .addCase(sellerRegistration.fulfilled, (state) => {
+        state.loading = false;
+        state.success = true;
+      })
+      .addCase(sellerRegistration.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

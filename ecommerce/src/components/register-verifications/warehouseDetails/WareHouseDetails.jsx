@@ -3,9 +3,13 @@ import style from "./WareHouseDetails.module.css";
 import { LuWarehouse } from "react-icons/lu";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
-
+import { useDispatch } from "react-redux";
+import {updateSellerRegistrationField} from "../../../store/slices/Seller.slice"
 
 const WareHouseDetails = () => {
+
+  const dispatch = useDispatch()
+
   return (
     <div className={style.WareHouseDetailsContainer}>
       <header className={style.heading}>
@@ -26,7 +30,9 @@ const WareHouseDetails = () => {
           <div className={style.UsernamePassword}>
             <div className={style.Password}>
               <label>Warehouse Pincode</label>
-              <input type="text" placeholder="Enter a Pincode" />
+              <input type="text" placeholder="Enter a Pincode" 
+              onChange={(e) => dispatch(updateSellerRegistrationField({field:"warehouse_pincode",value:e.target.value}))}
+              />
               <span>Write correct pincode</span>
             </div>
             <div className={style.Password}>
@@ -34,6 +40,7 @@ const WareHouseDetails = () => {
               <input
                 type="text"
                 placeholder="eg., Maharashtra"
+                onChange={(e) => dispatch(updateSellerRegistrationField({field:"warehouse_state",value:e.target.value}))}
               />
             </div>
             <div className={style.Password}>
@@ -41,6 +48,7 @@ const WareHouseDetails = () => {
               <input
                 type="text"
                 placeholder="eg., up to 500 unit"
+                onChange={(e) => dispatch(updateSellerRegistrationField({field:"warehouse_order_procising_capacity",value:e.target.value}))}
               />
             </div>
           </div>
@@ -49,6 +57,7 @@ const WareHouseDetails = () => {
             <input
               type="text"
               placeholder="Street address, building number ,landmarks"
+              onChange={(e) => dispatch(updateSellerRegistrationField({field:"warehouse_full_address",value:e.target.value}))}
             />
           </div>
         </div>

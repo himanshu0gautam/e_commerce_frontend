@@ -27,7 +27,7 @@ import ForGetPassword from "../pages/seller/sellerForgetPassword/sendotp/ForGetP
 import SellerVerfyOtp from "../pages/seller/sellerForgetPassword/sellerVerifyotp/SellerVerfyOtp.jsx";
 import ResetPassword from "../pages/seller/sellerForgetPassword/ResetPassword/ResetPassword.jsx";
 import SellerRegister from "../pages/seller/sellerRegister/SellerRegister.jsx";
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, } from "react";
 
 const router = createBrowserRouter([
   {

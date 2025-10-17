@@ -11,12 +11,12 @@ import WareHouseDetails from '../../../components/register-verifications/warehou
 import BankingDetails from '../../../components/register-verifications/bankingDetails/BankingDetails';
 // import {currentStep} from '../../../store/slices/Seller.slice'
 import { useSelector } from 'react-redux';
+import RegisterSuccessfully from "../../../components/register-verifications/registersuccessfully/registerSuccessfully";
 
 const SellerRegister = () => {
 
-  const {sellerData,currentStep} = useSelector(state => state.seller.registration)
+  const {currentStep} = useSelector(state => state.seller.registration)
 
-  console.log(sellerData);
   
   // const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 4;
@@ -30,7 +30,8 @@ const SellerRegister = () => {
 
   return (
     <div className={style.RegisterMainContainer}>
-      <div className={style.RegisterInnerConatiner}>
+      
+      {/* <div className={style.RegisterInnerConatiner}>
         <header className={style.heading}>
           <h2>Seller Verification Process</h2>
           <p>Complete all steps to become a verified B2B seller</p>
@@ -45,6 +46,8 @@ const SellerRegister = () => {
         <Pagination  
          totalSteps={totalSteps}/>
       </div>
+       */}
+        <RegisterSuccessfully/>
     </div>
   )
 }

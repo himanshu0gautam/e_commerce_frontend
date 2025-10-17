@@ -82,10 +82,10 @@ const AccountVerification = () => {
         sellerPhoneVerificatioBySendOtp(phone)
       ).unwrap();
       toast.success(res.message);
-      setshowOTPForm(true);
       setresendTimer(60);
+      setshowOTPForm(true);
     } catch (err) {
-      toast.error(err || "Failed to send OTP");
+      toast.error(err?.message || "Failed to send OTP");
     }
   };
 
@@ -97,8 +97,8 @@ const AccountVerification = () => {
       ).unwrap();
       toast.success(res.message);
       setshowOTPForm(false);
+      setresendTimer(0);
       dispatch(updateSellerRegistrationField({field:"phone",value:phone}))
-      resendTimer(0);
     } catch (err) {
       toast.error(err || "Invalid OTP");
     }
@@ -241,7 +241,7 @@ const AccountVerification = () => {
             </button>
           </div>
           {error && <span className={style.errorMessage}>{error}</span>}
-          {success && <span className={style.successMessage}>{success}</span>}
+          {/* {success && <span className={style.successMessage}>{success}</span>} */}
         </form>
         {showEmailVerifyOtp && (
           <form className={style.VerifyOtpform} onSubmit={handelVerifyEmailOtp}>

@@ -14,6 +14,7 @@ const BusinessDeails = () => {
     if(!GSTNumber){
       toast.error("Please enter GST number")
     }
+    toast.success("submited GST Number")
     dispatch(updateSellerRegistrationField({field:"gst_no",value:GSTNumber}))
   }
 
@@ -162,7 +163,7 @@ const BusinessDeails = () => {
                       />
                     </div>
                     <div className={style.Password}>
-                      <label>Ownern phone number*</label>
+                      <label>Owner phone number*</label>
                       <input type="text" 
                       placeholder="98********"
                       onChange={(e) => {
