@@ -21,13 +21,11 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.9.1",
 
+
+
     "react-toastify": "^11.0.5",
-
     "recharts": "^3.2.1",
-
     "redux": "^5.0.1",
-
-
     "remixicon": "^4.6.0"
   },
   "devDependencies": {
