@@ -1,0 +1,39 @@
+.sellerRegisterSteps {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.sellerStepContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  align-items: center;
+}
+
+.iconsConatiner {
+  scale: 1.4;
+  padding: 0.6rem;
+  border-radius: 50%;
+  border: 1px solid rgba(150, 150, 150, 0.4); /* subtle gray border */
+  color: rgba(150, 150, 150, 0.6);            /* subtle gray icon */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+/* Active step styling */
+.activeStep .iconsConatiner {
+  border: 2px solid #0056cc;               /* professional blue border */
+  color: #0056cc;                           /* icon color */
+  box-shadow: 0 4px 8px rgba(0, 86, 204, 0.3); /* subtle polished shadow */
+  width: 40px;
+  height: 40px;
+}
+
+.activeStep p,
+.activeText {
+  color: #0056cc;       /* blue text */
+  font-weight: 600;
+}

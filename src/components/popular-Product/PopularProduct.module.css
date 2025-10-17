@@ -1,0 +1,86 @@
+.mainpopular {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    cursor: default;
+    padding: 0rem 3.5rem;
+}
+
+.headingPopular {
+    /* background-color: blue; */
+    display: flex;
+    justify-content: space-between;
+    padding: 0rem 6rem;
+    margin-top: 3.5rem;
+}
+
+.headingPopular button {
+    padding: 7px 14px;
+    border-radius: 8px;
+    outline: none;
+    border: 1px solid grey;
+}
+
+.heading {
+    padding: 0rem 6rem;
+}
+
+.Product {
+    /* background-color: chocolate; */
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 1rem 2rem;
+}
+
+.Product div {
+    /* background-color: bisque; */
+    flex-wrap: wrap;
+    margin: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Product div p {
+    font-weight: 550;
+    font-size: 1rem;
+    color: black;
+
+}
+
+.imgCont {
+    border: .1rem solid rgb(246, 242, 242);
+    border-radius: .75rem;
+    box-shadow: 0 1px 1px rgba(172, 166, 166, 0.47);
+    /* ✅ shadow add */
+    transition: transform 0.3s ease-in-out;
+}
+
+.imgCont:hover {
+    transform: scale(1.02);
+}
+
+.imgCont span {
+    color: rgb(135, 134, 134);
+    font-size: 0.8rem;
+    padding-bottom: 1rem;
+    padding-top: .5rem;
+}
+
+.imgCont h4{
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.imgConatiner {
+    height: 14rem;
+    width: 20rem;
+    object-fit: cover;
+    position: center;
+    border-top-left-radius: .75rem;
+    border-top-right-radius: .75rem;
+    box-shadow: 0 1px 1px rgba(160, 158, 158, 0.25);
+}
