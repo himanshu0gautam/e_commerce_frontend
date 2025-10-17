@@ -20,6 +20,7 @@ const sellerSlice = createSlice({
     loading: false,
     error: null,
     success: false,
+    register:false,
 
     registration: {
       currentStep: 1,
@@ -169,6 +170,7 @@ const sellerSlice = createSlice({
       .addCase(sellerRegistration.fulfilled, (state) => {
         state.loading = false;
         state.success = true;
+        state.register = true
       })
       .addCase(sellerRegistration.rejected, (state, action) => {
         state.loading = false;

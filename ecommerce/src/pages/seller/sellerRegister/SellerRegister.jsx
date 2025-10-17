@@ -15,8 +15,7 @@ import RegisterSuccessfully from "../../../components/register-verifications/reg
 
 const SellerRegister = () => {
 
-  const {currentStep} = useSelector(state => state.seller.registration)
-
+  const {registration:{currentStep},register} = useSelector(state => state.seller)
   
   // const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 4;
@@ -30,8 +29,7 @@ const SellerRegister = () => {
 
   return (
     <div className={style.RegisterMainContainer}>
-      
-      {/* <div className={style.RegisterInnerConatiner}>
+      {!register ? <div className={style.RegisterInnerConatiner}>
         <header className={style.heading}>
           <h2>Seller Verification Process</h2>
           <p>Complete all steps to become a verified B2B seller</p>
@@ -45,9 +43,11 @@ const SellerRegister = () => {
         <hr />
         <Pagination  
          totalSteps={totalSteps}/>
-      </div>
-       */}
-        <RegisterSuccessfully/>
+      </div> : <RegisterSuccessfully/>}
+
+      
+      
+        
     </div>
   )
 }
