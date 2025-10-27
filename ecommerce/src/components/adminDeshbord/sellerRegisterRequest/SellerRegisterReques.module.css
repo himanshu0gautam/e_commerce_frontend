@@ -10,6 +10,8 @@
   transition: all 0.3s ease;
 }
 
+
+
 /* Header Section */
 .SellerRegisterRequestContainer .RegisterRequesHeader {
     padding: 1rem;
@@ -73,64 +75,99 @@
 /* SELLER LIST SECTION */
 .SellerRegisterRequestContainer .sellerList{
     width: 100%;
+    overflow-x: auto;
 }
 
-.SellerRegisterRequestContainer .sellerList .heading{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-     background-color: rgba(233, 232, 232, 0.573);
-      border: 1px solid rgba(157, 156, 156, 0.54);
+.SellerRegisterRequestContainer .sellerList .table{
+  width: 100%;
+  font-size: 1.2rem;
+  background-color: rgba(219, 217, 217, 0.199);
+  padding: 1rem;
+  text-align: start;
+  border-collapse: collapse;
 }
 
-.SellerRegisterRequestContainer .sellerList .heading h3{
-    font-size: 1rem;
-    font-weight: 600;
-    padding: 0.9rem;
-    border-radius: 0.5rem;
+.SellerRegisterRequestContainer .sellerList .table th{
+  text-align: left;
+  background-color: rgba(194, 192, 192, 0.199);
+  padding: 0.9rem;
+  cursor: pointer;
 }
 
-.SellerRegisterRequestContainer .sellerList .SigleSeller{
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
+.table td{
+  padding: 0.9rem;
+  background-color: hsl(0, 100%, 100%);
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: top;  
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 
-.SellerRegisterRequestContainer .sellerList .SigleSeller .contact{
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    width: 15%;
+.table tr:hover {
+  background-color: #f9fafc;
+}
+.company_name{
+  font-size: 1rem;
 }
 
-.SellerRegisterRequestContainer .sellerList .SigleSeller p{
-    width: 15%;
+.owner_name{
+  font-size: 0.9rem;
+  font-weight: 300;
+  opacity: 0.7;
 }
 
-.SellerRegisterRequestContainer .sellerList .SigleSeller h4{
-    width: 15%;
+.link {
+  color: #2563eb;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-.SellerRegisterRequestContainer .sellerList .SigleSeller .btn{
-    
+.status {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
 }
 
+.pending {
+  background: #fff7e6;
+  color: #b45309;
+}
 
+.approved {
+  background: #e7f9ef;
+  color: #047857;
+}
 
+.rejected {
+  background: #fde2e2;
+  color: #b91c1c;
+}
 
+.viewButton {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  border: 1px solid #2563eb; /* vibrant blue */
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.4rem;
+  color: #2563eb;
+  background-color: #f0f7ff; /* soft blue background */
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
 
+.viewButton:hover {
+  background-color: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+  transform: translateY(-1px);
+}
 
-/* Responsive */
-@media (max-width: 768px) {
-  .SellerRegisterRequestContainer {
-    padding: 1.5rem;
-  }
-
-  .SellerRegisterRequestContainer .RegisterRequesHeader h2 {
-    font-size: 1.3rem;
-  }
-
-  .SellerRegisterRequestContainer .RegisterRequesHeader .Status {
-    width: 100%;
-  }
+.viewButton:active {
+  background-color: #1d4ed8; /* darker blue when clicked */
+  transform: translateY(0);
 }

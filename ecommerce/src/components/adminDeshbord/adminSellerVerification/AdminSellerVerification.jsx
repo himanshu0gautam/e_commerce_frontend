@@ -2,7 +2,7 @@ import React from 'react'
 import style from './AdminSellerVerification.module.css'
 import SellerVerifyNumber from '../sellerVerifyNumber/SellerVerifyNumber'
 import SellerRegisterRequest from '../sellerRegisterRequest/SellerRegisterRequest'
-
+import SellerVeifyPopup from '../sellerVerifyPopup/SellerVeifyPopup'
 const AdminSellerVerification = () => {
   return (
     <div className={style.AdminSellerVerificationContainer}>

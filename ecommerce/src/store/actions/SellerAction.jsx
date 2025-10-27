@@ -116,3 +116,29 @@ export const sellerRegistration = createAsyncThunk(
     }
 )
 
+export const getAllSeller = createAsyncThunk(
+    '/seller/getAllseller',
+    async (credentialas,{rejectWithValue}) => {
+        try {
+            const res = await axiosInstance.get('/admin/all-seller',{
+                params:credentialas
+            })
+            return res.data
+        } catch (error) {
+            return rejectWithValue(error.response.data.message)
+        }
+    }
+)
+
+export const getSingleSeller = createAsyncThunk(
+    '/seller/getSingleSeller',
+    async (credentialas,{rejectWithValue}) => {
+        try {
+            const res = await axiosInstance.get(`/admin/Single-seller/${credentialas.sellerId}`)
+            return res.data
+        } catch (error) {
+            return rejectWithValue(error.response.data.message)
+        }
+    }
+)
+

@@ -9,6 +9,8 @@ import {
   sellerEmailVerificationBySendOtp,
   sellerVerifyEmailOtp,
   sellerRegistration,
+  getAllSeller,
+  getSingleSeller
 } from "../actions/SellerAction";
 
 const sellerSlice = createSlice({
@@ -21,6 +23,7 @@ const sellerSlice = createSlice({
     error: null,
     success: false,
     register:false,
+    singleSeller:null,
 
     registration: {
       currentStep: 1,
@@ -173,6 +176,29 @@ const sellerSlice = createSlice({
         state.register = true
       })
       .addCase(sellerRegistration.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      
+      .addCase(getAllSeller.pending, (state) => {
+        state.loading = false;
+      })
+      .addCase(getAllSeller.fulfilled, (state,action) => {
+        state.loading = false;
+        state.allSellers = action.payload.allSellerData        
+      })
+      .addCase(getAllSeller.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(getSingleSeller.pending, (state) => {
+        state.loading = false;
+      })
+      .addCase(getSingleSeller.fulfilled, (state,action) => {
+        state.loading = false;      
+        state.singleSeller = action.payload.seller[0]      
+      })
+      .addCase(getSingleSeller.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
