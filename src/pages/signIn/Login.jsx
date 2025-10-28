@@ -112,10 +112,6 @@ const Login = () => {
   </section>
   </main>
   )
-<<<<<<< HEAD
-=======
-
->>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
 };
 
 export default Login;

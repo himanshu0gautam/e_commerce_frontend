@@ -3,11 +3,7 @@ import { assets } from '../../assets/assets';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import style from './Navbar.module.css';
 
-<<<<<<< HEAD
-// import { FaRegUser, FaRegHeart } from "react-icons/fa";
-=======
 import { FaRegUser, FaRegHeart } from "react-icons/fa";
->>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
 import { BiUserCircle } from "react-icons/bi";
 import { LuBell } from "react-icons/lu";
 import { GrCart } from "react-icons/gr";
@@ -109,11 +105,7 @@ const Navbar = () => {
 
                     {!isLogin && (
                         <div className={style.iconNames} onClick={() => navigate("/auth/login")}>
-<<<<<<< HEAD
-                            {/* <FaRegUser className={style.UserIcon} /> */}
-=======
                             <FaRegUser className={style.UserIcon} />
->>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                             <p>Log In</p>
                         </div>
                     )}
