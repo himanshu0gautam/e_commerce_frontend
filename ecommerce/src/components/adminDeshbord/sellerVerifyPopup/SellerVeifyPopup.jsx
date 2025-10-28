@@ -4,8 +4,15 @@ import { RiCloseLine } from "react-icons/ri";
 import TraclNavbar from './TrackNavbar/TraclNavbar';
 import AccountVerification from './AccountVerification/AccountVerification';
 import StatusButton from './statusbutton/StatusButton';
+import Business from './business/Business';
+import Banking from './banking/Banking';
+import Warehouse from './warehouse/Warehouse';
 
 const SellerVeifyPopup = ({sellerId,onClose}) => {
+
+    const [isActiveStatus, setisActiveStatus] = useState(0)
+
+    const lastActive = 3
 
 
   return (
@@ -23,9 +30,12 @@ const SellerVeifyPopup = ({sellerId,onClose}) => {
                 <p>Pending</p>
             </div>
         </header>
-        <TraclNavbar/>
-        <AccountVerification sellerId={sellerId}/>
-        <StatusButton/>
+        <TraclNavbar isActiveStatus={isActiveStatus} lastActive={lastActive} setisActiveStatus={setisActiveStatus}/>
+        {isActiveStatus === 0 && <AccountVerification sellerId={sellerId}/>}
+        {isActiveStatus === 1 && <Business sellerId={sellerId}/>}
+        {isActiveStatus === 2 && <Banking sellerId={sellerId}/>}
+        {isActiveStatus === lastActive &&  <Warehouse sellerId={sellerId}/>}      
+        <StatusButton sellerId={sellerId} />
     </div>
     </div>
   )

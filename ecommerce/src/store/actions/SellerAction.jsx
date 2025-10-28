@@ -142,3 +142,41 @@ export const getSingleSeller = createAsyncThunk(
     }
 )
 
+export const ApprovedSeller = createAsyncThunk(
+    '/admin/approvedSeller',
+    async (credentialas,{rejectWithValue}) => {
+        try {
+            const res = await axiosInstance.patch(`/admin/approveSeller/${credentialas.sellerId}`)
+            return res.data
+        } catch (error) {
+            return rejectWithValue(error.response.data.message)
+        }
+    }
+)
+
+export const RejectSeller = createAsyncThunk(
+    '/admin/rejetSeller',
+    async (credentialas,{rejectWithValue}) => {
+        try {
+            const res = await axiosInstance.patch(`/admin/rejectSeller/${credentialas.sellerId}`)
+            console.log(res.data);
+            return res.data
+        } catch (error) {
+            return rejectWithValue(error.response.data.message)
+        }
+    }
+)
+
+export const getApprovedAndRejectCount = createAsyncThunk(
+  'admin/statusCount',
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axiosInstance.get('/admin/statusCount');
+      return res.data;
+    } catch (error) {
+      console.error("Error in getApprovedAndRejectCount:", error);
+      return rejectWithValue(error.response?.data?.message || "Something went wrong");
+    }
+  }
+);
+

@@ -1,21 +1,34 @@
 import React, { useEffect } from "react";
 import style from "./AccountVerification.module.css";
 import { MdManageAccounts } from "react-icons/md";
-import {} from "../../../../store/slices/Seller.slice";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleSeller } from "../../../../store/actions/SellerAction";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { LuPhone } from "react-icons/lu";
 
 const AccountVerification = ({ sellerId }) => {
-  const { loading, singleSeller } = useSelector((state) => state.seller);
-  console.log(singleSeller);
+
+  const { singleSeller,loading } = useSelector((state) => state.seller);
 
   const dispatch = useDispatch();
 
+  
   useEffect(() => {
-    dispatch(getSingleSeller({ sellerId: sellerId }));
-  }, []);
+    if (sellerId) dispatch(getSingleSeller({ sellerId }));
+  }, [dispatch, sellerId]);
+
+  if (loading || !singleSeller || Object.keys(singleSeller).length === 0) {
+    return <p className={style.loadingText}>Loading seller info...</p>;
+  }
+
+  // ✅ Destructure fields to make JSX cleaner
+  const {
+    company_name,
+    owner_email,
+    owner_phone,
+    created_at,
+  } = singleSeller;
+
 
   const renderAccountInfo = () => {
     return (
@@ -23,21 +36,21 @@ const AccountVerification = ({ sellerId }) => {
         <section className={style.left}>
           <div className={style.Content}>
             <h4>Company Name</h4>
-            <p>{singleSeller.company_name}</p>
+            <p>{company_name}</p>
           </div >
           <div className={style.bottomContent}>
             <h4><MdOutlineMailOutline />Owner Email Address</h4>
-            <p>{singleSeller.owner_email}</p>
+            <p>{owner_email}</p>
           </div>
         </section>
         <section className={style.right}>
            <div className={style.Content}>
              <h4>Submitted Date</h4>
-            <p>{new Date(singleSeller.created_at).toLocaleString('en-IN')}</p>
+            <p>{new Date(created_at).toLocaleString('en-IN')}</p>
            </div >
            <div className={style.bottomContent}>
             <h4><LuPhone />Phone Number</h4>
-            <p>+91 {singleSeller.owner_phone}</p>
+            <p>+91 {owner_phone}</p>
            </div>
         </section>
       </div>

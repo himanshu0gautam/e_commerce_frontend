@@ -4,7 +4,7 @@
     import { CiBank } from "react-icons/ci";
     import { PiWarehouse } from "react-icons/pi";
     import style from './TrackNavbar.module.css'   
-    const TraclNavbar = () => {
+    const TraclNavbar = ({isActiveStatus,setisActiveStatus}) => {
         const trackContainer = [
             {
                 step:"Account",
@@ -25,12 +25,15 @@
         ]
 
         const renderSteps = () => {
-            return trackContainer.map((steps,index) => (
-                <div key={index} className={style.singleStepContainer}>
+            return trackContainer.map((steps,index) => {
+                const isActive = index === isActiveStatus;
+                const isCompleted = index < isActiveStatus;
+                return(
+                <div key={index} className={`${style.singleStepContainer} ${isActive ? style.active : ""} ${isCompleted ? style.complete :""}`} onClick={() => setisActiveStatus(index)}>
                     <div>{steps.icon}</div>
                     <div>{steps.step}</div>
                 </div>
-            ))
+            )})
         }
 
     return (

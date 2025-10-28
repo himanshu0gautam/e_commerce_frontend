@@ -19,3 +19,14 @@
     justify-content: space-between;
     cursor: pointer;
 }
+
+.active {
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+}
+
+.completed {
+  color: #1976d2;
+}

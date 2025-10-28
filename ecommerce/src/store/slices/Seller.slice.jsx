@@ -10,7 +10,10 @@ import {
   sellerVerifyEmailOtp,
   sellerRegistration,
   getAllSeller,
-  getSingleSeller
+  getSingleSeller,
+  ApprovedSeller,
+  RejectSeller,
+  getApprovedAndRejectCount
 } from "../actions/SellerAction";
 
 const sellerSlice = createSlice({
@@ -24,6 +27,7 @@ const sellerSlice = createSlice({
     success: false,
     register:false,
     singleSeller:null,
+    StatusCount:[],
 
     registration: {
       currentStep: 1,
@@ -199,6 +203,37 @@ const sellerSlice = createSlice({
         state.singleSeller = action.payload.seller[0]      
       })
       .addCase(getSingleSeller.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(ApprovedSeller.pending, (state) => {
+        state.loading = false;
+      })
+      .addCase(ApprovedSeller.fulfilled, (state) => {
+        state.loading = false;       
+      })
+      .addCase(ApprovedSeller.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(RejectSeller.pending, (state) => {
+        state.loading = false;
+      })
+      .addCase(RejectSeller.fulfilled, (state) => {
+        state.loading = false; 
+      })
+      .addCase(RejectSeller.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(getApprovedAndRejectCount.pending, (state) => {
+        state.loading = false;
+      })
+      .addCase(getApprovedAndRejectCount.fulfilled, (state,action) => {
+        state.loading = false;
+        state.StatusCount = action.payload
+      })
+      .addCase(getApprovedAndRejectCount.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

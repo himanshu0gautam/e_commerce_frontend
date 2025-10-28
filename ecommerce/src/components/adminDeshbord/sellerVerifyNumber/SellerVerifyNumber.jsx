@@ -3,7 +3,13 @@ import style from './SellerVerifyNumber.module.css'
 import { IoMdTime } from "react-icons/io";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { useSelector } from 'react-redux';
 const SellerVerifyNumber = () => {
+
+   const {StatusCount} =  useSelector(state => state.seller)
+   console.log(StatusCount);
+   
+
   return (
     <div className={style.SellerVerifyNumberContainer}>
         
@@ -28,8 +34,8 @@ const SellerVerifyNumber = () => {
                 <div className={style.status}><p>Approved</p></div>
             </div>
             <div className={style.number}>
-                <p>Pending Review</p>
-                <span>2</span>
+                <p>Approved</p>
+                <span>{StatusCount.approved}</span>
             </div>
         </section>
 
@@ -38,11 +44,11 @@ const SellerVerifyNumber = () => {
          <section className={style.verifyNumber}>
             <div className={style.rejectContainer}>
                 <div className={style.iconInnerContainer}><IoIosCloseCircleOutline className={style.icon}/></div> 
-                <div className={style.status}><p>Approved</p></div>
+                <div className={style.status}><p>Rejected</p></div>
             </div>
             <div className={style.number}>
-                <p>Pending Review</p>
-                <span>2</span>
+                <p>Rejected</p>
+                <span>{StatusCount.rejected}</span>
             </div>
         </section>
 
