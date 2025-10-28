@@ -1,6 +1,10 @@
 .FeaturesSupplier {
   width: 100%;
+<<<<<<< HEAD
   padding: 3rem 0; /* 48px -> 3rem */
+=======
+  padding: 5rem 1.5rem;
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   box-sizing: border-box;
   background: #f8fafb;
 }
@@ -24,10 +28,17 @@
 
 .supplierProfile {
  display: flex;
+<<<<<<< HEAD
   flex-wrap: wrap;         /* allow wrapping on larger screens */
   justify-content: start; /* center cards */
   gap: 2rem;
   padding: 0rem 8rem;
+=======
+  flex-wrap: wrap; /* Allows items to wrap onto multiple lines */
+  justify-content: start; 
+  gap: 1rem;
+  padding: 0rem 5rem;
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
  
 }
 

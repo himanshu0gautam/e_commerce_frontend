@@ -12,10 +12,18 @@
 }
 
 .supplierProfile {
+<<<<<<< HEAD
   display: flex;
   flex-wrap: wrap;         /* allow wrapping on larger screens */
   justify-content: start; /* center cards */
   gap: 2rem;
+=======
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;         /* allow wrapping on larger screens */
+  justify-content: start; /* align cards to start */
+  gap: 1rem;
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
 }
 
 /* -------- Tablet (641px - 1024px) -------- */

@@ -31,7 +31,11 @@
     flex-wrap: wrap;
     display: flex;
     align-items: center;
+<<<<<<< HEAD
     justify-content: center;
+=======
+    justify-content: start;
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
     padding: 1rem 2rem;
 }
 

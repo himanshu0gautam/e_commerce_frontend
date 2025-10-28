@@ -6,16 +6,32 @@ import { IoMdClose } from "react-icons/io";
 import { getStockColors } from "../statusColors/statusColors"
 import { statusColors } from "../statusColors/statusColors"
 import { IoIosArrowDown } from "react-icons/io";
+<<<<<<< HEAD
 // import Cookies from "js-cookie";
 import { Eye, Search, ChevronDown, Check, Download, } from 'lucide-react'
 
+=======
+import Cookies from "js-cookie";
+
+const sellerproduct = [
+  { ProductID: 0, name: "himanshu", sku: "2", category: "fashion", Price: "2000", stock: "343", status: "Active", action: "***" },
+  { ProductID: 1, name: 'Laptop', sku: 'LP-001', category: 'Electronics', Price: '55000', stock: '12', status: 'Active', action: 'Edit' },
+  { ProductID: 2, name: 'Shoes', sku: 'SH-101', category: 'Fashion', Price: '2500', stock: '60', status: 'Draft', action: 'Edit' },
+  { ProductID: 3, name: 'Mixer', sku: 'MX-450', category: 'Home', Price: '3500', stock: '8', status: 'Inactive', action: 'Edit' },
+  { ProductID: 4, name: 'Mixer', sku: 'MX-450', category: 'Home', Price: '3500', stock: '599', status: '--', action: 'Edit' },
+  { ProductID: 5, name: 'Mixer', sku: 'MX-450', category: 'Home', Price: '3500', stock: '8', status: 'Inactive', action: 'Edit' },
+]
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
 // const filterOpt = ["Category","SubCategory","Advance Details","Image"]
 
 const ProductManagement = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [open, setOpen] = useState(false);
+<<<<<<< HEAD
   const [search, setSearch] = useState('')
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   const [selected, setSelected] = useState("Select Category");
   const [overlayStep, setOverlayStep] = useState('category');
 
@@ -73,6 +89,7 @@ const ProductManagement = () => {
   const fileInputs = useRef([]);
 
   const handleImageChange = (index, event) => {
+<<<<<<< HEAD
     const file = event.target.files && event.target.files[0];
     if (!file) return;
     setImages(prev => {
@@ -97,12 +114,34 @@ const ProductManagement = () => {
 
   const handleAddSlot = () => {
     setImages(prev => [...prev, null]); // a new empty slot
+=======
+    const file = event.target.files[0];
+    if (!file) return;
+    const newImages = [...images];
+    newImages[index] = {
+      file,
+      preview: URL.createObjectURL(file)
+    };
+    setImages(newImages);
+  };
+
+  const handleRemove = (index) => {
+    const newImages = [...images];
+    newImages[index] = null;
+    setImages(newImages);
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   };
 
   // Edit image (opens input)
   const handleEdit = (index) => {
+<<<<<<< HEAD
     // click the hidden input for this slot
     fileInputs.current[index]?.click();
+=======
+    if (fileInputs.current[index]) {
+      fileInputs.current[index].click();
+    }
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   };
 
 
@@ -113,6 +152,7 @@ const ProductManagement = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [createdCategoryId, setCreatedCategoryId] = useState(null);
+<<<<<<< HEAD
   const [createdProductId, setCreatedProductId] = useState(null);
   const [createdSubCategoryId, setCreatedSubCategoryId] = useState(null);
   const [formData, setFormData] = React.useState({
@@ -128,6 +168,15 @@ const ProductManagement = () => {
     description: "",
   });
   const [imageData, setImageData] = useState([])
+=======
+  const [createdSubCategoryId, setCreatedSubCategoryId] = useState(null);
+
+
+  //   {
+  //   "phone": "9988210022",
+  //   "password": "Password@12345"
+  //   }
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
 
   // show message
   useEffect(() => {
@@ -148,6 +197,7 @@ const ProductManagement = () => {
     };
   }, [message]);
 
+<<<<<<< HEAD
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevData => ({
@@ -157,19 +207,27 @@ const ProductManagement = () => {
   };
 
 
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   // add category post api
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
     try {
 
       const config = {
         headers: {
           "Content-Type": "application/json",
+<<<<<<< HEAD
           // "content-Type": "multipart/form-data",
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
         },
         withCredentials: true,
       };
@@ -196,7 +254,11 @@ const ProductManagement = () => {
           config
         );
 
+<<<<<<< HEAD
         console.log("subcategory created", subRes.data);
+=======
+        console.log("subcategory", subRes.data);
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
         const subCategoryId = subRes.data?.id || subRes.data?.subCategory?.id;
         setCreatedSubCategoryId(subCategoryId);
 
@@ -217,6 +279,7 @@ const ProductManagement = () => {
         setOverlayStep("child");
       }
 
+<<<<<<< HEAD
       else if (overlayStep === "child") {
 
         const data = new FormData();
@@ -290,6 +353,8 @@ const ProductManagement = () => {
         setImages(Array(MAX_IMAGES).fill(null));
       }
 
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
       // add more api else if 
 
     } catch (error) {
@@ -304,6 +369,7 @@ const ProductManagement = () => {
     }
   };
 
+<<<<<<< HEAD
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
@@ -316,6 +382,19 @@ const ProductManagement = () => {
     })();
   }, [])
 
+=======
+  const[product, setProduct] = useState([]);
+
+  useEffect(() => {
+    ; (async () => {
+      const res = await axios.get("http://localhost:3001/api/seller/all-product");
+      console.log(res.data);
+      setProduct(res.data)
+    })();
+  }, [])
+
+
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   return (
     <div className={styles.productArea}>
       <div className={styles.productHeading}>
@@ -524,9 +603,12 @@ const ProductManagement = () => {
                       <h3 className={styles.ContentHeading}>Product Name</h3>
                       <input className={styles.productname}
                         type="text"
+<<<<<<< HEAD
                         name="product_name"
                         value={formData.product_name}
                         onChange={handleChange}
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                         placeholder="Enter Your Product Name" />
                       {/* </div> */}
 
@@ -534,9 +616,12 @@ const ProductManagement = () => {
                       <h3 className={styles.ContentHeading}>SKU</h3>
                       <input className={styles.productname}
                         type="text"
+<<<<<<< HEAD
                         name="sku"
                         value={formData.sku}
                         onChange={handleChange}
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                         placeholder="Enter Your SKU" />
                       {/* </div> */}
 
@@ -544,9 +629,12 @@ const ProductManagement = () => {
                       <h3 className={styles.ContentHeading}>Brand</h3>
                       <input className={styles.productname}
                         type="text"
+<<<<<<< HEAD
                         name="brand"
                         value={formData.brand}
                         onChange={handleChange}
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                         placeholder="Enter Your Brand Name" />
                       {/* </div> */}
 
@@ -554,18 +642,24 @@ const ProductManagement = () => {
                       <h3 className={styles.ContentHeading}>City</h3>
                       <input className={styles.productname}
                         type="text"
+<<<<<<< HEAD
                         name="location_city"
                         value={formData.location_city}
                         onChange={handleChange}
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                         placeholder="Enter Your City" />
                       {/* </div> */}
                       {/* <div className={styles.product}> */}
                       <h3 className={styles.ContentHeading}>State</h3>
                       <input className={styles.productname}
                         type="text"
+<<<<<<< HEAD
                         name="location_state"
                         value={formData.location_state}
                         onChange={handleChange}
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                         placeholder="Enter Your State" />
                       {/* </div> */}
 
@@ -573,9 +667,12 @@ const ProductManagement = () => {
                       <h3 className={styles.ContentHeading}>Country</h3>
                       <input className={styles.productname}
                         type="text"
+<<<<<<< HEAD
                         name="location_country"
                         value={formData.location_country}
                         onChange={handleChange}
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                         placeholder="Enter Your Country" />
                       {/* </div> */}
 
@@ -583,9 +680,12 @@ const ProductManagement = () => {
                       <h3 className={styles.ContentHeading}>GST Number</h3>
                       <input className={styles.productname}
                         type="text"
+<<<<<<< HEAD
                         name="gst_verified"
                         value={formData.gst_verified}
                         onChange={handleChange}
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                         placeholder="Enter Your GST Number (eg.abcd@1234)" />
                       {/* </div> */}
 
@@ -593,9 +693,12 @@ const ProductManagement = () => {
                       <h3 className={styles.ContentHeading}>Product Unit</h3>
                       <input className={styles.productname}
                         type="text"
+<<<<<<< HEAD
                         name="product_unit"
                         value={formData.product_unit}
                         onChange={handleChange}
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                         placeholder="Enter Product Quantity" />
                       {/* </div> */}
 
@@ -603,18 +706,26 @@ const ProductManagement = () => {
                       <h3 className={styles.ContentHeading}>Product Price</h3>
                       <input className={styles.productname}
                         type="text"
+<<<<<<< HEAD
                         name="product_price"
                         value={formData.product_price}
                         onChange={handleChange}
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                         placeholder="Enter Product Price" />
                       {/* </div> */}
 
 
                       <h3 className={styles.ContentHeading}>Product Description</h3>
                       <input
+<<<<<<< HEAD
                         name="description"
                         value={formData.description}
                         onChange={handleChange}
+=======
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                         className={styles.advancedes}
                         type="text"
                         placeholder="Describe your product in detail. include features and benefits ..." />
@@ -624,8 +735,12 @@ const ProductManagement = () => {
                     </div>
                     <div className={styles.formbtn}>
                       <button type="button" onClick={handlePrev}>Back</button>
+<<<<<<< HEAD
                       {/* Submit the form on child step so handleSubmit runs and posts product data */}
                       <button type="submit">Next</button>
+=======
+                      <button type="button" onClick={handleNext}>Next</button>
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                     </div>
                   </>
                 )}
@@ -640,7 +755,10 @@ const ProductManagement = () => {
                           <div key={idx} >
                             <input
                               type="file"
+<<<<<<< HEAD
                               name="image"
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                               accept="image/*"
                               className={styles.inputtag}
                               ref={(el) => (fileInputs.current[idx] = el)}
@@ -648,6 +766,7 @@ const ProductManagement = () => {
                             />
                             {img ? (
                               <div className={styles.imagepreview}>
+<<<<<<< HEAD
 
                                 <div className={styles.editbtn}>
                                   <img
@@ -663,6 +782,23 @@ const ProductManagement = () => {
                                   </button>
                                 </div>
                               </div>
+=======
+                                
+                                <div className={styles.editbtn}>
+                                  <img
+                                  src={img.preview}
+                                  alt="preview"
+                                  style={{ width: 200, height: 150, objectFit: "cover", border: "1px solid #ddd", borderRadius:"10px" }}
+                                  />
+                                  <button className={styles.imagebtn} type="button" onClick={() => handleRemove(idx)}>
+                                  Remove
+                                </button>
+                                <button className={styles.imagebtn} type="button" onClick={() => handleEdit(idx)}>
+                                  Edit
+                                </button>
+                                </div>
+                                  </div>
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                             ) : (
                               <button className={styles.uploadimgbtn} type="button" onClick={() => handleEdit(idx)}>
                                 Upload Image
@@ -676,7 +812,11 @@ const ProductManagement = () => {
                     </div>
                     <div className={styles.formbtn}>
                       <button type="button" onClick={handlePrev}>Back</button>
+<<<<<<< HEAD
                       <button type="submit">Finish</button>
+=======
+                      <button type="button" onClick={handleNext}>Finish</button>
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                     </div>
                   </>
                 )}
@@ -693,6 +833,7 @@ const ProductManagement = () => {
 
       <div className={styles.productListing}>
 
+<<<<<<< HEAD
         {/* <div className={styles.dropdown}></div> */}
 
         <div className={styles.tableWrapper}>
@@ -702,13 +843,22 @@ const ProductManagement = () => {
             <input type="text" onChange={(e) => setSearch(e.target.value)} className={styles.searchCustomer} />
           </div>
 
+=======
+        <div className={styles.dropdown}></div>
+
+        <div className={styles.tableWrapper}>
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
           <table className={styles.table}>
             <thead className={styles.thead}>
               <tr>
                 <th className={styles.th}>Product ID</th>
                 <th className={styles.th}>Name</th>
                 <th className={styles.th}>SKU</th>
+<<<<<<< HEAD
                 <th className={styles.th}>Brand</th>
+=======
+                <th className={styles.th}>Category</th>
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                 <th className={styles.th}>Price (INR)</th>
                 <th className={styles.th}>Stock</th>
                 <th className={styles.th}>Status</th>
@@ -716,18 +866,31 @@ const ProductManagement = () => {
               </tr>
             </thead>
             <tbody className={styles.padd}>
+<<<<<<< HEAD
               {Array.isArray(product) && product.map((item) => {
+=======
+              {sellerproduct.map((item) => {
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                 const { bgCol, color } = getStockColors(item.stock);
                 const { colors, bgColor } = statusColors.find(s => s.status === item.status) || {};
 
                 return (
 
+<<<<<<< HEAD
                   <tr key={item.product_id} className={styles.tr}>
                     <td className={`${styles.td} ${styles.textDark}`}>{item.product_id}</td>
                     <td className={`${styles.td} ${styles.textGray}`}>{item.product_name}</td>
                     <td className={`${styles.td} ${styles.textGray}`}>{item.sku}</td>
                     <td className={`${styles.td} ${styles.textGray}`}>{item.brand}</td>
                     <td className={`${styles.td} ${styles.price}`}>{item.product_price}</td>
+=======
+                  <tr key={item.ProductID} className={styles.tr}>
+                    <td className={`${styles.td} ${styles.textDark}`}>{item.ProductID}</td>
+                    <td className={`${styles.td} ${styles.textGray}`}>{item.name}</td>
+                    <td className={`${styles.td} ${styles.textGray}`}>{item.sku}</td>
+                    <td className={`${styles.td} ${styles.textGray}`}>{item.category}</td>
+                    <td className={`${styles.td} ${styles.price}`}>{item.Price}</td>
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                     <td className={styles.td}>
                       <span className={`${styles.stock}`} style={{
                         backgroundColor: bgCol,
@@ -736,7 +899,11 @@ const ProductManagement = () => {
                         borderRadius: "12px",
                         marginBottom: "0.5rem"
                       }}>
+<<<<<<< HEAD
                         {item.product_unit}
+=======
+                        {item.stock}
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                       </span>
                     </td>
                     <td className={styles.td}>
@@ -746,6 +913,7 @@ const ProductManagement = () => {
                       </span>
                     </td>
                     <td className={styles.td}>
+<<<<<<< HEAD
                       <button type="button" className={styles.actionBtn}>Edit</button>
                       {/* <td className={`${styles.td} ${styles.textGray}`}>
                       <img
@@ -754,6 +922,9 @@ const ProductManagement = () => {
                         style={{ width: '80px', height: '60px', objectFit: 'cover' }}
                       />
                       </td> */}
+=======
+                      <button className={styles.actionBtn}>{item.action}</button>
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
                     </td>
                   </tr>
                 )

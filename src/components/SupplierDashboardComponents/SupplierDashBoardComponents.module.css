@@ -223,6 +223,7 @@
   border: 1px solid rgb(223, 223, 223);
 }
 
+<<<<<<< HEAD
 .searchProductWrap {
   margin: 2rem 0rem 0.5rem 1.2rem;
   max-width: 450px;
@@ -234,6 +235,8 @@
   box-shadow: inset;
 }
 
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
 /* Table */
 .table {
   width: 100%;
@@ -862,12 +865,17 @@ tr {
 }
 
 /* Order css*/
+<<<<<<< HEAD
 .contFirst {
+=======
+.contFirst{
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   margin-top: 2rem;
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
   background: #ececf0;
+<<<<<<< HEAD
   padding: .3rem;
   width: fit-content;
   border: none;
@@ -875,6 +883,14 @@ tr {
 }
 
 .filterbtn {
+=======
+  padding:  .3rem;
+  width: fit-content;
+  border: none;
+  border-radius: 1rem; 
+}
+.filterbtn{
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   padding: 0.5rem .9rem;
   border-radius: 1rem;
   border: none;
@@ -883,6 +899,7 @@ tr {
   font-size: .95rem;
   font-weight: 550;
 }
+<<<<<<< HEAD
 
 .contSecond {
   border: .15rem solid #ececf0;
@@ -894,10 +911,20 @@ tr {
   /* adds scroll when there are many rows */
 }
 
+=======
+.contSecond{
+  border: .15rem solid #ececf0 ;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  min-height: 400px; /* 👈 ensures fixed area even with few rows */
+  overflow-y: auto;  /* adds scroll when there are many rows */
+}
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
 .table {
   width: 100%;
   padding: 1rem;
 
+<<<<<<< HEAD
   border-collapse: collapse;
   /*to remove spaces btw cell*/
 }
@@ -913,24 +940,47 @@ tr {
 
 .tablehead th {
   text-align: start;
+=======
+  border-collapse: collapse; 
+  /*to remove spaces btw cell*/
+}
+.tablehead{
+  width: 100%;
+  justify-content: space-between;
+}
+.tablehead:hover{
+  background-color: #f3f3f5;
+}
+.tablehead th {
+  text-align: start;  
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   font-weight: 550;
   padding: 1rem 0.4rem;
   justify-content: center;
   align-items: center;
   border: none;
 }
+<<<<<<< HEAD
 
 .tablebody {
+=======
+.tablebody{
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   width: 100%;
   justify-content: space-between;
   /* background-color: #00A63D; */
 }
+<<<<<<< HEAD
 
 .tablebody td {
+=======
+.tablebody td{
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   padding: 1rem 0.4rem;
   justify-content: center;
   align-items: center;
   transition: all 0.5s ease;
+<<<<<<< HEAD
   border-top: .12rem solid #e5e5e5;
 }
 
@@ -940,11 +990,22 @@ tr {
 
 
 .topBar {
+=======
+  border-top: .12rem solid #e5e5e5 ;
+}
+.tablebody:hover{
+  background-color: #f3f3f5;
+}
+
+ 
+.topBar{
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   display: flex;
   width: 100%;
   justify-content: space-between;
   margin-bottom: 2.5rem;
 }
+<<<<<<< HEAD
 
 .topBar div {
   display: flex;
@@ -952,32 +1013,55 @@ tr {
 }
 
 .eyeAction {
+=======
+.topBar div{
+  display: flex;
+  /* gap: 1rem; */
+}
+.eyeAction{
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   display: flex;
   /* align-items: center; */
   justify-content: flex-start;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
 .eyeAction .eye {
   display: flex;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD
   width: 32px;
   /* fix width */
   height: 32px;
   /* fix height */
   padding: 6px;
   /* fixed padding */
+=======
+  width: 32px;       /* fix width */
+  height: 32px;      /* fix height */
+  padding: 6px;      /* fixed padding */
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   border-radius: 4px;
   transition: background 0.2s;
 }
 
 .eyeAction .eye:hover {
+<<<<<<< HEAD
   background: #e2e0e0;
   /* only change background */
   cursor: pointer;
 }
 
 .searchCustomerWrap {
+=======
+  background: #e2e0e0; /* only change background */
+  cursor: pointer;
+}
+.searchCustomerWrap{
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   gap: 0;
   display: flex;
   border: .1rem solid #a1a1a1;
@@ -985,6 +1069,7 @@ tr {
   border-radius: .75rem;
   box-shadow: inset;
 }
+<<<<<<< HEAD
 
 .searchCustomer {
   width: 22rem;
@@ -995,11 +1080,22 @@ tr {
 }
 
 .dropdownBtn {
+=======
+.searchCustomer{
+ width: 22rem;
+ font-size: 1rem;
+ border: none;
+ outline: none;
+ background: transparent;
+}
+.dropdownBtn{
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   padding: .5rem 1rem;
   border: .1rem solid #a1a1a1;
   display: flex;
   align-items: center;
 }
+<<<<<<< HEAD
 
 .gapping {
   gap: 1rem;
@@ -1011,35 +1107,63 @@ tr {
   display: inline-block;
 }
 
+=======
+.gapping{
+  gap: 1rem;
+}
+.wrap{
+  position: relative; /* makes this a positioning context */
+  display: inline-block;
+}
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
 .dropdownBtn {
   display: flex;
   align-items: center;
   justify-content: space-between;
   /* gap: 1rem; */
   background: #f3f3f5;
+<<<<<<< HEAD
   min-width: 10rem;
+=======
+  min-width: 10rem ;
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
   border: none;
 }
+<<<<<<< HEAD
 
 .dropdownBtn div {
   min-width: 7rem;
   padding: 0rem 1rem;
+=======
+.dropdownBtn div{
+  min-width: 7rem;
+  padding:  0rem 1rem;
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
 }
 
 .drop {
   position: absolute;
+<<<<<<< HEAD
   top: 110%;
   /* slightly below the button */
+=======
+  top: 110%; /* slightly below the button */
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   left: 0;
   background: white;
   border: 1px solid #ddd;
   border-radius: 6px;
+<<<<<<< HEAD
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
   /* ensure it appears above */
+=======
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 10; /* ensure it appears above */
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   min-width: 10rem;
   width: fit-content;
   /* padding: 8px; */
@@ -1049,6 +1173,7 @@ tr {
   justify-content: center;
   overflow: hidden;
 }
+<<<<<<< HEAD
 
 .drop p {
   padding: .5rem 1rem;
@@ -1060,6 +1185,17 @@ tr {
 }
 
 .drop p:hover {
+=======
+.drop p{
+ padding: .5rem 1rem;
+ min-width: 10rem;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ cursor: default;
+}
+.drop p:hover{
+>>>>>>> 22ab95ae4708e4cb59ab71ca3bc17b2ebe603a1b
   background-color: #c4c4cf43;
   padding: .5rem 1rem;
 }

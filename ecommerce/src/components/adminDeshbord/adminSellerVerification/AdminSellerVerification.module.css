@@ -1,0 +1,37 @@
+.AdminSellerVerificationContainer {
+  background-color: #ffffff; /* keeps it clean */
+  width: 100%; /* optional, makes it centered and neat */
+  padding: 2rem;
+  border-radius: 12px; /* slightly more rounded */
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.overlay{
+   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.AdminSellerVerificationContainer .heading{
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-left: 2rem;
+}
+
+.heading h2{
+  font-size: 2.4rem;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+
+.AdminSellerVerificationContainer p{
+  font-size: 1rem;
+  opacity: 0.5;
+}
