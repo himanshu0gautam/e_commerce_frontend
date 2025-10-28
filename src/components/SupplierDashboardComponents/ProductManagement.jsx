@@ -73,27 +73,36 @@ const ProductManagement = () => {
   const fileInputs = useRef([]);
 
   const handleImageChange = (index, event) => {
-    const file = event.target.files[0];
+    const file = event.target.files && event.target.files[0];
     if (!file) return;
-    const newImages = [...images];
-    newImages[index] = {
-      file,
-      preview: URL.createObjectURL(file)
-    };
-    setImages(newImages);
+    setImages(prev => {
+      const copy = [...prev];
+      copy[index] = {
+        file,
+        preview: URL.createObjectURL(file)
+      };
+      return copy;
+    });
   };
 
   const handleRemove = (index) => {
-    const newImages = [...images];
-    newImages[index] = null;
-    setImages(newImages);
+    setImages(prev => {
+      const copy = [...prev];
+      // revoke object URL to free memory
+      if (copy[index] && copy[index].preview) URL.revokeObjectURL(copy[index].preview);
+      copy.splice(index, 1);
+      return copy;
+    });
+  };
+
+  const handleAddSlot = () => {
+    setImages(prev => [...prev, null]); // a new empty slot
   };
 
   // Edit image (opens input)
   const handleEdit = (index) => {
-    if (fileInputs.current[index]) {
-      fileInputs.current[index].click();
-    }
+    // click the hidden input for this slot
+    fileInputs.current[index]?.click();
   };
 
 
@@ -104,8 +113,9 @@ const ProductManagement = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [createdCategoryId, setCreatedCategoryId] = useState(null);
+  const [createdProductId, setCreatedProductId] = useState(null);
   const [createdSubCategoryId, setCreatedSubCategoryId] = useState(null);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = React.useState({
     product_name: "",
     sku: "",
     brand: "",
@@ -116,14 +126,8 @@ const ProductManagement = () => {
     product_unit: "",
     product_price: "",
     description: "",
-    image: null
   });
-
-
-  //   {
-  //   "phone": "9988210022",
-  //   "password": "Password@12345"
-  //   }
+  const [imageData, setImageData] = useState([])
 
   // show message
   useEffect(() => {
@@ -148,9 +152,10 @@ const ProductManagement = () => {
     const { name, value } = e.target;
     setFormData(prevData => ({
       ...prevData,
-      [name]: value, // This requires the 'name' attribute on the input!
+      [name]: value
     }));
   };
+
 
   // add category post api
   const handleSubmit = async (e) => {
@@ -158,11 +163,13 @@ const ProductManagement = () => {
     setLoading(true);
     setMessage("");
 
+
     try {
 
       const config = {
         headers: {
           "Content-Type": "application/json",
+          // "content-Type": "multipart/form-data",
         },
         withCredentials: true,
       };
@@ -224,14 +231,63 @@ const ProductManagement = () => {
         data.append("product_price", formData.product_price);
         data.append("description", formData.description);
 
-        const response = await axios.post("http://localhost:3001/api/seller/list-product", data, {
-          headers: { "Content-Type": "multipart/form-data" }
+        if (createdCategoryId) {
+          data.append("category_id", createdCategoryId);
+        } else if (selected && selected !== "Select Category") {
+          data.append("category_name", selected);
+        } else if (category_name) {
+          data.append("category_name", category_name);
+        }
+
+        if (createdSubCategoryId) {
+          data.append("sub_category_id", createdSubCategoryId);
+        } else if (sub_cat_name) {
+          data.append("sub_category_name", sub_cat_name);
+        }
+
+        if (selectedDate) data.append("product_date", selectedDate);
+
+
+        const response = await axios.post("http://localhost:3001/api/seller/list-product", data, config);
+
+        console.log("product created", response.data);
+
+        setFormData({ product_name: "", sku: "", brand: "", location_city: "", location_state: "", location_country: "", gst_verified: "", product_unit: "", product_price: "", description: "" });
+        setMessage(response.data.message || "Product saved successfully!");
+        setOverlayStep("image");
+      }
+
+      else if (overlayStep === "image") {
+
+        const formdata = new FormData();
+
+        // 1. Loop over the 'images' state (where your files actually are)
+        images.forEach(imageObj => {
+          // Check if the slot has a file object
+          if (imageObj && imageObj.file) {
+            // Append the actual File object using the key 'image'
+            formdata.append("image", imageObj.file);
+          }
         });
 
-        console.log("advance category created", response.data);
+        if (createdProductId) {
+          formdata.append("product_id", createdProductId);
+        } else if (nested_sub_cat_name) {
+          formdata.append("nested_sub_cat_name", nested_sub_cat_name)
+        }
 
-        setMessage("Category saved successfully!");
-        setOverlayStep("image");
+        const response = await axios.post(
+          "http://localhost:3001/api/seller/add-image",
+          formdata,
+          {
+            withCredentials: true,
+          }
+        );
+
+        console.log("image url sucessfull", response.data);
+        setImageData([])
+        setMessage(response.data.message || "image_url successfull")
+        setImages(Array(MAX_IMAGES).fill(null));
       }
 
       // add more api else if 
@@ -252,7 +308,9 @@ const ProductManagement = () => {
 
   useEffect(() => {
     ; (async () => {
-      const res = await axios.get("http://localhost:3001/api/seller/all-product");
+      const res = await axios.get("http://localhost:3001/api/seller/all-product?page=${page}&limit=5", 
+        { withCredentials: true }
+      );
       console.log(res.data);
       setProduct(res.data.data)
     })();
@@ -566,7 +624,8 @@ const ProductManagement = () => {
                     </div>
                     <div className={styles.formbtn}>
                       <button type="button" onClick={handlePrev}>Back</button>
-                      <button type="button" onClick={handleNext}>Next</button>
+                      {/* Submit the form on child step so handleSubmit runs and posts product data */}
+                      <button type="submit">Next</button>
                     </div>
                   </>
                 )}
@@ -581,6 +640,7 @@ const ProductManagement = () => {
                           <div key={idx} >
                             <input
                               type="file"
+                              name="image"
                               accept="image/*"
                               className={styles.inputtag}
                               ref={(el) => (fileInputs.current[idx] = el)}
@@ -616,7 +676,7 @@ const ProductManagement = () => {
                     </div>
                     <div className={styles.formbtn}>
                       <button type="button" onClick={handlePrev}>Back</button>
-                      <button type="button" onClick={handleNext}>Finish</button>
+                      <button type="submit">Finish</button>
                     </div>
                   </>
                 )}
@@ -686,15 +746,14 @@ const ProductManagement = () => {
                       </span>
                     </td>
                     <td className={styles.td}>
-                      {/* <button type="button" className={styles.actionBtn}>Edit</button> */}
-                      {/* <img src={item.product_url} alt="product_url"  /> */}
-                      {/* <td className={`${styles.td} ${styles.textGray}`}> */}
+                      <button type="button" className={styles.actionBtn}>Edit</button>
+                      {/* <td className={`${styles.td} ${styles.textGray}`}>
                       <img
-                        src={JSON.parse(item.product_url)[0]}
+                        src={JSON.parse(item.product_url)}
                         alt=""
                         style={{ width: '80px', height: '60px', objectFit: 'cover' }}
                       />
-                      {/* </td> */}
+                      </td> */}
                     </td>
                   </tr>
                 )
