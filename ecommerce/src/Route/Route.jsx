@@ -29,6 +29,7 @@ import ResetPassword from "../pages/seller/sellerForgetPassword/ResetPassword/Re
 import SellerRegister from "../pages/seller/sellerRegister/SellerRegister.jsx";
 import React, { Suspense, } from "react";
 import Admin from "../pages/adminDeshbord/Admin.jsx";
+import ProductDetails from "../components/ProductDetails/ProductDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -68,43 +69,47 @@ const router = createBrowserRouter([
         element: <Fashion />
       },
       {
-        path : '/myprofile',
+        path : 'myprofile',
         element : <MyProfile/>
       },
       {
-        path : '/orders',
+        path : 'orders',
         element : <Orders/>
       },
       {
-        path : '/wishList',
+        path : 'wishList',
         element : <WishList/>
       },
       {
-        path : '/notification',
+        path : 'notification',
         element : <Notification/>
       },
       {
-        path:"/suppliers",
+        path:"suppliers",
         element : <Suppliers/>
       },
       {
-        path :"/supplierprofile",
+        path :"supplierprofile",
         element : <SupplierProfile/>
       },
       {
-        path:'/supplierdashboard',
+        path:'supplierdashboard',
         element : <SupplierDashboard/>
       },
       {
-        path:"/adminuser",
+        path:"adminuser",
         element:<AdminUsers/>
       },{
-        path :  "/registerr",
+        path :  "registerr",
         element : < Registerr/>
       },
       {
-        path : "/loginn",
+        path : "loginn",
         element : <Loginn/>
+      },
+      {
+        path : "/:productName",
+        element:<ProductDetails/>
       }
     ]
   },
