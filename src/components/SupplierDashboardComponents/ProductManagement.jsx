@@ -6,22 +6,16 @@ import { IoMdClose } from "react-icons/io";
 import { getStockColors } from "../statusColors/statusColors"
 import { statusColors } from "../statusColors/statusColors"
 import { IoIosArrowDown } from "react-icons/io";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
+import { Eye, Search, ChevronDown, Check, Download, } from 'lucide-react'
 
-const sellerproduct = [
-  { ProductID: 0, name: "himanshu", sku: "2", category: "fashion", Price: "2000", stock: "343", status: "Active", action: "***" },
-  { ProductID: 1, name: 'Laptop', sku: 'LP-001', category: 'Electronics', Price: '55000', stock: '12', status: 'Active', action: 'Edit' },
-  { ProductID: 2, name: 'Shoes', sku: 'SH-101', category: 'Fashion', Price: '2500', stock: '60', status: 'Draft', action: 'Edit' },
-  { ProductID: 3, name: 'Mixer', sku: 'MX-450', category: 'Home', Price: '3500', stock: '8', status: 'Inactive', action: 'Edit' },
-  { ProductID: 4, name: 'Mixer', sku: 'MX-450', category: 'Home', Price: '3500', stock: '599', status: '--', action: 'Edit' },
-  { ProductID: 5, name: 'Mixer', sku: 'MX-450', category: 'Home', Price: '3500', stock: '8', status: 'Inactive', action: 'Edit' },
-]
 // const filterOpt = ["Category","SubCategory","Advance Details","Image"]
 
 const ProductManagement = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState('')
   const [selected, setSelected] = useState("Select Category");
   const [overlayStep, setOverlayStep] = useState('category');
 
@@ -79,27 +73,36 @@ const ProductManagement = () => {
   const fileInputs = useRef([]);
 
   const handleImageChange = (index, event) => {
-    const file = event.target.files[0];
+    const file = event.target.files && event.target.files[0];
     if (!file) return;
-    const newImages = [...images];
-    newImages[index] = {
-      file,
-      preview: URL.createObjectURL(file)
-    };
-    setImages(newImages);
+    setImages(prev => {
+      const copy = [...prev];
+      copy[index] = {
+        file,
+        preview: URL.createObjectURL(file)
+      };
+      return copy;
+    });
   };
 
   const handleRemove = (index) => {
-    const newImages = [...images];
-    newImages[index] = null;
-    setImages(newImages);
+    setImages(prev => {
+      const copy = [...prev];
+      // revoke object URL to free memory
+      if (copy[index] && copy[index].preview) URL.revokeObjectURL(copy[index].preview);
+      copy.splice(index, 1);
+      return copy;
+    });
+  };
+
+  const handleAddSlot = () => {
+    setImages(prev => [...prev, null]); // a new empty slot
   };
 
   // Edit image (opens input)
   const handleEdit = (index) => {
-    if (fileInputs.current[index]) {
-      fileInputs.current[index].click();
-    }
+    // click the hidden input for this slot
+    fileInputs.current[index]?.click();
   };
 
 
@@ -110,13 +113,21 @@ const ProductManagement = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [createdCategoryId, setCreatedCategoryId] = useState(null);
+  const [createdProductId, setCreatedProductId] = useState(null);
   const [createdSubCategoryId, setCreatedSubCategoryId] = useState(null);
-
-
-  //   {
-  //   "phone": "9988210022",
-  //   "password": "Password@12345"
-  //   }
+  const [formData, setFormData] = React.useState({
+    product_name: "",
+    sku: "",
+    brand: "",
+    location_city: "",
+    location_state: "",
+    location_country: "",
+    gst_verified: "",
+    product_unit: "",
+    product_price: "",
+    description: "",
+  });
+  const [imageData, setImageData] = useState([])
 
   // show message
   useEffect(() => {
@@ -137,6 +148,15 @@ const ProductManagement = () => {
     };
   }, [message]);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+
   // add category post api
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -148,6 +168,7 @@ const ProductManagement = () => {
       const config = {
         headers: {
           "Content-Type": "application/json",
+          // "content-Type": "multipart/form-data",
         },
         withCredentials: true,
       };
@@ -174,7 +195,7 @@ const ProductManagement = () => {
           config
         );
 
-        console.log("subcategory", subRes.data);
+        console.log("subcategory created", subRes.data);
         const subCategoryId = subRes.data?.id || subRes.data?.subCategory?.id;
         setCreatedSubCategoryId(subCategoryId);
 
@@ -195,6 +216,79 @@ const ProductManagement = () => {
         setOverlayStep("child");
       }
 
+      else if (overlayStep === "child") {
+
+        const data = new FormData();
+        data.append("product_name", formData.product_name);
+        data.append("sku", formData.sku);
+        data.append("brand", formData.brand);
+        data.append("location_city", formData.location_city);
+        data.append("location_state", formData.location_state);
+        data.append("location_country", formData.location_country);
+        data.append("gst_verified", formData.gst_verified);
+        data.append("product_unit", formData.product_unit);
+        data.append("product_price", formData.product_price);
+        data.append("description", formData.description);
+
+        if (createdCategoryId) {
+          data.append("category_id", createdCategoryId);
+        } else if (selected && selected !== "Select Category") {
+          data.append("category_name", selected);
+        } else if (category_name) {
+          data.append("category_name", category_name);
+        }
+
+        if (createdSubCategoryId) {
+          data.append("sub_category_id", createdSubCategoryId);
+        } else if (sub_cat_name) {
+          data.append("sub_category_name", sub_cat_name);
+        }
+
+        if (selectedDate) data.append("product_date", selectedDate);
+
+
+        const response = await axios.post("http://localhost:3001/api/seller/list-product", data, config);
+
+        console.log("product created", response.data);
+
+        setFormData({ product_name: "", sku: "", brand: "", location_city: "", location_state: "", location_country: "", gst_verified: "", product_unit: "", product_price: "", description: "" });
+        setMessage(response.data.message || "Product saved successfully!");
+        setOverlayStep("image");
+      }
+
+      else if (overlayStep === "image") {
+
+        const formdata = new FormData();
+
+        // 1. Loop over the 'images' state (where your files actually are)
+        images.forEach(imageObj => {
+          // Check if the slot has a file object
+          if (imageObj && imageObj.file) {
+            // Append the actual File object using the key 'image'
+            formdata.append("image", imageObj.file);
+          }
+        });
+
+        if (createdProductId) {
+          formdata.append("product_id", createdProductId);
+        } else if (nested_sub_cat_name) {
+          formdata.append("nested_sub_cat_name", nested_sub_cat_name)
+        }
+
+        const response = await axios.post(
+          "http://localhost:3001/api/seller/add-image",
+          formdata,
+          {
+            withCredentials: true,
+          }
+        );
+
+        console.log("image url sucessfull", response.data);
+        setImageData([])
+        setMessage(response.data.message || "image_url successfull")
+        setImages(Array(MAX_IMAGES).fill(null));
+      }
+
       // add more api else if 
 
     } catch (error) {
@@ -209,16 +303,17 @@ const ProductManagement = () => {
     }
   };
 
-  const[product, setProduct] = useState([]);
+  const [product, setProduct] = useState([]);
 
   useEffect(() => {
     ; (async () => {
-      const res = await axios.get("http://localhost:3001/api/seller/all-product");
+      const res = await axios.get("http://localhost:3001/api/seller/all-product?page=${page}&limit=5", 
+        { withCredentials: true }
+      );
       console.log(res.data);
-      setProduct(res.data)
+      setProduct(res.data.data)
     })();
   }, [])
-
 
   return (
     <div className={styles.productArea}>
@@ -428,6 +523,9 @@ const ProductManagement = () => {
                       <h3 className={styles.ContentHeading}>Product Name</h3>
                       <input className={styles.productname}
                         type="text"
+                        name="product_name"
+                        value={formData.product_name}
+                        onChange={handleChange}
                         placeholder="Enter Your Product Name" />
                       {/* </div> */}
 
@@ -435,6 +533,9 @@ const ProductManagement = () => {
                       <h3 className={styles.ContentHeading}>SKU</h3>
                       <input className={styles.productname}
                         type="text"
+                        name="sku"
+                        value={formData.sku}
+                        onChange={handleChange}
                         placeholder="Enter Your SKU" />
                       {/* </div> */}
 
@@ -442,6 +543,9 @@ const ProductManagement = () => {
                       <h3 className={styles.ContentHeading}>Brand</h3>
                       <input className={styles.productname}
                         type="text"
+                        name="brand"
+                        value={formData.brand}
+                        onChange={handleChange}
                         placeholder="Enter Your Brand Name" />
                       {/* </div> */}
 
@@ -449,12 +553,18 @@ const ProductManagement = () => {
                       <h3 className={styles.ContentHeading}>City</h3>
                       <input className={styles.productname}
                         type="text"
+                        name="location_city"
+                        value={formData.location_city}
+                        onChange={handleChange}
                         placeholder="Enter Your City" />
                       {/* </div> */}
                       {/* <div className={styles.product}> */}
                       <h3 className={styles.ContentHeading}>State</h3>
                       <input className={styles.productname}
                         type="text"
+                        name="location_state"
+                        value={formData.location_state}
+                        onChange={handleChange}
                         placeholder="Enter Your State" />
                       {/* </div> */}
 
@@ -462,6 +572,9 @@ const ProductManagement = () => {
                       <h3 className={styles.ContentHeading}>Country</h3>
                       <input className={styles.productname}
                         type="text"
+                        name="location_country"
+                        value={formData.location_country}
+                        onChange={handleChange}
                         placeholder="Enter Your Country" />
                       {/* </div> */}
 
@@ -469,6 +582,9 @@ const ProductManagement = () => {
                       <h3 className={styles.ContentHeading}>GST Number</h3>
                       <input className={styles.productname}
                         type="text"
+                        name="gst_verified"
+                        value={formData.gst_verified}
+                        onChange={handleChange}
                         placeholder="Enter Your GST Number (eg.abcd@1234)" />
                       {/* </div> */}
 
@@ -476,6 +592,9 @@ const ProductManagement = () => {
                       <h3 className={styles.ContentHeading}>Product Unit</h3>
                       <input className={styles.productname}
                         type="text"
+                        name="product_unit"
+                        value={formData.product_unit}
+                        onChange={handleChange}
                         placeholder="Enter Product Quantity" />
                       {/* </div> */}
 
@@ -483,14 +602,18 @@ const ProductManagement = () => {
                       <h3 className={styles.ContentHeading}>Product Price</h3>
                       <input className={styles.productname}
                         type="text"
+                        name="product_price"
+                        value={formData.product_price}
+                        onChange={handleChange}
                         placeholder="Enter Product Price" />
                       {/* </div> */}
 
 
                       <h3 className={styles.ContentHeading}>Product Description</h3>
                       <input
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChange}
                         className={styles.advancedes}
                         type="text"
                         placeholder="Describe your product in detail. include features and benefits ..." />
@@ -500,7 +623,8 @@ const ProductManagement = () => {
                     </div>
                     <div className={styles.formbtn}>
                       <button type="button" onClick={handlePrev}>Back</button>
-                      <button type="button" onClick={handleNext}>Next</button>
+                      {/* Submit the form on child step so handleSubmit runs and posts product data */}
+                      <button type="submit">Next</button>
                     </div>
                   </>
                 )}
@@ -515,6 +639,7 @@ const ProductManagement = () => {
                           <div key={idx} >
                             <input
                               type="file"
+                              name="image"
                               accept="image/*"
                               className={styles.inputtag}
                               ref={(el) => (fileInputs.current[idx] = el)}
@@ -522,21 +647,21 @@ const ProductManagement = () => {
                             />
                             {img ? (
                               <div className={styles.imagepreview}>
-                                
+
                                 <div className={styles.editbtn}>
                                   <img
-                                  src={img.preview}
-                                  alt="preview"
-                                  style={{ width: 200, height: 150, objectFit: "cover", border: "1px solid #ddd", borderRadius:"10px" }}
+                                    src={img.preview}
+                                    alt="preview"
+                                    style={{ width: 200, height: 150, objectFit: "cover", border: "1px solid #ddd", borderRadius: "10px" }}
                                   />
                                   <button className={styles.imagebtn} type="button" onClick={() => handleRemove(idx)}>
-                                  Remove
-                                </button>
-                                <button className={styles.imagebtn} type="button" onClick={() => handleEdit(idx)}>
-                                  Edit
-                                </button>
+                                    Remove
+                                  </button>
+                                  <button className={styles.imagebtn} type="button" onClick={() => handleEdit(idx)}>
+                                    Edit
+                                  </button>
                                 </div>
-                                  </div>
+                              </div>
                             ) : (
                               <button className={styles.uploadimgbtn} type="button" onClick={() => handleEdit(idx)}>
                                 Upload Image
@@ -550,7 +675,7 @@ const ProductManagement = () => {
                     </div>
                     <div className={styles.formbtn}>
                       <button type="button" onClick={handlePrev}>Back</button>
-                      <button type="button" onClick={handleNext}>Finish</button>
+                      <button type="submit">Finish</button>
                     </div>
                   </>
                 )}
@@ -567,16 +692,22 @@ const ProductManagement = () => {
 
       <div className={styles.productListing}>
 
-        <div className={styles.dropdown}></div>
+        {/* <div className={styles.dropdown}></div> */}
 
         <div className={styles.tableWrapper}>
+
+          <div className={styles.searchProductWrap}>
+            <Search padding={0} width={18} />
+            <input type="text" onChange={(e) => setSearch(e.target.value)} className={styles.searchCustomer} />
+          </div>
+
           <table className={styles.table}>
             <thead className={styles.thead}>
               <tr>
                 <th className={styles.th}>Product ID</th>
                 <th className={styles.th}>Name</th>
                 <th className={styles.th}>SKU</th>
-                <th className={styles.th}>Category</th>
+                <th className={styles.th}>Brand</th>
                 <th className={styles.th}>Price (INR)</th>
                 <th className={styles.th}>Stock</th>
                 <th className={styles.th}>Status</th>
@@ -584,18 +715,18 @@ const ProductManagement = () => {
               </tr>
             </thead>
             <tbody className={styles.padd}>
-              {sellerproduct.map((item) => {
+              {Array.isArray(product) && product.map((item) => {
                 const { bgCol, color } = getStockColors(item.stock);
                 const { colors, bgColor } = statusColors.find(s => s.status === item.status) || {};
 
                 return (
 
-                  <tr key={item.ProductID} className={styles.tr}>
-                    <td className={`${styles.td} ${styles.textDark}`}>{item.ProductID}</td>
-                    <td className={`${styles.td} ${styles.textGray}`}>{item.name}</td>
+                  <tr key={item.product_id} className={styles.tr}>
+                    <td className={`${styles.td} ${styles.textDark}`}>{item.product_id}</td>
+                    <td className={`${styles.td} ${styles.textGray}`}>{item.product_name}</td>
                     <td className={`${styles.td} ${styles.textGray}`}>{item.sku}</td>
-                    <td className={`${styles.td} ${styles.textGray}`}>{item.category}</td>
-                    <td className={`${styles.td} ${styles.price}`}>{item.Price}</td>
+                    <td className={`${styles.td} ${styles.textGray}`}>{item.brand}</td>
+                    <td className={`${styles.td} ${styles.price}`}>{item.product_price}</td>
                     <td className={styles.td}>
                       <span className={`${styles.stock}`} style={{
                         backgroundColor: bgCol,
@@ -604,7 +735,7 @@ const ProductManagement = () => {
                         borderRadius: "12px",
                         marginBottom: "0.5rem"
                       }}>
-                        {item.stock}
+                        {item.product_unit}
                       </span>
                     </td>
                     <td className={styles.td}>
@@ -614,7 +745,14 @@ const ProductManagement = () => {
                       </span>
                     </td>
                     <td className={styles.td}>
-                      <button className={styles.actionBtn}>{item.action}</button>
+                      <button type="button" className={styles.actionBtn}>Edit</button>
+                      {/* <td className={`${styles.td} ${styles.textGray}`}>
+                      <img
+                        src={JSON.parse(item.product_url)}
+                        alt=""
+                        style={{ width: '80px', height: '60px', objectFit: 'cover' }}
+                      />
+                      </td> */}
                     </td>
                   </tr>
                 )
