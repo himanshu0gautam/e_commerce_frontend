@@ -17,8 +17,8 @@
 
 .rightCont{
     width: 50%;
-    background-color: rgb(220, 239, 53);
-    padding: 1rem;
+    /* background-color: rgb(220, 239, 53); */
+    padding: 3rem 1rem;
 
 }
 .leftImgCont{
@@ -53,5 +53,111 @@
 
 .Heading{
     font-weight: 400;
+    font-size: large;
     
+}
+.rightCont {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 2rem;
+  padding: 2rem 2rem 4rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  max-width: 480px;
+  height: fit-content;
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #212121;
+}
+
+.brand {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #757575;
+}
+
+.rating {
+  display: inline-flex;
+  align-items: center;
+  background: #388e3c;
+  color: #fff;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  width: fit-content;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.price {
+  margin-top: 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #d32f2f;
+}
+
+.tax {
+  font-size: 0.85rem;
+  color: #757575;
+  font-weight: 400;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.addToCart,
+.buyNow {
+  flex: 1;
+  border: none;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.addToCart {
+  background-color: #ff9f00;
+  color: #fff;
+}
+
+.buyNow {
+  background-color: #fb641b;
+  color: #fff;
+}
+
+.addToCart:hover {
+  background-color: #f68b00;
+}
+
+.buyNow:hover {
+  background-color: #e4580b;
+}
+
+@media (max-width: 768px) {
+  .rightCont {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  .heading {
+    font-size: 1.2rem;
+  }
+
+  .price {
+    font-size: 1.4rem;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
 }
