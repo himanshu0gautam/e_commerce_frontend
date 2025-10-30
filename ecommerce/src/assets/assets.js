@@ -11,6 +11,7 @@ import Electronics from '../assets/Electronics.png'
 import Books from '../assets/Books.png'
 import Loginbg1 from '../assets/Loginbg1.jpg'
 import Loginbg2 from "../assets/Loginbg2.jpg"
+import EmptyCartIcon from '../assets/EmptyCartIcon.svg'
 export const  assets = {
     Logo,
     search,
@@ -24,5 +25,6 @@ export const  assets = {
     Electronics,
     Books,
     Loginbg1,
-    Loginbg2
+    Loginbg2,
+    EmptyCartIcon
 }

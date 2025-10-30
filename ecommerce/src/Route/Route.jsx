@@ -30,7 +30,7 @@ import SellerRegister from "../pages/seller/sellerRegister/SellerRegister.jsx";
 import React, { Suspense, } from "react";
 import Admin from "../pages/adminDeshbord/Admin.jsx";
 import ProductDetails from "../components/ProductDetails/ProductDetails.jsx";
-
+import Cart from "../pages/Cart.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -110,6 +110,10 @@ const router = createBrowserRouter([
       {
         path : "/:productName",
         element:<ProductDetails/>
+      },
+      {
+        path : "cart",
+        element : <Cart/>
       }
     ]
   },

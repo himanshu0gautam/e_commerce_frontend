@@ -1,0 +1,129 @@
+.CartContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 87vh;
+    gap: 2rem;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.EmptyCartContainer {
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 40rem;
+    border: 2px solid lightgray;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+}
+
+.EmptyCartIcon {
+    height: 20rem;
+    width: 20rem;
+    color: gray;
+}
+
+.head {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.para {
+    font-size: 1rem;
+    color: gray;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+.ButtonContainer {
+    margin-top: 1.5rem;
+    background-color: black;
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.ButtonContainer:hover {
+    background-color: #333;
+}
+
+@media (max-width: 1024px) {
+    .EmptyCartContainer {
+        min-width: 30rem;
+    }
+
+    .EmptyCartIcon {
+        height: 15rem;
+        width: 15rem;
+    }
+
+    .head {
+        font-size: 1.8rem;
+    }
+
+    .para {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .EmptyCartContainer {
+        min-width: 90%;
+        padding: 1rem;
+    }
+
+    .EmptyCartIcon {
+        height: 12rem;
+        width: 12rem;
+    }
+
+    .head {
+        font-size: 1.5rem;
+    }
+
+    .para {
+        font-size: 0.9rem;
+    }
+
+    .ButtonContainer {
+        width: 100%;
+        text-align: center;
+        padding: 0.8rem;
+        font-size: 0.95rem;
+        max-width: 6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .EmptyCartContainer {
+        min-width: 100%;
+        border: none;
+        padding: 0.5rem;
+    }
+
+    .EmptyCartIcon {
+        height: 10rem;
+        width: 10rem;
+    }
+
+    .head {
+        font-size: 1.3rem;
+    }
+
+    .para {
+        font-size: 0.85rem;
+    }
+
+    .ButtonContainer {
+        font-size: 0.9rem;
+        padding: 0.7rem;
+    }
+}
