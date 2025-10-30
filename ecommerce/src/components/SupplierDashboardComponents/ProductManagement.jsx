@@ -8,6 +8,7 @@ import { statusColors } from "../statusColors/statusColors"
 import { IoIosArrowDown } from "react-icons/io";
 import Cookies from "js-cookie";
 import Search from "../SearchBar/SearchBar";
+import { axiosInstance_2 } from "../../store/APi/axiosInstance";  
 
 
 // const filterOpt = ["Category","SubCategory","Advance Details","Image"]
@@ -129,12 +130,6 @@ const ProductManagement = () => {
 
   const [imageData, setImageData] = useState([]);
 
-
-  //   {
-  //   "phone": "9988210022",
-  //   "password": "Password@12345"
-  //   }
-
   // show message
   useEffect(() => {
     let timer;
@@ -178,7 +173,7 @@ const ProductManagement = () => {
       };
 
       if (overlayStep === "category") {
-        const res = await axios.post("http://localhost:3001/api/seller/seller-category",
+        const res = await axiosInstance_2.post("/seller/seller-category",
           { category_name: selected || category_name, description },
           config
         );
@@ -193,8 +188,8 @@ const ProductManagement = () => {
 
       else if (overlayStep === "subcategory") {
         // create subcategory
-        const subRes = await axios.post(
-          "http://localhost:3001/api/seller/seller-subCategory",
+        const subRes = await axiosInstance_2.post(
+          "/seller/seller-subCategory",
           { sub_cat_name, description, category_id: createdCategoryId },    //category_id: createdCategoryId, // optional link   
           config
         );
@@ -250,7 +245,7 @@ const ProductManagement = () => {
 
         if (selectedDate) data.append("product_date", selectedDate);
 
-        const response = await axios.post("http://localhost:3001/api/seller/list-product", data, config);
+        const response = await axiosInstance_2.post("/seller/list-product", data, config);
 
         console.log("product created", response.data);
 
@@ -278,8 +273,8 @@ const ProductManagement = () => {
           formdata.append("nested_sub_cat_name", nested_sub_cat_name)
         }
 
-        const response = await axios.post(
-          "http://localhost:3001/api/seller/add-image",
+        const response = await axiosInstance_2.post(
+          "/seller/add-image",
           formdata,
           {
             withCredentials: true,
@@ -310,7 +305,7 @@ const ProductManagement = () => {
 
   useEffect(() => {
     ; (async () => {
-      const res = await axios.get("http://localhost:3001/api/seller/all-product?page=${page}&limit=5",
+      const res = await axiosInstance_2.get("/seller/all-product?page=${page}&limit=5",
         { withCredentials: true }
       );
       console.log(res.data);
