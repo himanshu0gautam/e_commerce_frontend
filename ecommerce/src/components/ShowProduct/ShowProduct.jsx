@@ -57,7 +57,7 @@ const ShowProduct = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <h3 style={{ marginLeft: '1.3rem' }}>Product</h3>
+      {/* <h3 style={{ marginLeft: '1.3rem' }}>Product</h3> */}
 
       {/* {products.map((p, index) => {
         return (
