@@ -202,17 +202,11 @@
     padding: 0.5rem;
   }
 
-<<<<<<< HEAD
-  .leftCont,
-  .rightCont {
-    padding: 1rem;
-  }
-=======
 .rightCont{
     width: 50%;
     /* background-color: rgb(220, 239, 53); */
     padding: 3rem 1rem;
->>>>>>> f95e76a32149e495923b9cce0035a0020932d486
+}
 
   .Heading {
     font-size: 1.1rem;
@@ -226,11 +220,6 @@
     font-size: 0.9rem;
   }
 
-<<<<<<< HEAD
-  .actions button {
-    font-size: 0.9rem;
-    padding: 0.7rem;
-=======
 .Heading{
     font-weight: 400;
     font-size: large;
@@ -322,6 +311,7 @@
 .buyNow:hover {
   background-color: #e4580b;
 }
+}
 
 @media (max-width: 768px) {
   .rightCont {
@@ -339,6 +329,5 @@
 
   .actions {
     flex-direction: column;
->>>>>>> f95e76a32149e495923b9cce0035a0020932d486
   }
 }

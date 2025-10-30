@@ -1,11 +1,7 @@
 import React, { useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 import styles from './ProductDetails.module.css'
-<<<<<<< HEAD
-import ImageZoom from '../ImageZoom/ImageZoom.jsx'
-=======
 import ImageZoom from '../ImageZoom/ImageZoom'
->>>>>>> f95e76a32149e495923b9cce0035a0020932d486
 const ProductDetails = () => {
     const location = useLocation()
     const product = location.state?.pdt;
@@ -24,18 +20,6 @@ const ProductDetails = () => {
                 </div>
 
                 <div className={styles.rightImgCont}>
-<<<<<<< HEAD
-                    <div className={styles.rightImg}>
-                        <ImageZoom src={product.image_urls[0][currindx]}  alt="" height={470} width={470} />
-                    </div>
-                </div>
-            </div>
-
-         
-             <div className={styles.rightCont}>
-            <div className={styles.heading}>
-                {product?.brand} <span className={styles.brand}>({product?.product_name})</span>
-=======
 
                         
                             <div className={styles.rightImg}>
@@ -64,7 +48,6 @@ const ProductDetails = () => {
                 <button className={styles.addToCart}>Add to Cart</button>
                 <button className={styles.buyNow}>Buy Now</button>
             </div>
->>>>>>> f95e76a32149e495923b9cce0035a0020932d486
             </div>
 
             <div className={styles.rating}>
@@ -80,10 +63,7 @@ const ProductDetails = () => {
                 <button className={styles.addToCart}>Add to Cart</button>
                 <button className={styles.buyNow}>Buy Now</button>
             </div>
-            </div>
-
-            {/* {JSON.stringify(product)} */}
-
+          
         </div>
     )
 }
