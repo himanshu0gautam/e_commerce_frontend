@@ -98,7 +98,11 @@ const Navbar = () => {
 
                 {/* User Section */}
                 <div className={style.UserContainer}>
+<<<<<<< HEAD
                     <div className={style.iconNames} onClick={() => navigate('/cart')}>
+=======
+                    <div className={style.iconNames} onClick={()=> navigate("/cart")}>
+>>>>>>> f95e76a32149e495923b9cce0035a0020932d486
                         <GrCart className={style.cart} />
                         <p>Cart</p>
                     </div>

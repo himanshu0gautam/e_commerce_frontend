@@ -1,5 +1,6 @@
 .zoomContainer {
   display: flex;
+<<<<<<< HEAD
   position: relative;
   flex-wrap: wrap;
   justify-content: center;
@@ -17,12 +18,27 @@
   border: 1px solid #ddd;
   border-radius: 0.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+=======
+  /* gap: 5rem; */
+  position: relative;
+}
+
+/* Left side main image */
+.imageContainer {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+>>>>>>> f95e76a32149e495923b9cce0035a0020932d486
 }
 
 .image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+<<<<<<< HEAD
   transition: transform 0.3s ease-out;
 }
 
@@ -96,4 +112,26 @@
     height: 250px;
     background-size: 150%;
   }
+=======
+  transition: transform 0.2s ease;
+}
+
+/* .imageContainer:hover .image {
+  transform: scale(1.05);
+} */
+
+/* Right side zoomed image */
+.zoomedImage {
+  width: 45rem;
+  height: 40rem;
+  border: 1px solid #ccc;
+  background-repeat: no-repeat;
+  background-size: 200%; /* adjust for zoom strength */
+  border-radius: 10px;
+  display: none;
+  position: absolute;
+  left: 35rem; /* gap between image and zoom box */
+  top: 0;
+  z-index: 10;
+>>>>>>> f95e76a32149e495923b9cce0035a0020932d486
 }

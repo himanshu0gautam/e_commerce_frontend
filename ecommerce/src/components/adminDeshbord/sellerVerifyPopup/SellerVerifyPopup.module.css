@@ -65,3 +65,26 @@
     bottom: 0;
     right: 0;
 }
+
+.status {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.pending {
+  background: #fff7e6;
+  color: #b45309;
+}
+
+.approved {
+  background: #e7f9ef;
+  color: #047857;
+}
+
+.rejected {
+  background: #fde2e2;
+  color: #b91c1c;
+}
