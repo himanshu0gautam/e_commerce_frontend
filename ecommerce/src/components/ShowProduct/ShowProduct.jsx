@@ -11,9 +11,9 @@ const ShowProduct = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://192.168.1.48:3001/api/seller/all-product-image')
-        setproducts(response?.data?.data);
+        const response = await axios.get('http://192.168.1.35:3001/api/seller/all-product-image')
         console.log("Fetched products:", response?.data?.data[0]);
+        setproducts(response?.data?.data);
         // console.log("Fetched products:",response?.data?.data);
 
       } catch (error) {

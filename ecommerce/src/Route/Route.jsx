@@ -31,10 +31,6 @@ import React, { Suspense, } from "react";
 import Admin from "../pages/adminDeshbord/Admin.jsx";
 import ProductDetails from "../components/ProductDetails/ProductDetails.jsx";
 import Cart from "../pages/Cart.jsx";
-<<<<<<< HEAD
-=======
-
->>>>>>> f95e76a32149e495923b9cce0035a0020932d486
 const router = createBrowserRouter([
   {
     path: "/",
@@ -116,11 +112,7 @@ const router = createBrowserRouter([
         element:<ProductDetails/>
       },
       {
-<<<<<<< HEAD
-        path : "cart",
-=======
         path: '/cart',
->>>>>>> f95e76a32149e495923b9cce0035a0020932d486
         element : <Cart/>
       }
     ]
