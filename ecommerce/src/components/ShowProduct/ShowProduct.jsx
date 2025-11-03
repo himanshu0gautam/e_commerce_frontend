@@ -9,7 +9,7 @@ const ShowProduct = () => {
   const [visibleImages, setVisibleImages] = useState([]);
   const [visibleCount, setVisibleCount] = useState(10);
   const loaderRef = useRef(null);
-  // console.log("products", products);
+  console.log("products", products);
 
   useEffect(() => {
     const fetchProducts = async () => {

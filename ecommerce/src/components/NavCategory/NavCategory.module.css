@@ -1,42 +1,43 @@
-.container{
-    display: flex;
-    align-items: center;
-    background-color:  rgb(243, 243, 248); 
-    padding-top: .7rem;
-    padding-bottom: .7rem;
-    padding-right: 4rem;
-    padding-left: 6rem;
-    margin-top: .75rem;
-    font-family:  Helvetica , Arial, sans-serif;
-    gap: 3rem;
-    font-size: .9rem;
-    position: relative;
-    flex-wrap: wrap;
-   
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(243, 243, 248);
+  padding: 0.7rem 4rem 0.7rem 6rem;
+  margin-top: 0.75rem;
+  font-family: Helvetica, Arial, sans-serif;
+  gap: 3rem;
+  font-size: 0.9rem;
+  position: relative;
+  flex-wrap: wrap;
+  width: 100%;
 }
-.allCat{
-    display: flex;
-    align-items: center;
-    gap: .5rem;
+
+.allCat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
-.alignIcon{
-    font-size: 1.5rem;
-    font-weight: 900;
+
+.alignIcon {
+  font-size: 1.5rem;
+  font-weight: 900;
 }
+
 .cat {
   position: relative;
   cursor: default;
 }
 
 .cat:hover .DropDown {
-  display: block; /* ✅ show submenu on hover */
+  display: block;
 }
 
 .cat::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -2px; 
+  bottom: -2px;
   width: 100%;
   height: 2px;
   background: linear-gradient(to left, #10b981, #14b8a6, #0ea5e9);
@@ -49,82 +50,132 @@
   transform: scaleX(1);
   transform-origin: left;
 }
-.mobileMenu{
-  display: none;
-}
 
-.allCatLink{
-  
-  font-weight: 900;
-  color: black;
-  text-decoration: none; 
-}
-.activeallCatLink{
-  color: black;
-  text-decoration: none; 
-}
-.allCatLink :hover{
-  font-weight: 900;
-  color: black;
-  text-decoration: none; 
-}
-
-@media (max-width:1024px) {
-  .container{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color:  rgb(243, 243, 248); 
-    padding-top: .7rem;
-    padding-bottom: .7rem;
-    padding-right: 1rem;
-    padding-left: 1rem;
-    margin-top: .75rem;
-    font-family:  Helvetica , Arial, sans-serif;
-    gap: 1rem;
-    font-size: .9rem;
-    position: relative;
-    flex-wrap: wrap;
-    width: 100%;
-}
-  
-}
-@media (max-width : 767px) {
-.container{
-    position: absolute;
-    top: .0001rem;
-    left: .5rem;
-    width: 100%;
-    background-color: transparent;
-}
-.allCat span{
-  display: none;
-}
-.catWrapper{
-  display: none;
-}
 .mobileMenu {
-  display: flex; /* ✅ by default hidden */
-  flex-direction: column;
-  background: white;
-  padding: 1rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* ✅ dropdown shadow */
-  position: absolute;
-  top: 3rem;
-  left: 0;
-  width: 70%;
-  z-index: 99;
+  display: none;
 }
 
-.mobileCat {
-  padding: .75rem 1rem;
-  border-bottom: 1px solid #ddd;
-  cursor: pointer;
+.allCatLink {
+  font-weight: 900;
+  color: black;
+  text-decoration: none;
 }
 
-.mobileCat:hover {
-  background: #f3f3f3;
+.activeallCatLink {
+  color: black;
+  text-decoration: none;
 }
 
+.allCatLink:hover {
+  font-weight: 900;
+  color: black;
+  text-decoration: none;
+}
 
+@media (max-width: 1280px) {
+  .container {
+    padding: 0.7rem 2rem;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 0.7rem 1rem;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    justify-content: space-between;
+    padding: 0.7rem 1.5rem;
+  }
+
+  .catWrapper {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 3rem;
+    left: 0;
+    width: 70%;
+    z-index: 99;
+  }
+
+  .mobileCat {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+
+  .mobileCat:hover {
+    background: #f3f3f3;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+  
+    background: white;
+    padding: 0.7rem 1rem;
+    z-index: 100;
+  }
+
+  .allCat span {
+    display: none;
+  }
+
+  .catWrapper {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 3rem;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+  }
+
+  .mobileCat {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+
+  .mobileCat:hover {
+    background: #f3f3f3;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .alignIcon {
+    font-size: 1.3rem;
+  }
+
+  .mobileMenu {
+    width: 100%;
+    padding: 0.8rem;
+  }
+
+  .mobileCat {
+    padding: 0.6rem 0.8rem;
+  }
 }

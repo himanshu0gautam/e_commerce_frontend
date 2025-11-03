@@ -7,7 +7,6 @@
   padding: 5rem 7rem 0rem 7rem;
 }
 
-/* line */
 .line {
   border: none;
   border-top: 2px solid rgba(108, 117, 131, 0.24);
@@ -23,7 +22,7 @@
 
 .mainContainer p {
   color: rgb(108, 117, 131);
-  font-size: clamp(0.8rem, 1.2vw, 1rem); /* fluid text */
+  font-size: clamp(0.8rem, 1.2vw, 1rem);
 }
 
 .mainContainer span {
@@ -43,13 +42,12 @@
 
 .mainContainer h2 {
   color: rgb(227, 228, 229);
-  font-size: clamp(1.2rem, 2vw, 1.8rem); /* fluid heading */
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
   font-weight: 700;
   cursor: pointer;
   margin-bottom: 1rem;
 }
 
-/* section 1 */
 .linkSection {
   width: 25%;
   display: flex;
@@ -111,7 +109,6 @@
   color: white;
 }
 
-/* section 2 */
 .aboutSection {
   width: 25%;
   display: flex;
@@ -119,7 +116,6 @@
   gap: 0.5rem;
 }
 
-/* section 3 */
 .catogoriesSection {
   display: flex;
   flex-direction: column;
@@ -127,7 +123,6 @@
   width: 25%;
 }
 
-/* section 4 */
 .contectSection {
   width: 25%;
   display: flex;
@@ -141,7 +136,6 @@
   font-size: clamp(0.8rem, 1.2vw, 1rem);
 }
 
-/* section 5 */
 .lastSection {
   display: flex;
   justify-content: space-between;
@@ -155,64 +149,58 @@
   font-size: clamp(0.75rem, 1vw, 0.9rem);
 }
 
-/* 📱 Mobile view (0px – 767px) */
 @media (max-width: 767px) {
+  .mainContainer {
+    padding: 2rem 1rem;
+  }
   .mainFooter {
     flex-direction: column;
     gap: 2rem;
-    padding: 2rem 1rem;
   }
-
   .linkSection,
   .aboutSection,
   .catogoriesSection,
   .contectSection {
     width: 100%;
   }
-
   .imagelogo img {
     width: 50%;
   }
-
   .lastSection {
     flex-direction: column;
     align-items: center;
     text-align: center;
     gap: 1rem;
   }
-
   .lastSection .policy {
     flex-direction: column;
     gap: 0.8rem;
   }
-
   .linkIcons {
     justify-content: center;
   }
 }
 
-/* 💻 Tablet view (768px – 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
+  .mainContainer {
+    padding: 3rem 2rem;
+  }
   .mainFooter {
     flex-wrap: wrap;
     gap: 2rem;
-    padding: 2rem;
   }
-
   .linkSection,
   .aboutSection,
   .catogoriesSection,
   .contectSection {
     width: 45%;
   }
-
   .lastSection {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
     text-align: center;
   }
-
   .lastSection .policy {
     justify-content: center;
     flex-wrap: wrap;
