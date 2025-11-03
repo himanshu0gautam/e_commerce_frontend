@@ -31,6 +31,8 @@ import React, { Suspense, } from "react";
 import Admin from "../pages/adminDeshbord/Admin.jsx";
 import ProductDetails from "../components/ProductDetails/ProductDetails.jsx";
 import Cart from "../pages/Cart.jsx";
+import ForgetPassword from "../pages/signIn/forgetpassword/ForgetPassword.jsx";
+import VerifyForgetOtp from "../pages/signIn/verifyForgetOTp/VerifyForgetOtp.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -99,13 +101,6 @@ const router = createBrowserRouter([
       {
         path:"adminuser",
         element:<AdminUsers/>
-      },{
-        path :  "registerr",
-        element : < Registerr/>
-      },
-      {
-        path : "loginn",
-        element : <Loginn/>
       },
       {
         path : "/:productName",
@@ -125,6 +120,18 @@ const router = createBrowserRouter([
       {
         path: "login",   // child route -> /auth/signin
         element: <Login />
+      },
+      {
+        path: "send-OTP",   // child route -> /auth/signin
+        element: <ForgetPassword />
+      },
+      {
+        path: "verify-OTP",   // child route -> /auth/signin
+        element: <VerifyForgetOtp />
+      },
+      {
+        path: "registerr",   // child route -> /auth/signin
+        element: <Registerr />
       },
       {
         path :"userdetails",
