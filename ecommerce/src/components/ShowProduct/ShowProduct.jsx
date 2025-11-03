@@ -2,6 +2,57 @@ import React, { useEffect, useState } from 'react'
 import { MdOutlineVerifiedUser } from "react-icons/md";
 import styles from './ShowProduct.module.css'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+const ShowProduct = () => {
+
+  const [products, setproducts] = useState([])
+  const [visibleImages, setVisibleImages] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(10);
+  const loaderRef = useRef(null);
+  console.log("products", products);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://192.168.1.43:3001/api/seller/all-product-image')
+        console.log("Fetched products:", response?.data?.data[0]);
+        setproducts(response?.data?.data);
+        setVisibleImages(response?.data?.data.slice(0,visibleCount));
+        // console.log("Fetched products:",response?.data?.data);
+
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    }
+    fetchProducts();
+  }, [])
+
+
+  // Scroll observer
+  useEffect(()=>{
+    const observer = new IntersectionObserver((enteries)=>{
+      const target = enteries[0];
+      if(target.isIntersecting){
+        console.log('%c🔽 Bottom reached — Loading more products...', 'color: green');
+        setVisibleCount(prev => prev+10)
+      }
+
+  },{threshold :1.0});
+  if(loaderRef.current) observer.observe(loaderRef.current);
+    return ()=>{ 
+      if (visibleCount >= products.length) {
+        observer.disconnect();}
+}
+  },[])
+
+  // Update visible images when count changes
+  useEffect(()=>{
+    setVisibleImages(products.slice(0,visibleCount))
+    console.log(`📸 Showing ${visibleImages.length} out of ${products.length} images`);
+  },[visibleCount,products])
+console.log(visibleCount,products.length);
+
+
 
 const ShowProduct = ({ products = [] }) => {
   // console.log(products[0].image.length);
