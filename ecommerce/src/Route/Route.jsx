@@ -12,8 +12,8 @@ import Login from "../pages/signIn/Login.jsx";
 import MyProfile from "../pages/MyProfile.jsx";
 import { Orders } from "../pages/Orders.jsx";
 import { WishList } from "../pages/WishList.jsx";
-import Notification  from "../pages/Notification.jsx"
-import Suppliers  from "../pages/Suppliers.jsx";
+import Notification from "../pages/Notification.jsx"
+import Suppliers from "../pages/Suppliers.jsx";
 import Books from "../pages/Books.jsx"
 import SupplierProfile from "../components/SupplierProfile/SupplierProfile.jsx";
 import UserDetails from "../pages/signIn/UserDetails.jsx";
@@ -30,9 +30,17 @@ import SellerRegister from "../pages/seller/sellerRegister/SellerRegister.jsx";
 import React, { Suspense, } from "react";
 import Admin from "../pages/adminDeshbord/Admin.jsx";
 import ProductDetails from "../components/ProductDetails/ProductDetails.jsx";
+<<<<<<< HEAD
 import Cart from "../pages/Cart.jsx";
 import ForgetPassword from "../pages/signIn/forgetpassword/ForgetPassword.jsx";
 import VerifyForgetOtp from "../pages/signIn/verifyForgetOTp/VerifyForgetOtp.jsx";
+=======
+import Cart from "../components/Cart/Cart.jsx";
+import Checkout from "../components/Cart/Checkout.jsx";
+import OrderSuccess from "../components/OrderSuccess/OrderSuccess.jsx";
+
+
+>>>>>>> f5e366afbb295a6b3ae991e37c60694197deaaf5
 const router = createBrowserRouter([
   {
     path: "/",
@@ -47,8 +55,8 @@ const router = createBrowserRouter([
         element: <Jewellery />
       },
       {
-        path:"Books",
-        element:<Books/>
+        path: "Books",
+        element: <Books />
       },
       {
         path: "allcategories",
@@ -71,48 +79,69 @@ const router = createBrowserRouter([
         element: <Fashion />
       },
       {
-        path : 'myprofile',
-        element : <MyProfile/>
+        path: 'myprofile',
+        element: <MyProfile />
       },
       {
-        path : 'orders',
-        element : <Orders/>
+        path: 'orders',
+        element: <Orders />
       },
       {
-        path : 'wishList',
-        element : <WishList/>
+        path: 'wishList',
+        element: <WishList />
       },
       {
-        path : 'notification',
-        element : <Notification/>
+        path: 'notification',
+        element: <Notification />
       },
       {
-        path:"suppliers",
-        element : <Suppliers/>
+        path: "suppliers",
+        element: <Suppliers />
       },
       {
-        path :"supplierprofile",
-        element : <SupplierProfile/>
+        path: "supplierprofile",
+        element: <SupplierProfile />
       },
       {
-        path:'supplierdashboard',
-        element : <SupplierDashboard/>
+        path: 'supplierdashboard',
+        element: <SupplierDashboard />
       },
       {
+<<<<<<< HEAD
         path:"adminuser",
         element:<AdminUsers/>
+=======
+        path: "adminuser",
+        element: <AdminUsers />
+      }, {
+        path: "registerr",
+        element: < Registerr />
       },
       {
-        path : "/:productName",
-        element:<ProductDetails/>
+        path: "loginn",
+        element: <Loginn />
+>>>>>>> f5e366afbb295a6b3ae991e37c60694197deaaf5
+      },
+      {
+        path: "/:productName",
+        element: <ProductDetails />
       },
       {
         path: '/cart',
-        element : <Cart/>
+        element: <Cart />
+      },
+      {
+        path: "/checkout",
+        element: <Checkout />
+      },
+      {
+        path: "/order-success",
+        element: <OrderSuccess />,
       }
+
     ]
   },
-  
+
   {
     path: "/auth",
     element: <SignInRoute />,
@@ -122,6 +151,7 @@ const router = createBrowserRouter([
         element: <Login />
       },
       {
+<<<<<<< HEAD
         path: "send-OTP",   // child route -> /auth/signin
         element: <ForgetPassword />
       },
@@ -136,6 +166,10 @@ const router = createBrowserRouter([
       {
         path :"userdetails",
         element : <UserDetails/>
+=======
+        path: "userdetails",
+        element: <UserDetails />
+>>>>>>> f5e366afbb295a6b3ae991e37c60694197deaaf5
       }
     ]
   },
@@ -153,29 +187,29 @@ const router = createBrowserRouter([
       },
       {
         path: "seller-forget-password",   // child route -> /auth/signin
-        element: <ForGetPassword/>
+        element: <ForGetPassword />
       },
       {
         path: "verify-otp",   // child route -> /auth/signin
-        element: <SellerVerfyOtp/>
+        element: <SellerVerfyOtp />
       },
       {
         path: "reset-password",   // child route -> /auth/signin
-        element: <ResetPassword/>
+        element: <ResetPassword />
       },
       {
-        path :"userdetails",
-        element : <UserDetails/>
+        path: "userdetails",
+        element: <UserDetails />
       }
     ]
   },
   {
-    path:"/admin",
-    element:<SignInRoute/>,
-    children:[
+    path: "/admin",
+    element: <SignInRoute />,
+    children: [
       {
-        path:'seller-status',
-        element:<Admin/>
+        path: 'seller-status',
+        element: <Admin />
       }
     ]
   }

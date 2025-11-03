@@ -7,12 +7,12 @@ const Filter = () => {
 
   return (
     <main className={styles.mainContainer}>
-       
+        <h3 style={{marginLeft:"1.3rem"}}>Filter</h3>
 
         <div className={styles.container}>
                   <aside className={styles.left}>
                     {/* <input className={styles.search} placeholder="Search products, suppliers" /> */}
-             <p style={{marginLeft:"1.3rem", fontWeight:'600'}}>Filter</p>
+            
                     <div className={styles.filterSection}>
                       <div className={styles.meta}>Category</div>
                       <div className={styles.chipRow}>
