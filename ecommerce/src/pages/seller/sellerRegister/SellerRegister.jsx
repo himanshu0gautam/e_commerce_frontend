@@ -43,7 +43,11 @@ const SellerRegister = () => {
         <hr />
         <Pagination  
          totalSteps={totalSteps}/>
-      </div> : <RegisterSuccessfully/>}  
+      </div> : <RegisterSuccessfully/>}
+
+      
+      
+        
     </div>
   )
 }
