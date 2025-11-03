@@ -62,7 +62,6 @@ console.log(visibleCount,products.length);
     if (isHovered !== null && products[isHovered]?.image_urls[0]?.length > 1) {
       let totalImages = products[isHovered].image_urls[0].length;
       console.log(products[isHovered]);
-
       interval = setInterval(() => {
         setCurridx((prev) => prev === totalImages - 1 ? 0 : prev + 1)
       }, 1700)

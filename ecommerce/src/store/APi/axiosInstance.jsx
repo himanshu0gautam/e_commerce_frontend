@@ -6,7 +6,7 @@ const baseURL =
     ? "http://localhost:3001/api"
     : "http://192.168.1.39:3000/api";
 
-    const baseURL2= "http://192.168.1.48:3000/api"
+    // const baseURL2= "http://192.168.1.48:3000/api"
 
 const baseURL_2 = 
 window.location.hostname === "localhost"
