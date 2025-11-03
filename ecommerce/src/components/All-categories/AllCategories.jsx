@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { lazy, Suspense, useEffect, useState } from 'react'
 import Filter from "../Filter/Filter.jsx"
-import ShowProduct from '../ShowProduct/ShowProduct'
+
 import styles from "./AllCategories.module.css"
 
-
+const ShowProduct = lazy(()=> import ('../ShowProduct/ShowProduct' ))
 
 
 
@@ -15,7 +15,10 @@ const AllCategories = () => {
      <div className={styles.main}>
        <Filter />
       {/* {sampleProducts.length} */}
-      <ShowProduct/>
+     
+      <Suspense fallback={<div>Loading...</div>}>
+         <ShowProduct/>
+      </Suspense>
      </div>
     </>
   )

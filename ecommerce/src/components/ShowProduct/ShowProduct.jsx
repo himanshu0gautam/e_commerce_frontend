@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import { MdOutlineVerifiedUser } from "react-icons/md";
 import styles from './ShowProduct.module.css'
 import { useNavigate } from 'react-router-dom';
@@ -6,14 +6,18 @@ import axios from 'axios';
 const ShowProduct = () => {
 
   const [products, setproducts] = useState([])
-  console.log("products", products);
+  const [visibleImages, setVisibleImages] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(10);
+  const loaderRef = useRef(null);
+  // console.log("products", products);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://192.168.1.35:3001/api/seller/all-product-image')
+        const response = await axios.get('http://192.168.1.43:3001/api/seller/all-product-image')
         console.log("Fetched products:", response?.data?.data[0]);
         setproducts(response?.data?.data);
+        setVisibleImages(response?.data?.data.slice(0,visibleCount));
         // console.log("Fetched products:",response?.data?.data);
 
       } catch (error) {
@@ -24,7 +28,29 @@ const ShowProduct = () => {
   }, [])
 
 
+  // Scroll observer
+  useEffect(()=>{
+    const observer = new IntersectionObserver((enteries)=>{
+      const target = enteries[0];
+      if(target.isIntersecting){
+        console.log('%c🔽 Bottom reached — Loading more products...', 'color: green');
+        setVisibleCount(prev => prev+10)
+      }
 
+  },{threshold :1.0});
+  if(loaderRef.current) observer.observe(loaderRef.current);
+    return ()=>{ 
+      if (visibleCount >= products.length) {
+        observer.disconnect();}
+}
+  },[])
+
+  // Update visible images when count changes
+  useEffect(()=>{
+    setVisibleImages(products.slice(0,visibleCount))
+    console.log(`📸 Showing ${visibleImages.length} out of ${products.length} images`);
+  },[visibleCount,products])
+console.log(visibleCount,products.length);
 
 
 
@@ -55,29 +81,18 @@ const ShowProduct = () => {
 
 
 
+
+
   return (
     <div className={styles.mainContainer}>
-      {/* <h3 style={{ marginLeft: '1.3rem' }}>Product</h3> */}
-
-      {/* {products.map((p, index) => {
-        return (
-
-          <div key={index} className={styles.product} >
-            <p>{p.brand}</p>
-            <img className={styles.thumb} src={p?.image_urls?.[0]?.[0]} alt="" />
-          </div>
-
-        )
-      }
-
-      )} */}
+   
 
       <main className={styles.right}>
         <div className={styles.productsCard}>
           <div className={styles.meta}>Showing <strong>{products.length}</strong> products</div>
 
           <div className={styles.productsGrid}>
-            {products.map((p, index) => (
+            {visibleImages.map((p, index) => (
               <div key={index} className={styles.product} onClick={() => handleClick(p)}>
 
 
@@ -128,10 +143,11 @@ const ShowProduct = () => {
               </div>
             ))}
           </div>
+          <div ref={loaderRef} style={{ height: '40px' }}></div>
         </div>
       </main> 
 
-
+      
     </div>
   )
 }
