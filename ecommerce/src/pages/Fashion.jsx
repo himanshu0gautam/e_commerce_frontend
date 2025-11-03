@@ -26,12 +26,12 @@ const sampleFashionProducts = [
 
 const Fashion = () => {
   return (
-   <>
-   <div style={{display: "flex"}}>
-    <Filter />
-    <ShowProduct products={sampleFashionProducts} />
-   </div>
-   </>
+    <>
+      <div style={{ display: "flex" }}>
+        <Filter />
+        <ShowProduct products={sampleFashionProducts} />
+      </div>
+    </>
   )
 }
 
