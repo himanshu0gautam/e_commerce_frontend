@@ -67,6 +67,8 @@ export const userSendverifyForgetPassword = createAsyncThunk(
     async (credentialas,{rejectWithValue}) => {
         try {
             const res = await axiosInstance.post('/auth/verify-Forgot-Otp',credentialas)
+            console.log(res.data);
+            
             return res.data
         } catch (error) {
             return rejectWithValue(error.response.data.message)
@@ -78,6 +80,7 @@ export const userResetpassowrd = createAsyncThunk(
     async (credentialas,{rejectWithValue}) => {
         try {
             const res = await axiosInstance.post('/auth/reset-password',credentialas)
+            console.log(res.data);
             return res.data
         } catch (error) {
             return rejectWithValue(error.response.data.message)

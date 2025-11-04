@@ -128,7 +128,6 @@ const iswarehousevalid =
     (currentStep === 3 && !isBankingValid) ||
     (currentStep === 4 && !iswarehousevalid);
 
-    console.log(sellerData);
 
     const finalRegsiterSubmition = async() => {
       try {

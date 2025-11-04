@@ -12,10 +12,11 @@ import { toast } from "react-toastify";
 import { MdOutlineMarkEmailRead } from "react-icons/md";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import {updateSellerRegistrationField} from '../../../store/slices/Seller.slice'
+import {checkSeller} from '../../../store/actions/SellerAction'
 
 const AccountVerification = () => {
   const dispatch = useDispatch();
-  const { loading, success, error ,registration:{fieldError} } = useSelector((state) => state.seller);
+  const { loading, success, error,sellerNameCheck,sellerName ,registration:{fieldError} } = useSelector((state) => state.seller);
 
 
   const [password, setpassword] = useState()
@@ -71,6 +72,17 @@ const AccountVerification = () => {
 
     return () => clearInterval(intervals);
   }, [resendEmailOtpTimer]);
+
+
+  //CHECK SELLER IS EXIST
+  function checkUsername(username) {
+    dispatch(checkSeller({
+      username:username
+    }))
+  }
+
+  console.log(sellerNameCheck);
+  
 
   // PHONE VERIFICATION SECTION
 
@@ -151,9 +163,10 @@ const AccountVerification = () => {
             <label>Username*</label>
             <input type="text" 
             placeholder="Choose a unique username" 
+            onBlur={(e) => checkUsername(e.target.value)}
             onChange={(e) => dispatch(updateSellerRegistrationField({field:"fullname",value:e.target.value}))}
             />
-            <span>{"This will be your seller ID on the platform"}</span>
+            <span className={sellerNameCheck ? style.errorMsg : style.infoMsg}>{sellerNameCheck ? sellerName?.message : "This will be your seller ID on the platform"}</span>
           </div>
           <div className={style.UsernamePassword}>
             <div className={style.Password}>

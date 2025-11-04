@@ -1,17 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from './ForgetPassowrd.module.css'
 import {userSendOtpForgetPassword} from '../../../store/actions/UserAction'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import {setPhone} from '../../../store/slices/User.slice'
 
 const ForgetPassword = () => {
     const dispatch = useDispatch()
     const [phone, setphone] = useState()
+   const {OTPSend} =  useSelector(state => state.user)
+  const navigate =  useNavigate()
+
+   console.log(OTPSend);
+   
 
     const handelSendOtp = (e) => {
         e.preventDefault()
         dispatch(userSendOtpForgetPassword({phone:phone}))
-
+        dispatch(setPhone(phone))
     }
+
+    useEffect(() => {
+      if(OTPSend){
+        navigate('/auth/verify-OTP')
+      }
+    }, [navigate,OTPSend])
+    
 
   return (
     <main className={style.mainSignInContainer}>

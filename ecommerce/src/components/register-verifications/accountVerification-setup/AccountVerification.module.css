@@ -249,3 +249,17 @@
     opacity: 0.5;
     color: #76ABDF;
 }
+
+.infoMsg {
+  color: #777; /* neutral gray text */
+  font-size: 13px;
+  margin-top: 4px;
+  display: block;
+}
+
+.errorMsg {
+  color: #e63946; /* professional red color */
+  font-size: 13px;
+  margin-top: 4px;
+  display: block;
+}
