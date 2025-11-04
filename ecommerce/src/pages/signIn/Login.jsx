@@ -1,127 +1,91 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./Auth.module.css";
 import { useNavigate } from "react-router-dom";
+// import loginBg from "../../../assists/mainLogo.png";
 import { assets } from "../../assets/assets";
-import {LoginUser,checkuser} from '../../store/actions/UserAction'
-import { useDispatch, useSelector } from 'react-redux';
+import { LoginUser, checkuser } from "../../store/actions/UserAction";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 const Login = () => {
   const [phone, setphone] = useState("");
-  
-  const [password, setpassword] = useState('')
+  const [password, setpassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
- const {userExist,error,user,loading} = useSelector(state => state.user)
- const dispatch = useDispatch()
-
+  const { userExist, error, user, loading } = useSelector(
+    (state) => state.user || {}
+  );
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handelSubmit = (e) => {
-    e.preventDefault()
-    if(!phone){
-      alert("phone is required")
-      return
-    }
-    dispatch(checkuser({phone:phone}))
-  }
-  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!phone) return alert("Phone is required");
+    dispatch(checkuser({ phone }));
+  };
 
-  const handelLogin = (e) =>{
-    e.preventDefault()
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (!password) return alert("Password is required");
+    dispatch(LoginUser({ phone, password }));
+  };
 
-    if(!password){
-      alert("password is required")
-      return
-    }
-    dispatch(LoginUser({phone:phone,password:password}))
-  }
-
-  
   useEffect(() => {
-    if(userExist){
-      if(userExist.exists){
-        setShowPassword(true)
-      }else{
-        navigate('/auth/registerr')
-      }
+    if (userExist) {
+      if (userExist.exists) setShowPassword(true);
+      else navigate("/auth/register");
     }
+    if (user?.login) navigate("/");
+    else if (error) toast.error(error);
+  }, [userExist, user, error, navigate]);
 
-    if(user){
-      if(user.login){
-        navigate('/')
-      }else{
-        toast.error(error)
-      }
-    }
-
-  }, [userExist,navigate,user])
-  
-
-
-  const handelForgetpassword = () => {
-    nav
-  }
-  
-
- 
   return (
-   <main className={style.mainSignInContainer}>
-  <div className={style.bgImage}></div>
+    <main className={style.mainSignInContainer}>
+      <div className={style.bgImage}></div>
 
-  <section className={style.SignInContainer}>
-    {/* Left side - Password login */}
-    <form className={style.form} onSubmit={showPassword ? handelLogin : handelSubmit}>
-      <img src={assets.logo}/>
-      <div className={style.heading}>
-        <h1>Welocome Back, Parter</h1>
-      <p>Secure access to B2B account</p>
-      </div>
-      <div className={style.phoneInput}>
-        <p className={style.prefix}>+91 |</p>
-        <input type="text" placeholder="Phone" onChange={(e) => setphone(e.target.value)}  required/>
-      </div>
-      {showPassword && <div className={style.passwordInput}>
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setpassword(e.target.value)}
-        />
-      <div className={style.fgtdiv}>
-        <p className={style.fgt} onClick={handelForgetpassword}>forgot password</p>
-      </div>
-      </div>}
-      <button type="submit">
-        {showPassword ? loading ? "loading..." : "login" : "continue"}
-      </button>
-    </form>
-    
+      <form
+        className={style.form}
+        onSubmit={showPassword ? handleLogin : handleSubmit}
+      >
+        <img src={assets.Logo} alt="Login" />
+        <div className={style.heading}>
+          <h1>Welcome Back, Partner</h1>
+          <p>Secure access to your B2B account</p>
+        </div>
 
-    {/* Right side - OTP Signup */}
-    <form className={style.form}>
-      <h1>Login & SignUp</h1>
-      <div className={style.phoneInput}>
-        <p className={style.prefix}>+91 |</p>
-        <input type="text" placeholder="Phone" onChange={(e) => setphone(e.target.value)} required />
-      </div>
-      <div className={style.radio}>
-        <input type="checkbox" id="terms" />
-        <label htmlFor="terms">
-          <p>
-            By continuing, I agree to <span>Terms of Use</span> &{" "}
-            <span>Privacy Policy</span> and I am above 18 years old.
-          </p>
-        </label>
-      </div>
-      <button>Continue</button>
-      <p >Have trouble logging in? <span>Get help</span></p>
-    </form>
+        <div className={style.phoneInput}>
+          <p className={style.prefix}>+91 </p>
+          <input
+            type="tel"
+            placeholder="Phone"
+            value={phone}
+            onChange={(e) => setphone(e.target.value)}
+            required
+            maxLength={10}
+            pattern="\d{10}"
+          />
+        </div>
 
-  </section>
-  </main>
-  )
+        {showPassword && (
+          <div className={style.passwordInput}>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setpassword(e.target.value)}
+            />
+            <p className={style.fgt} onClick={() => toast.info("Reset flow")}>
+              Forgot password?
+            </p>
+          </div>
+        )}
 
+        <button type="submit">
+          {loading ? "Loading..." : showPassword ? "Login" : "Continue"}
+        </button>
+      </form>
+    </main>
+  );
 };
 
 export default Login;
