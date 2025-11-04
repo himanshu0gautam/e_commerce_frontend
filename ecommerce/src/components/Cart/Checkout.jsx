@@ -10,8 +10,6 @@ import paytm from "../assets/paytm.png";
 import bhim from "../assets/bhim.png";
 import qrImage from "../assets/qr.png";
 
-
-
 const CheckoutPage = () => {
     const [step, setStep] = useState(2);
     const [selectedAddress, setSelectedAddress] = useState(null);

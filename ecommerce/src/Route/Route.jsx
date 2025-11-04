@@ -30,17 +30,12 @@ import SellerRegister from "../pages/seller/sellerRegister/SellerRegister.jsx";
 import React, { Suspense, } from "react";
 import Admin from "../pages/adminDeshbord/Admin.jsx";
 import ProductDetails from "../components/ProductDetails/ProductDetails.jsx";
-<<<<<<< HEAD
 import Cart from "../pages/Cart.jsx";
 import ForgetPassword from "../pages/signIn/forgetpassword/ForgetPassword.jsx";
 import VerifyForgetOtp from "../pages/signIn/verifyForgetOTp/VerifyForgetOtp.jsx";
-=======
-import Cart from "../components/Cart/Cart.jsx";
-import Checkout from "../components/Cart/Checkout.jsx";
+import CheckoutPage from "../components/Cart/Checkout.jsx";
 import OrderSuccess from "../components/OrderSuccess/OrderSuccess.jsx";
 
-
->>>>>>> f5e366afbb295a6b3ae991e37c60694197deaaf5
 const router = createBrowserRouter([
   {
     path: "/",
@@ -107,10 +102,6 @@ const router = createBrowserRouter([
         element: <SupplierDashboard />
       },
       {
-<<<<<<< HEAD
-        path:"adminuser",
-        element:<AdminUsers/>
-=======
         path: "adminuser",
         element: <AdminUsers />
       }, {
@@ -120,7 +111,6 @@ const router = createBrowserRouter([
       {
         path: "loginn",
         element: <Loginn />
->>>>>>> f5e366afbb295a6b3ae991e37c60694197deaaf5
       },
       {
         path: "/:productName",
@@ -132,7 +122,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/checkout",
-        element: <Checkout />
+        element: <CheckoutPage />
       },
       {
         path: "/order-success",
@@ -151,7 +141,6 @@ const router = createBrowserRouter([
         element: <Login />
       },
       {
-<<<<<<< HEAD
         path: "send-OTP",   // child route -> /auth/signin
         element: <ForgetPassword />
       },
@@ -166,10 +155,6 @@ const router = createBrowserRouter([
       {
         path :"userdetails",
         element : <UserDetails/>
-=======
-        path: "userdetails",
-        element: <UserDetails />
->>>>>>> f5e366afbb295a6b3ae991e37c60694197deaaf5
       }
     ]
   },

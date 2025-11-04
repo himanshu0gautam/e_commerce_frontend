@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { MdOutlineVerifiedUser } from "react-icons/md";
 import styles from './ShowProduct.module.css'
 import { useNavigate } from 'react-router-dom';
@@ -143,7 +143,7 @@ const ShowProduct = ({ products = [] }) => {
     </div>
   )
 }
-
+}
 export default ShowProduct
 
 

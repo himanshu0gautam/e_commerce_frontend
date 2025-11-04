@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import mainlogo from "../../../assists/mainLogo.png";
+import {assets} from '../../assets/assets'
 import styles from "./Registerr.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import {register} from '../../store/actions/UserAction'
@@ -46,7 +45,7 @@ const Registerr = () => {
 
       <div className={styles.SignInContainer}>
         <form className={styles.form}>
-          <img src={mainlogo} />
+          <img src={assets.Logo} />
           <h1>Create Account</h1>
           <div className={styles.phoneInput}>
             <span className={styles.prefix}>+91</span>
