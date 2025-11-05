@@ -30,10 +30,11 @@ import SellerRegister from "../pages/seller/sellerRegister/SellerRegister.jsx";
 import React, { Suspense, } from "react";
 import Admin from "../pages/adminDeshbord/Admin.jsx";
 import ProductDetails from "../components/ProductDetails/ProductDetails.jsx";
-import Cart from "../components/Cart/Cart.jsx";
-import Checkout from "../components/Cart/Checkout.jsx";
+import Cart from "../pages/Cart.jsx";
+import ForgetPassword from "../pages/signIn/forgetpassword/ForgetPassword.jsx";
+import VerifyForgetOtp from "../pages/signIn/verifyForgetOTp/VerifyForgetOtp.jsx";
+import CheckoutPage from "../components/Cart/Checkout.jsx";
 import OrderSuccess from "../components/OrderSuccess/OrderSuccess.jsx";
-
 
 const router = createBrowserRouter([
   {
@@ -121,7 +122,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/checkout",
-        element: <Checkout />
+        element: <CheckoutPage />
       },
       {
         path: "/order-success",
@@ -140,8 +141,20 @@ const router = createBrowserRouter([
         element: <Login />
       },
       {
-        path: "userdetails",
-        element: <UserDetails />
+        path: "send-OTP",   // child route -> /auth/signin
+        element: <ForgetPassword />
+      },
+      {
+        path: "verify-OTP",   // child route -> /auth/signin
+        element: <VerifyForgetOtp />
+      },
+      {
+        path: "registerr",   // child route -> /auth/signin
+        element: <Registerr />
+      },
+      {
+        path :"userdetails",
+        element : <UserDetails/>
       }
     ]
   },

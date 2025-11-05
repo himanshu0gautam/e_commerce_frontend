@@ -12,4 +12,11 @@ const axiosInstance = axios.create({
     withCredentials:true
 })
 
+const axiosInstance_2  = axios.create({
+  baseURL_2,
+  withCredentials:true
+})
+
 export default axiosInstance
+
+export {axiosInstance_2}
