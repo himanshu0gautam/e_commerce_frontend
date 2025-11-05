@@ -6,13 +6,6 @@ const baseURL =
     ? "http://localhost:3000/api"
     : "http://192.168.1.43:3000/api";
 
-    // const baseURL2= "http://192.168.1.48:3000/api"
-
-const baseURL_2 = 
-window.location.hostname === "localhost"
-  ? "http://localhost:3001/api"
-  : "http://192.168.1.43:3001/api";
-
 
 const axiosInstance = axios.create({
     baseURL,

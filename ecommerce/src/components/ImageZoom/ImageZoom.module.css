@@ -1,69 +1,41 @@
-.zoomWrapper {
+.zoomContainer {
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  /* gap: 5rem; */
   position: relative;
-  gap: 2rem;
-  width: 100%;
-  max-width: 1000px;
 }
 
-/* Left image box */
-.imageBox {
+/* Left side main image */
+.imageContainer {
   position: relative;
   width: 400px;
   height: 400px;
+  overflow: hidden;
   border: 1px solid #ddd;
   border-radius: 10px;
-  overflow: hidden;
-  background-color: #fff;
-  flex-shrink: 0;
-  /* prevents shrinking when zoom appears */
 }
 
 .image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  transition: transform 0.2s ease;
 }
 
-/* Moving lens */
-.lens {
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  border: 2px solid rgba(180, 180, 180, 0.6);
-  background-color: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(3px);
-  pointer-events: none;
-  border-radius: 4px;
-  transition: left 0.05s, top 0.05s;
-}
+/* .imageContainer:hover .image {
+  transform: scale(1.05);
+} */
 
-
-.zoomPreview {
-  position: absolute;
-  left: 590px;
-  top: 25px;
-  width: 580px;
-  height: 580px;
-  border-radius: 10px;
-  background-repeat: no-repeat;
-  background-size: 800px 800px;
-  background-color: #fff;
+/* Right side zoomed image */
+.zoomedImage {
+  width: 30rem;
+  height: 30rem;
   border: 1px solid #ccc;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  z-index: 5;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .zoomWrapper {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .zoomPreview {
-    display: none;
-  }
+  background-repeat: no-repeat;
+  background-size: 200%; /* adjust for zoom strength */
+  border-radius: 10px;
+  display: none;
+  position: absolute;
+  left: 35rem; /* gap between image and zoom box */
+  top: -20px;
+  z-index: 10;
 }

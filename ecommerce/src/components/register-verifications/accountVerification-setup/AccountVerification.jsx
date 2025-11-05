@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import { MdOutlineMarkEmailRead } from "react-icons/md";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import {updateSellerRegistrationField} from '../../../store/slices/Seller.slice'
+import { getWithExpiry } from "../../../utils/storageUtils";
+
 
 const AccountVerification = () => {
   const dispatch = useDispatch();
@@ -34,6 +36,17 @@ const AccountVerification = () => {
   const [resendTimer, setresendTimer] = useState(0);
   const [resendEmailOtpTimer, setresendEmailOtpTimer] = useState(0);
   
+
+  //fetch earlier saved data from local storage
+  useEffect(()=>{
+    const savedData = getWithExpiry("RegistrationdataPage1");
+    if(savedData){
+      setpassword(savedData.password || "");
+      setconfirmPassowrd(savedData.password || "");
+      setemail(savedData.email || "");
+      setphone(savedData.phone || "")
+    }
+  },[])
 
   const handelPasswordChange = (e) =>{
     e.preventDefault()
@@ -129,6 +142,7 @@ const AccountVerification = () => {
       setshowEmailVerifyOtp(false);
       setresendEmailOtpTimer(0);
       dispatch(updateSellerRegistrationField({field:"email",value:email}))
+
     } catch (error) {
       toast.error(error || "invalid Otp");
     }
@@ -151,14 +165,15 @@ const AccountVerification = () => {
             <label>Username*</label>
             <input type="text" 
             placeholder="Choose a unique username" 
-            onChange={(e) => dispatch(updateSellerRegistrationField({field:"fullname",value:e.target.value}))}
+            onChange={(e) => {dispatch(updateSellerRegistrationField({field:"fullname",value:e.target.value}));
+          }}
             />
             <span>{"This will be your seller ID on the platform"}</span>
           </div>
           <div className={style.UsernamePassword}>
             <div className={style.Password}>
               <label>Password*</label>
-              <input type="text" 
+              <input type="password" 
               placeholder="Create a strong password" 
               value={password}
               onChange={handelPasswordChange}
@@ -167,7 +182,8 @@ const AccountVerification = () => {
             </div>
             <div className={style.Password}>
               <label>Conform Password*</label>
-              <input type="text" placeholder="Create a strong password"
+              <input type="password" placeholder="Create a strong password"
+              value={confirmPassowrd}
               onChange={(e) => {
                 handelConfirmPassword(e);
                 dispatch(updateSellerRegistrationField({field:"password",value:e.target.value}))
@@ -190,6 +206,7 @@ const AccountVerification = () => {
             <input
               type="text"
               placeholder="+91**********"
+              value={phone}
               onChange={(e) => setphone(e.target.value)}
             />
             <button type="submit" disabled={resendTimer > 0}>
@@ -232,6 +249,7 @@ const AccountVerification = () => {
             <input
               type="email"
               placeholder="example@gmail.com"
+              value={email}
               onChange={(e) => setemail(e.target.value)}
             />
             <button type="submit" disabled={resendEmailOtpTimer > 0}>

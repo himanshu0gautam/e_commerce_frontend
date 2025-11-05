@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./BusinessDetails.module.css";
 import { MdOutlineVerified } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
 import {updateSellerRegistrationField} from '../../../store/slices/Seller.slice'
 import { useDispatch } from "react-redux";
 import {toast} from 'react-toastify'
+import { getWithExpiry } from "../../../utils/storageUtils";
 const BusinessDeails = () => {
   const dispatch = useDispatch()
   const [GSTNumber, setGSTNumber] = useState()
 
+
+  useEffect(()=>{
+    const saved = getWithExpiry("RegistrationdataPage1")
+    if(saved){
+      
+    }
+  },[])
   const handelGSTSubmit = (e) => {
     e.preventDefault()
     if(!GSTNumber){
