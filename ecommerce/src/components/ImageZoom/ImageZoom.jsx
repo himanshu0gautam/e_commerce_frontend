@@ -1,55 +1,55 @@
-import React, { useRef, useState } from "react";
-import styles from "./ImageZoom.module.css";
-
+import React, { useRef, useState } from 'react'
+import styles from './ImageZoom.module.css'
 const ImageZoom = ({ src }) => {
-    const imgRef = useRef(null);
-    const [lensPos, setLensPos] = useState({ x: 0, y: 0 });
-    const [showZoom, setShowZoom] = useState(false);
+    const containerRef = useRef(null);
+    const [zoomStyle, setZoomStyle] = useState({});
+    const [showZoom, setShowZoom] = useState(false)
 
     const handleMouseMove = (e) => {
-        const { left, top, width, height } = imgRef.current.getBoundingClientRect();
-        const x = e.clientX - left;
-        const y = e.clientY - top;
+        const { left, top, width, height } = containerRef.current.getBoundingClientRect();
+        console.log(left, top, width, height );
+        
+        const x = e.pageX - left - window.scrollX;
+        const y = e.pageY - top - window.scrollY;
+        console.log(x,y);
+        
+        const xPercent = (x / width) * 100;
+        const yPercent = (y / height) * 100;
+        console.log(xPercent,yPercent);
+        
 
-        const lensWidth = 120;
-        const lensHeight = 120;
+        setZoomStyle({
+            backgroundPosition: `${xPercent}% ${yPercent}%`,
+            display: "block",
+        });
+    }
+   
 
-        const posX = Math.max(0, Math.min(x - lensWidth / 2, width - lensWidth));
-        const posY = Math.max(0, Math.min(y - lensHeight / 2, height - lensHeight));
-
-        setLensPos({ x: posX, y: posY });
-    };
-
+    const handleMouseEnter = () => setShowZoom(true);
+    const handleMouseLeave = () => setShowZoom(false);
     return (
-        <div
-            className={styles.zoomWrapper}
-            onMouseEnter={() => setShowZoom(true)}
-            onMouseLeave={() => setShowZoom(false)}
-            onMouseMove={handleMouseMove}
-        >
-            {/* Left product image */}
-            <div className={styles.imageBox}>
-                <img ref={imgRef} src={src} alt="product" className={styles.image} />
-                {showZoom && (
-                    <div
-                        className={styles.lens}
-                        style={{ left: lensPos.x, top: lensPos.y }}
-                    ></div>
-                )}
+        <div className={styles.zoomContainer}>
+            <div
+                ref={containerRef}
+                className={styles.imageContainer}
+                onMouseMove={handleMouseMove}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+            >
+                <img src={src} alt="product" className={styles.image} />
             </div>
 
-            {/* Right zoom preview */}
             {showZoom && (
                 <div
-                    className={styles.zoomPreview}
+                    className={styles.zoomedImage}
                     style={{
                         backgroundImage: `url(${src})`,
-                        backgroundPosition: `-${lensPos.x * 2}px -${lensPos.y * 2}px`,
+                        ...zoomStyle,
                     }}
-                ></div>
+                />
             )}
         </div>
     );
 };
 
-export default ImageZoom;
+export default ImageZoom

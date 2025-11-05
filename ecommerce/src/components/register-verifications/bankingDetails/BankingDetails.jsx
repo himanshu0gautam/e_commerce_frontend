@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./BankingDetail.module.css";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import { MdErrorOutline } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { updateSellerRegistrationField } from "../../../store/slices/Seller.slice";
+import { getWithExpiry } from "../../../utils/storageUtils";
 const BankingDetails = () => {
   const dispatch = useDispatch();
 
@@ -29,6 +30,13 @@ const BankingDetails = () => {
       setAccountNumberError("")
      }
   }
+  useEffect(()=>{
+    const saved = getWithExpiry("RegistrationdataPage3")
+    if(saved){
+      
+    }
+
+  },[])
 
   return (
     <div className={style.BankingDetailsContainer}>

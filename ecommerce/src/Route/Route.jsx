@@ -11,7 +11,7 @@ import Jewellery from "../pages/Jewellery.jsx";
 import Login from "../pages/signIn/Login.jsx";
 import MyProfile from "../pages/MyProfile.jsx";
 import { Orders } from "../pages/Orders.jsx";
-import { WishList } from "../pages/WishList.jsx";
+// import { WishList } from "../pages/WishList.jsx";
 import Notification from "../pages/Notification.jsx"
 import Suppliers from "../pages/Suppliers.jsx";
 import Books from "../pages/Books.jsx"
@@ -80,10 +80,10 @@ const router = createBrowserRouter([
         path: 'orders',
         element: <Orders />
       },
-      {
-        path: 'wishList',
-        element: <WishList />
-      },
+      // {
+      //   path: 'wishList',
+      //   element: <WishList />
+      // },
       {
         path: 'notification',
         element: <Notification />
