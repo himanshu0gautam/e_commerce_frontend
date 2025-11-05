@@ -13,7 +13,7 @@ import { MdOutlineMarkEmailRead } from "react-icons/md";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import { updateSellerRegistrationField } from "../../../store/slices/Seller.slice";
 import { checkSeller } from "../../../store/actions/SellerAction";
-import {updateSellerRegistrationField} from '../../../store/slices/Seller.slice'
+// import {updateSellerRegistrationField} from '../../../store/slices/Seller.slice'
 import { getWithExpiry } from "../../../utils/storageUtils";
 
 
@@ -47,19 +47,23 @@ const AccountVerification = () => {
   const [resendTimer, setresendTimer] = useState(0);
   const [resendEmailOtpTimer, setresendEmailOtpTimer] = useState(0);
 
-  const handelPasswordChange = (e) => {
-    e.preventDefault();
-    setpassword(e.target.value);
-    if (confirmPassowrd && e.target.value === confirmPassowrd) {
-      setPassworderror("");
+  // const handelPasswordChange = (e) => {
+  //   e.preventDefault();
+  //   setpassword(e.target.value);
+  //   if (confirmPassowrd && e.target.value === confirmPassowrd) {
+  //     setPassworderror("");
+  //   }
+
+
   //fetch earlier saved data from local storage
   useEffect(()=>{
     const savedData = getWithExpiry("RegistrationdataPage1");
     if(savedData){
-      setpassword(savedData.password || "");
-      setconfirmPassowrd(savedData.password || "");
-      setemail(savedData.email || "");
-      setphone(savedData.phone || "")
+      setusername(savedData?.fullname)
+      setpassword(savedData?.password);
+      setconfirmPassowrd(savedData?.password);
+      setemail(savedData?.email);
+      setphone(savedData?.phone)
     }
   },[])
 
@@ -210,6 +214,7 @@ const AccountVerification = () => {
 
   return (
     <div className={style.AccountVerificationContainer}>
+      
       <header className={style.heading}>
         <h2>Account Setup & Verification</h2>
         <p>Create your seller account and verify your contact details</p>
@@ -223,9 +228,9 @@ const AccountVerification = () => {
           <div className={style.UernameInput}>
             <label>Username*</label>
             <input type="text" 
-            placeholder="Choose a unique username" 
-            onChange={(e) => {dispatch(updateSellerRegistrationField({field:"fullname",value:e.target.value}));
-          }}
+            placeholder="Choose a unique username"
+            value={username} 
+            onChange={handelChange}
             />
             {isAvilable === null && (
               <span className={style.infomsg}>"This will be your seller ID on the platform"</span>
@@ -259,7 +264,7 @@ const AccountVerification = () => {
             <div className={style.Password}>
               <label>Password*</label>
               <input
-                type="text"
+                type="password"
                 placeholder="Create a strong password"
                 value={password}
                 onChange={handelPasswordChange}

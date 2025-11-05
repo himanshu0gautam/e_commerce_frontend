@@ -5,20 +5,20 @@ import {
   nextRegistraionStep,
   prevRegstraionStep,
 } from "../../../store/slices/Seller.slice";
-import {toast} from 'react-toastify'
-import {sellerRegistration} from "../../../store/actions/SellerAction"
-import { setWithExpiry,getWithExpiry } from "../../../utils/storageUtils";
+import { toast } from 'react-toastify'
+import { sellerRegistration } from "../../../store/actions/SellerAction"
+import { setWithExpiry, getWithExpiry } from "../../../utils/storageUtils";
 import { useEffect } from "react";
 
 const Pagination = ({ totalSteps }) => {
   const dispatch = useDispatch();
 
-  
+
   const {
     registration: {
       currentStep,
       sellerData: {
-       phone,
+        phone,
         email,
         fullname,
         password,
@@ -52,7 +52,7 @@ const Pagination = ({ totalSteps }) => {
     },
   } = useSelector((state) => state.seller);
 
-  const {registration: {sellerData} } = useSelector((state) => state.seller);
+  const { registration: { sellerData } } = useSelector((state) => state.seller);
   // STEP 1 VALIDATION
 
   const isStepValid =
@@ -61,8 +61,8 @@ const Pagination = ({ totalSteps }) => {
     email?.includes("@") &&
     password?.length >= 8;
 
-    console.log(isStepValid);
-    
+  console.log(isStepValid);
+
   // STEP 2 VALIDATION
 
   const isBusinessValid =
@@ -82,92 +82,94 @@ const Pagination = ({ totalSteps }) => {
     owner_email?.includes("@") &&
     owner_phone?.trim()?.length === 10;
 
-     // ========== STEP 3 (banking) — production-grade checks ==========
+  // ========== STEP 3 (banking) — production-grade checks ==========
   const isValidPAN = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/i.test((pan_number || "").trim());
-const isValidIFSC = /^[A-Z]{4}0[A-Z0-9]{6}$/i.test((bank_IFCS || "").trim());
-const isValidAccountNumber = /^[0-9]{9,18}$/.test((bank_account_no || "").trim());
-const isValidHolderName = /^[a-zA-Z\s]{2,80}$/.test((bank_account_holder_name || "").trim());
-const isValidBankName = (bank_name || "").trim().length >= 3;
-const isValidBranchName = (branch_name || "").trim().length >= 2;
-const isValidBranchAddress = (branch_address || "").trim().length >= 5;
-const isValidBranchPincode = (branch_pincode || "").trim().length >= 5;
-const isValidCity = /^[a-zA-Z\s]{2,50}$/.test((branch_city || "").trim());
-const isValidState = /^[a-zA-Z\s]{2,50}$/.test((branch_state || "").trim());
-const isValidAccountType = ["business", "personal"].includes((account_type || "").toLowerCase());
+  const isValidIFSC = /^[A-Z]{4}0[A-Z0-9]{6}$/i.test((bank_IFCS || "").trim());
+  const isValidAccountNumber = /^[0-9]{9,18}$/.test((bank_account_no || "").trim());
+  const isValidHolderName = /^[a-zA-Z\s]{2,80}$/.test((bank_account_holder_name || "").trim());
+  const isValidBankName = (bank_name || "").trim().length >= 3;
+  const isValidBranchName = (branch_name || "").trim().length >= 2;
+  const isValidBranchAddress = (branch_address || "").trim().length >= 5;
+  const isValidBranchPincode = (branch_pincode || "").trim().length >= 5;
+  const isValidCity = /^[a-zA-Z\s]{2,50}$/.test((branch_city || "").trim());
+  const isValidState = /^[a-zA-Z\s]{2,50}$/.test((branch_state || "").trim());
+  const isValidAccountType = ["business", "personal"].includes((account_type || "").toLowerCase());
 
-const isBankingValid =
-  isValidHolderName &&
-  isValidPAN &&
-  isValidAccountType &&
-  isValidBankName &&
-  isValidBranchName &&
-  isValidAccountNumber &&
-  isValidIFSC &&
-  isValidBranchAddress &&
-  isValidBranchPincode &&
-  isValidCity &&
-  isValidState ;
+  const isBankingValid =
+    isValidHolderName &&
+    isValidPAN &&
+    isValidAccountType &&
+    isValidBankName &&
+    isValidBranchName &&
+    isValidAccountNumber &&
+    isValidIFSC &&
+    isValidBranchAddress &&
+    isValidBranchPincode &&
+    isValidCity &&
+    isValidState;
 
-const iswarehousevalid =
+  const iswarehousevalid =
     warehouse_pincode?.trim() &&
     warehouse_order_procising_capacity?.trim() &&
-    warehouse_state?.trim() && 
+    warehouse_state?.trim() &&
     warehouse_full_address?.trim()
- ;
+    ;
 
   const increasePage = () => {
     if (currentStep < totalSteps) {
 
-    setTimeout(()=>{
-        if(currentStep === 1){
-        const userData1 = {email,password,fullname,phone};
-        if(!userData1) return null;
-        setWithExpiry("RegistrationdataPage1",userData1,90)
-      }
-    
-      else if(currentStep === 2){
-        const userData2 = { gst_no,
-        organisation_email,
-        primary_contact_person_name,
-        primary_contact_person_phone,
-        primary_contact_person_email,
-        company_name,
-        owner_name,
-        owner_email,
-        owner_phone,
-        nature_of_business,
-        business_category,}
-        setWithExpiry("RegistrationdataPage2",userData2,90)
-      }
-      else if(currentStep === 3){
-        const userData3 = {
-        bank_account_holder_name,
-        pan_number,
-        bank_account_no,
-        bank_IFCS,
-        bank_name,
-        branch_name,
-        branch_address,
-        branch_city,
-        branch_state,
-        branch_pincode,
-        account_type,
+      setTimeout(() => {
+        if (currentStep === 1) {
+          const userData1 = {fullname, email, password, fullname, phone };
+          if (!userData1) return null;
+          setWithExpiry("RegistrationdataPage1", userData1, 90)
         }
-        setWithExpiry("RegistrationdataPage3",userData3,90)
-      }
-       else if (currentStep === 4) {
-        userData4 = {
-        warehouse_pincode,
-        warehouse_state,
-        warehouse_full_address,
-        warehouse_order_procising_capacity,
-      };
-      setWithExpiry("RegistrationdataPage4", userData4, 90);
-    }
-    },100)
-    
+
+        else if (currentStep === 2) {
+          const userData2 = {
+            gst_no,
+            organisation_email,
+            primary_contact_person_name,
+            primary_contact_person_phone,
+            primary_contact_person_email,
+            company_name,
+            owner_name,
+            owner_email,
+            owner_phone,
+            nature_of_business,
+            business_category,
+          }
+          setWithExpiry("RegistrationdataPage2", userData2, 90)
+        }
+        else if (currentStep === 3) {
+          const userData3 = {
+            bank_account_holder_name,
+            pan_number,
+            bank_account_no,
+            bank_IFCS,
+            bank_name,
+            branch_name,
+            branch_address,
+            branch_city,
+            branch_state,
+            branch_pincode,
+            account_type,
+          }
+          setWithExpiry("RegistrationdataPage3", userData3, 90)
+        }
+        else if (currentStep === 4) {
+          userData4 = {
+            warehouse_pincode,
+            warehouse_state,
+            warehouse_full_address,
+            warehouse_order_procising_capacity,
+          };
+          setWithExpiry("RegistrationdataPage4", userData4, 90);
+        }
+      }, 100)
+
       dispatch(nextRegistraionStep());
-      
+
     }
   };
   const decreasePage = () => {
@@ -177,32 +179,32 @@ const iswarehousevalid =
   };
 
 
-//localstorage continue btn logic
-const [savedData, setSavedData] = useState(false)
-useEffect(()=>{
-    const saved= currentStep ===1 ? getWithExpiry("RegistrationdataPage1") :
-                 currentStep ===2 ? getWithExpiry("RegistrationdataPage2") :
-                  currentStep ===3 ? getWithExpiry("RegistrationdataPage3") : getWithExpiry("RegistrationdataPage4") ;
+  //localstorage continue btn logic
+  const [savedData, setSavedData] = useState(false)
+  useEffect(() => {
+    const saved = currentStep === 1 ? getWithExpiry("RegistrationdataPage1") :
+      currentStep === 2 ? getWithExpiry("RegistrationdataPage2") :
+        currentStep === 3 ? getWithExpiry("RegistrationdataPage3") : getWithExpiry("RegistrationdataPage4");
 
-   setSavedData(saved || false)
-},[currentStep])
-  const isContinueDisbaled = 
-    (currentStep ===1 && !isStepValid && !savedData )||
-    (currentStep ===2 && !isBusinessValid && !savedData ) ||
-    (currentStep === 3 && !isBankingValid && !savedData ) ||
+    setSavedData(saved || false)
+  }, [currentStep])
+  const isContinueDisbaled =
+    (currentStep === 1 && !isStepValid && !savedData) ||
+    (currentStep === 2 && !isBusinessValid && !savedData) ||
+    (currentStep === 3 && !isBankingValid && !savedData) ||
     (currentStep === 4 && !iswarehousevalid);
 
 
-    const finalRegsiterSubmition = async() => {
-      try {
-        const res = await dispatch(sellerRegistration(sellerData))
-        toast.success(res.payload)
-        console.log(res.payload);
-      } catch (error) {
-        toast.error(error.message)
-      }
+  const finalRegsiterSubmition = async () => {
+    try {
+      const res = await dispatch(sellerRegistration(sellerData))
+      toast.success(res.payload)
+      console.log(res.payload);
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
-    
+
 
   return (
     <div className={style.pageContainer}>
@@ -213,13 +215,13 @@ useEffect(()=>{
         <button onClick={decreasePage} disabled={currentStep === 1}>
           Back
         </button>
-        {currentStep < totalSteps ?  <button
-          onClick={increasePage  }
+        {currentStep < totalSteps ? <button
+          onClick={increasePage}
           disabled={isContinueDisbaled}
         >
-          Continue</button> 
-          : <button onClick={finalRegsiterSubmition} className={style.submitButton}  disabled={isContinueDisbaled}>Submit</button>
-          }
+          Continue</button>
+          : <button onClick={finalRegsiterSubmition} className={style.submitButton} disabled={isContinueDisbaled}>Submit</button>
+        }
       </div>
     </div>
   );
