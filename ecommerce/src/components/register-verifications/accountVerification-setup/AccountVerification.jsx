@@ -13,6 +13,9 @@ import { MdOutlineMarkEmailRead } from "react-icons/md";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import { updateSellerRegistrationField } from "../../../store/slices/Seller.slice";
 import { checkSeller } from "../../../store/actions/SellerAction";
+import {updateSellerRegistrationField} from '../../../store/slices/Seller.slice'
+import { getWithExpiry } from "../../../utils/storageUtils";
+
 
 const AccountVerification = () => {
   const dispatch = useDispatch();
@@ -49,6 +52,22 @@ const AccountVerification = () => {
     setpassword(e.target.value);
     if (confirmPassowrd && e.target.value === confirmPassowrd) {
       setPassworderror("");
+  //fetch earlier saved data from local storage
+  useEffect(()=>{
+    const savedData = getWithExpiry("RegistrationdataPage1");
+    if(savedData){
+      setpassword(savedData.password || "");
+      setconfirmPassowrd(savedData.password || "");
+      setemail(savedData.email || "");
+      setphone(savedData.phone || "")
+    }
+  },[])
+
+  const handelPasswordChange = (e) =>{
+    e.preventDefault()
+    setpassword(e.target.value)
+    if(confirmPassowrd && e.target.value === confirmPassowrd){
+        setPassworderror("")
     }
   };
 
@@ -203,11 +222,10 @@ const AccountVerification = () => {
         <div className={style.UsernameForm}>
           <div className={style.UernameInput}>
             <label>Username*</label>
-            <input
-              type="text"
-              placeholder="Choose a unique username"
-              // onBlur={(e) => checkUsername(e.target.value)}
-              onChange={handelChange}
+            <input type="text" 
+            placeholder="Choose a unique username" 
+            onChange={(e) => {dispatch(updateSellerRegistrationField({field:"fullname",value:e.target.value}));
+          }}
             />
             {isAvilable === null && (
               <span className={style.infomsg}>"This will be your seller ID on the platform"</span>
@@ -254,18 +272,12 @@ const AccountVerification = () => {
             </div>
             <div className={style.Password}>
               <label>Conform Password*</label>
-              <input
-                type="text"
-                placeholder="Create a strong password"
-                onChange={(e) => {
-                  handelConfirmPassword(e);
-                  dispatch(
-                    updateSellerRegistrationField({
-                      field: "password",
-                      value: e.target.value,
-                    })
-                  );
-                }}
+              <input type="password" placeholder="Create a strong password"
+              value={confirmPassowrd}
+              onChange={(e) => {
+                handelConfirmPassword(e);
+                dispatch(updateSellerRegistrationField({field:"password",value:e.target.value}))
+              }}
               />
             </div>
           </div>
@@ -284,6 +296,7 @@ const AccountVerification = () => {
             <input
               type="text"
               placeholder="+91**********"
+              value={phone}
               onChange={(e) => setphone(e.target.value)}
             />
             <button type="submit" disabled={resendTimer > 0}>
@@ -326,6 +339,7 @@ const AccountVerification = () => {
             <input
               type="email"
               placeholder="example@gmail.com"
+              value={email}
               onChange={(e) => setemail(e.target.value)}
             />
             <button type="submit" disabled={resendEmailOtpTimer > 0}>

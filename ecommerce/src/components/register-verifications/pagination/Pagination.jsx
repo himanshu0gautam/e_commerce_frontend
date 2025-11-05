@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import style from "./Pagination.module.css";
 import {
   nextRegistraionStep,
@@ -6,9 +7,12 @@ import {
 } from "../../../store/slices/Seller.slice";
 import {toast} from 'react-toastify'
 import {sellerRegistration} from "../../../store/actions/SellerAction"
+import { setWithExpiry,getWithExpiry } from "../../../utils/storageUtils";
+import { useEffect } from "react";
 
 const Pagination = ({ totalSteps }) => {
   const dispatch = useDispatch();
+
   
   const {
     registration: {
@@ -113,7 +117,57 @@ const iswarehousevalid =
 
   const increasePage = () => {
     if (currentStep < totalSteps) {
+
+    setTimeout(()=>{
+        if(currentStep === 1){
+        const userData1 = {email,password,fullname,phone};
+        if(!userData1) return null;
+        setWithExpiry("RegistrationdataPage1",userData1,90)
+      }
+    
+      else if(currentStep === 2){
+        const userData2 = { gst_no,
+        organisation_email,
+        primary_contact_person_name,
+        primary_contact_person_phone,
+        primary_contact_person_email,
+        company_name,
+        owner_name,
+        owner_email,
+        owner_phone,
+        nature_of_business,
+        business_category,}
+        setWithExpiry("RegistrationdataPage2",userData2,90)
+      }
+      else if(currentStep === 3){
+        const userData3 = {
+        bank_account_holder_name,
+        pan_number,
+        bank_account_no,
+        bank_IFCS,
+        bank_name,
+        branch_name,
+        branch_address,
+        branch_city,
+        branch_state,
+        branch_pincode,
+        account_type,
+        }
+        setWithExpiry("RegistrationdataPage3",userData3,90)
+      }
+       else if (currentStep === 4) {
+        userData4 = {
+        warehouse_pincode,
+        warehouse_state,
+        warehouse_full_address,
+        warehouse_order_procising_capacity,
+      };
+      setWithExpiry("RegistrationdataPage4", userData4, 90);
+    }
+    },100)
+    
       dispatch(nextRegistraionStep());
+      
     }
   };
   const decreasePage = () => {
@@ -122,10 +176,20 @@ const iswarehousevalid =
     }
   };
 
+
+//localstorage continue btn logic
+const [savedData, setSavedData] = useState(false)
+useEffect(()=>{
+    const saved= currentStep ===1 ? getWithExpiry("RegistrationdataPage1") :
+                 currentStep ===2 ? getWithExpiry("RegistrationdataPage2") :
+                  currentStep ===3 ? getWithExpiry("RegistrationdataPage3") : getWithExpiry("RegistrationdataPage4") ;
+
+   setSavedData(saved || false)
+},[currentStep])
   const isContinueDisbaled = 
-    (currentStep ===1 && !isStepValid) ||
-    (currentStep ===2 && !isBusinessValid) ||
-    (currentStep === 3 && !isBankingValid) ||
+    (currentStep ===1 && !isStepValid && !savedData )||
+    (currentStep ===2 && !isBusinessValid && !savedData ) ||
+    (currentStep === 3 && !isBankingValid && !savedData ) ||
     (currentStep === 4 && !iswarehousevalid);
 
 
@@ -150,7 +214,7 @@ const iswarehousevalid =
           Back
         </button>
         {currentStep < totalSteps ?  <button
-          onClick={increasePage}
+          onClick={increasePage  }
           disabled={isContinueDisbaled}
         >
           Continue</button> 
