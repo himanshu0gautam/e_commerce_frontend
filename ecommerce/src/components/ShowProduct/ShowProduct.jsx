@@ -152,7 +152,7 @@ const ShowProduct = () => {
     </div>
   )
 }
-}
+
 export default ShowProduct
 
 
