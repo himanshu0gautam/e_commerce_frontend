@@ -11,16 +11,25 @@ import {
 import { toast } from "react-toastify";
 import { MdOutlineMarkEmailRead } from "react-icons/md";
 import { RiSecurePaymentFill } from "react-icons/ri";
-import {updateSellerRegistrationField} from '../../../store/slices/Seller.slice'
-import {checkSeller} from '../../../store/actions/SellerAction'
+import { updateSellerRegistrationField } from "../../../store/slices/Seller.slice";
+import { checkSeller } from "../../../store/actions/SellerAction";
 
 const AccountVerification = () => {
   const dispatch = useDispatch();
-  const { loading, success, error,sellerNameCheck,sellerName ,registration:{fieldError} } = useSelector((state) => state.seller);
+  const {
+    loading,
+    success,
+    error,
+    sellerName,
+    registration: { fieldError },
+  } = useSelector((state) => state.seller);
 
+  const [username, setusername] = useState("");
+  const [message, setmessage] = useState("");
+  const [isAvilable, setisAvilable] = useState(null);
 
-  const [password, setpassword] = useState()
-  const [confirmPassowrd, setconfirmPassowrd] = useState()
+  const [password, setpassword] = useState();
+  const [confirmPassowrd, setconfirmPassowrd] = useState();
   const [passworderror, setPassworderror] = useState("");
 
   const [showEmailVerifyOtp, setshowEmailVerifyOtp] = useState(false);
@@ -34,26 +43,25 @@ const AccountVerification = () => {
 
   const [resendTimer, setresendTimer] = useState(0);
   const [resendEmailOtpTimer, setresendEmailOtpTimer] = useState(0);
-  
 
-  const handelPasswordChange = (e) =>{
-    e.preventDefault()
-    setpassword(e.target.value)
-    if(confirmPassowrd && e.target.value === confirmPassowrd){
-        setPassworderror("")
+  const handelPasswordChange = (e) => {
+    e.preventDefault();
+    setpassword(e.target.value);
+    if (confirmPassowrd && e.target.value === confirmPassowrd) {
+      setPassworderror("");
     }
-  }
+  };
 
   const handelConfirmPassword = (e) => {
-    e.preventDefault()
-    setconfirmPassowrd(e.target.value)
+    e.preventDefault();
+    setconfirmPassowrd(e.target.value);
 
     if (password !== e.target.value) {
       setPassworderror("Passwords do not match!");
     } else {
       setPassworderror("");
     }
-  }
+  };
 
   useEffect(() => {
     if (resendTimer <= 0) return;
@@ -73,16 +81,51 @@ const AccountVerification = () => {
     return () => clearInterval(intervals);
   }, [resendEmailOtpTimer]);
 
-
   //CHECK SELLER IS EXIST
-  function checkUsername(username) {
-    dispatch(checkSeller({
-      username:username
-    }))
+
+  useEffect(() => {
+    if (username.trim() === "") {
+      setmessage("");
+      setisAvilable(null);
+      return;
+    }
+    // Jab user type kare, har baar timer set karo
+    const timer = setTimeout(() => {
+      checkUsername(username);
+    }, 500);
+
+    // Cleanup → agar user fir type kare to purana timer cancel
+    return () => clearTimeout(timer);
+  }, [username]);
+
+
+
+  async function checkUsername(username) {
+    try {
+      const data = await dispatch(
+        checkSeller({
+          username: username,
+        })
+      ).unwrap();
+      if (!data.success) {
+        setmessage("Username already taken");
+        setisAvilable(false);
+      } else {
+        setmessage("Username is available");
+        dispatch(
+          updateSellerRegistrationField({ field: "fullname", value: username })
+        );
+        setisAvilable(true);
+      }
+    } catch (error) {
+      toast.error("⚠️ Error checking username", error);
+    }
   }
 
-  console.log(sellerNameCheck);
-  
+  const handelChange = (e) => {
+    setusername(e.target.value);
+    setmessage("");
+  };
 
   // PHONE VERIFICATION SECTION
 
@@ -110,7 +153,7 @@ const AccountVerification = () => {
       toast.success(res.message);
       setshowOTPForm(false);
       setresendTimer(0);
-      dispatch(updateSellerRegistrationField({field:"phone",value:phone}))
+      dispatch(updateSellerRegistrationField({ field: "phone", value: phone }));
     } catch (err) {
       toast.error(err || "Invalid OTP");
     }
@@ -140,12 +183,11 @@ const AccountVerification = () => {
       toast.success(res.payload.message);
       setshowEmailVerifyOtp(false);
       setresendEmailOtpTimer(0);
-      dispatch(updateSellerRegistrationField({field:"email",value:email}))
+      dispatch(updateSellerRegistrationField({ field: "email", value: email }));
     } catch (error) {
       toast.error(error || "invalid Otp");
     }
   };
-
 
   return (
     <div className={style.AccountVerificationContainer}>
@@ -155,36 +197,75 @@ const AccountVerification = () => {
       </header>
 
       {/* USER ACCOUNT DETAILS */}
-      
+
       <section className={style.UsernameSection}>
         <p>Account Credentials</p>
         <div className={style.UsernameForm}>
           <div className={style.UernameInput}>
             <label>Username*</label>
-            <input type="text" 
-            placeholder="Choose a unique username" 
-            onBlur={(e) => checkUsername(e.target.value)}
-            onChange={(e) => dispatch(updateSellerRegistrationField({field:"fullname",value:e.target.value}))}
+            <input
+              type="text"
+              placeholder="Choose a unique username"
+              // onBlur={(e) => checkUsername(e.target.value)}
+              onChange={handelChange}
             />
-            <span className={sellerNameCheck ? style.errorMsg : style.infoMsg}>{sellerNameCheck ? sellerName?.message : "This will be your seller ID on the platform"}</span>
+            {isAvilable === null && (
+              <span className={style.infomsg}>"This will be your seller ID on the platform"</span>
+            )}
+            {isAvilable === true && (
+              <span className={style.successMsg}>{message}</span>
+            )}
+            {isAvilable === false && (
+                <div className={style.suggestions}>
+                  <p style={{ color: "red" }}>username is already taken</p>
+                  {sellerName.suggestions > 0 && (
+                    <>
+                      <p>Try these instead:</p>
+                      <ul>
+                        {sellerName.suggestions.map((s, i) => (
+                          <li
+                            key={i}
+                            style={{ cursor: "pointer", color: "blue" }}
+                            onClick={() => setusername(s)}
+                          >
+                            {s}
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+                </div>
+              )}
           </div>
           <div className={style.UsernamePassword}>
             <div className={style.Password}>
               <label>Password*</label>
-              <input type="text" 
-              placeholder="Create a strong password" 
-              value={password}
-              onChange={handelPasswordChange}
+              <input
+                type="text"
+                placeholder="Create a strong password"
+                value={password}
+                onChange={handelPasswordChange}
               />
-              <span style={passworderror ? {color:"red"} : {}}>{passworderror ?? fieldError ? passworderror || fieldError: "Min. 8 characters with numbers & symbols" }</span>
+              <span style={passworderror ? { color: "red" } : {}}>
+                {passworderror ?? fieldError
+                  ? passworderror || fieldError
+                  : "Min. 8 characters with numbers & symbols"}
+              </span>
             </div>
             <div className={style.Password}>
               <label>Conform Password*</label>
-              <input type="text" placeholder="Create a strong password"
-              onChange={(e) => {
-                handelConfirmPassword(e);
-                dispatch(updateSellerRegistrationField({field:"password",value:e.target.value}))
-              }}
+              <input
+                type="text"
+                placeholder="Create a strong password"
+                onChange={(e) => {
+                  handelConfirmPassword(e);
+                  dispatch(
+                    updateSellerRegistrationField({
+                      field: "password",
+                      value: e.target.value,
+                    })
+                  );
+                }}
               />
             </div>
           </div>
@@ -277,13 +358,15 @@ const AccountVerification = () => {
       </section>
 
       <section className={style.lastSection}>
-        <RiSecurePaymentFill  className={style.secureIcon}/> 
+        <RiSecurePaymentFill className={style.secureIcon} />
         <div className={style.innerSection}>
-            <h2>Your data is secure</h2>
-            <span>We use industry-standard encryption to protect your account information</span>
+          <h2>Your data is secure</h2>
+          <span>
+            We use industry-standard encryption to protect your account
+            information
+          </span>
         </div>
       </section>
-
     </div>
   );
 };
