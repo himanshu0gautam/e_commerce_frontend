@@ -30,6 +30,10 @@ const Login = () => {
     dispatch(LoginUser({ phone, password }));
   };
 
+  const handelRouteToForget = () => {
+    navigate('/auth/send-OTP')
+  }
+
   useEffect(() => {
     if (userExist) {
       if (userExist.exists) setShowPassword(true);
@@ -74,7 +78,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setpassword(e.target.value)}
             />
-            <p className={style.fgt} onClick={() => toast.info("Reset flow")}>
+            <p className={style.fgt} onClick={handelRouteToForget}>
               Forgot password?
             </p>
           </div>

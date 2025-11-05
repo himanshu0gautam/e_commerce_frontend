@@ -14,6 +14,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     userExist:null,
+    phone:"",
     user: null,
     loading: false,
     error: null,
@@ -24,8 +25,8 @@ const userSlice = createSlice({
     resetPassowrd:false
   },
   reducers: {
-    logoutUSer: (state) => {
-      state.user = null;
+    setPhone: (state,action) => {
+      state.phone = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -141,5 +142,5 @@ const userSlice = createSlice({
   },
 });
 
-
+export const { setPhone } = userSlice.actions;
 export default userSlice.reducer

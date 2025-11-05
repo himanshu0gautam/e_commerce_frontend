@@ -192,7 +192,6 @@ useEffect(()=>{
     (currentStep === 3 && !isBankingValid && !savedData ) ||
     (currentStep === 4 && !iswarehousevalid);
 
-    console.log(sellerData);
 
     const finalRegsiterSubmition = async() => {
       try {

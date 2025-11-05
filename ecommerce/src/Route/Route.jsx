@@ -35,6 +35,7 @@ import ForgetPassword from "../pages/signIn/forgetpassword/ForgetPassword.jsx";
 import VerifyForgetOtp from "../pages/signIn/verifyForgetOTp/VerifyForgetOtp.jsx";
 import CheckoutPage from "../components/Cart/Checkout.jsx";
 import OrderSuccess from "../components/OrderSuccess/OrderSuccess.jsx";
+import ResetPassowrd from "../pages/signIn/resetpassowrd/ResetPassowrd.jsx";
 
 const router = createBrowserRouter([
   {
@@ -149,7 +150,11 @@ const router = createBrowserRouter([
         element: <VerifyForgetOtp />
       },
       {
-        path: "registerr",   // child route -> /auth/signin
+        path: "reset-password",   // child route -> /auth/signin
+        element: <ResetPassowrd />
+      },
+      {
+        path: "register",   // child route -> /auth/signin
         element: <Registerr />
       },
       {
