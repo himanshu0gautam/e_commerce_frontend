@@ -27,8 +27,8 @@
 
 /* Right side zoomed image */
 .zoomedImage {
-  width: 45rem;
-  height: 40rem;
+  width: 30rem;
+  height: 30rem;
   border: 1px solid #ccc;
   background-repeat: no-repeat;
   background-size: 200%; /* adjust for zoom strength */
@@ -36,6 +36,6 @@
   display: none;
   position: absolute;
   left: 35rem; /* gap between image and zoom box */
-  top: 0;
+  top: -20px;
   z-index: 10;
 }

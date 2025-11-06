@@ -11,9 +11,9 @@ import Jewellery from "../pages/Jewellery.jsx";
 import Login from "../pages/signIn/Login.jsx";
 import MyProfile from "../pages/MyProfile.jsx";
 import { Orders } from "../pages/Orders.jsx";
-import { WishList } from "../pages/WishList.jsx";
-import Notification  from "../pages/Notification.jsx"
-import Suppliers  from "../pages/Suppliers.jsx";
+// import { WishList } from "../pages/WishList.jsx";
+import Notification from "../pages/Notification.jsx"
+import Suppliers from "../pages/Suppliers.jsx";
 import Books from "../pages/Books.jsx"
 import SupplierProfile from "../components/SupplierProfile/SupplierProfile.jsx";
 import UserDetails from "../pages/signIn/UserDetails.jsx";
@@ -47,8 +47,8 @@ const router = createBrowserRouter([
         element: <Jewellery />
       },
       {
-        path:"Books",
-        element:<Books/>
+        path: "Books",
+        element: <Books />
       },
       {
         path: "allcategories",
@@ -71,28 +71,39 @@ const router = createBrowserRouter([
         element: <Fashion />
       },
       {
-        path : 'myprofile',
-        element : <MyProfile/>
+        path: 'myprofile',
+        element: <MyProfile />
       },
       {
-        path : 'orders',
-        element : <Orders/>
+        path: 'orders',
+        element: <Orders />
+      },
+      // {
+      //   path: 'wishList',
+      //   element: <WishList />
+      // },
+      {
+        path: 'notification',
+        element: <Notification />
       },
       {
-        path : 'wishList',
-        element : <WishList/>
+        path: "suppliers",
+        element: <Suppliers />
       },
       {
-        path : 'notification',
-        element : <Notification/>
+        path: "supplierprofile",
+        element: <SupplierProfile />
       },
       {
-        path:"suppliers",
-        element : <Suppliers/>
+        path: 'supplierdashboard',
+        element: <SupplierDashboard />
       },
       {
-        path :"supplierprofile",
-        element : <SupplierProfile/>
+        path: "adminuser",
+        element: <AdminUsers />
+      }, {
+        path: "registerr",
+        element: < Registerr />
       },
       {
         path: "supplierdashboard",
@@ -103,27 +114,25 @@ const router = createBrowserRouter([
         )
       },
       {
-        path:"adminuser",
-        element:<AdminUsers/>
-      },{
-        path :  "registerr",
-        element : < Registerr/>
-      },
-      {
-        path : "loginn",
-        element : <Loginn/>
-      },
-      {
-        path : "/:productName",
-        element:<ProductDetails/>
+        path: "/:productName",
+        element: <ProductDetails />
       },
       {
         path: '/cart',
-        element : <Cart/>
+        element: <Cart />
+      },
+      {
+        path: "/checkout",
+        element: <CheckoutPage />
+      },
+      {
+        path: "/order-success",
+        element: <OrderSuccess />,
       }
+
     ]
   },
-  
+
   {
     path: "/auth",
     element: <SignInRoute />,
@@ -131,6 +140,22 @@ const router = createBrowserRouter([
       {
         path: "login",   // child route -> /auth/signin
         element: <Login />
+      },
+      {
+        path: "send-OTP",   // child route -> /auth/signin
+        element: <ForgetPassword />
+      },
+      {
+        path: "verify-OTP",   // child route -> /auth/signin
+        element: <VerifyForgetOtp />
+      },
+      {
+        path: "reset-password",   // child route -> /auth/signin
+        element: <ResetPassowrd />
+      },
+      {
+        path: "register",   // child route -> /auth/signin
+        element: <Registerr />
       },
       {
         path :"userdetails",
@@ -153,30 +178,30 @@ const router = createBrowserRouter([
       },
       {
         path: "seller-forget-password",   // child route -> /auth/signin
-        element: <ForGetPassword/>
+        element: <ForGetPassword />
       },
       {
         path: "verify-otp",   // child route -> /auth/signin
-        element: <SellerVerfyOtp/>
+        element: <SellerVerfyOtp />
       },
       {
         path: "reset-password",   // child route -> /auth/signin
-        element: <ResetPassword/>
+        element: <ResetPassword />
       },
       {
-        path :"userdetails",
-        element : <UserDetails/>
+        path: "userdetails",
+        element: <UserDetails />
       }
     ]
   },
   
   {
-    path:"/admin",
-    element:<SignInRoute/>,
-    children:[
+    path: "/admin",
+    element: <SignInRoute />,
+    children: [
       {
-        path:'seller-status',
-        element:<Admin/>
+        path: 'seller-status',
+        element: <Admin />
       }
     ]
   }

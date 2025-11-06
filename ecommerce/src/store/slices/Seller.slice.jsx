@@ -13,7 +13,8 @@ import {
   getSingleSeller,
   ApprovedSeller,
   RejectSeller,
-  getApprovedAndRejectCount
+  getApprovedAndRejectCount,
+  checkSeller
 } from "../actions/SellerAction";
 
 const sellerSlice = createSlice({
@@ -23,11 +24,13 @@ const sellerSlice = createSlice({
     allSellers: [],
     token: null,
     loading: false,
+    sellerNameCheck:false,
     error: null,
     success: false,
     register:false,
     singleSeller:null,
     StatusCount:[],
+    sellerName:null,
 
     registration: {
       currentStep: 1,
@@ -180,6 +183,18 @@ const sellerSlice = createSlice({
         state.register = true
       })
       .addCase(sellerRegistration.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(checkSeller.pending, (state) => {
+        state.loading = false;
+      })
+      .addCase(checkSeller.fulfilled, (state,action) => {
+        state.loading = false;
+        state.sellerNameCheck=true
+        state.sellerName=action.payload
+      })
+      .addCase(checkSeller.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

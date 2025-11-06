@@ -26,8 +26,8 @@
  display: flex;
   flex-wrap: wrap;         
   justify-content: start; 
-  gap: 1rem;
-  padding: 0rem 5rem;
+  gap: 2rem;
+  padding: 0rem 5vw;
  
 }
 
@@ -202,7 +202,6 @@
     margin-left: 0;
 
   }
-  .supplierProfile::-webkit-scrollbar { display: none; }
 
   .profileCard {
     flex: 0 0 78%;

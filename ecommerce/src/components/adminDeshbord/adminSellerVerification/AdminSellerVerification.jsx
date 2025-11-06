@@ -13,7 +13,6 @@ const AdminSellerVerification = () => {
   dispatch(getApprovedAndRejectCount());
 }, [dispatch]);
 
-  
 
   return (
     <div className={style.AdminSellerVerificationContainer}>

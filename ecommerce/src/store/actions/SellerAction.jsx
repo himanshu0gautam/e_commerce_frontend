@@ -7,6 +7,8 @@ export const loginSeller = createAsyncThunk(
     async (credentialas,{rejectWithValue}) => {
         try {
             const res = await axiosInstance.post('/auth/seller/login',credentialas);
+            console.log(res.data);
+            
             return res.data
         } catch (error) {
             return rejectWithValue(error.response.data.message)
@@ -179,4 +181,17 @@ export const getApprovedAndRejectCount = createAsyncThunk(
     }
   }
 );
+
+export const checkSeller = createAsyncThunk(
+    'check-seller',
+    async (credentialas,{rejectWithValue}) => {
+        try {
+            const res = await axiosInstance.post('/auth/seller/check-seller',credentialas)
+            console.log(res.data);
+            return res.data
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || "Something went wrong");
+        }
+    }
+)
 

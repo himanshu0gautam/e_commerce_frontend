@@ -1,7 +1,7 @@
 .RegisterMainContainer {
   margin-top: 1rem;
   border-top: 1px solid #d1d1d1; /* softer than black */
-  padding: 4rem;
+  padding: 1.8rem;
   width: 100%;
   display: flex;
   align-items: center;

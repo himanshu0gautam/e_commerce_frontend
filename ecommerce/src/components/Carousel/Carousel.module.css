@@ -94,13 +94,14 @@
     color: white;
     font-weight: 400;
     /* background-color: rgb(0, 0, 0); */
-    margin-top: 2rem;
+    margin: 2rem;
     
 }
 .leftData h2{
     line-height: 3.5rem;
     font-size: 3rem;
     font-weight: 100;
+     color: white;
 }
 .leftData span{
     color: rgb(247, 218, 35);
@@ -111,6 +112,7 @@
     line-height: 1.5rem;
     font-weight: 200;
     font-size: 1.1rem;
+     color: white;
     
 }
 .info{
@@ -141,14 +143,22 @@
 }
 .rightData{
     background: transparent ;
-    margin-top: 2rem;
+    /* margin-top: 2rem; */
     gap: 1rem;
     display: flex;
     flex-direction: column;
     color: white;
+    /* margin: 2rem; */
     /* margin-left: rem; */
+     padding-top: 5rem;
+    padding-bottom: 5rem;
 
 }
+
+    .rightInfo{
+        padding: 1rem 1.5rem;
+       
+    }
 .icon1{
     color:rgb(3, 3, 3);
     font-size: 2.5rem;
@@ -209,6 +219,7 @@
 .rightInfo p{
     padding-top: .5rem;
     font-size: .9rem;
+     color: white;
 }
 
 @media (max-width:1024px) {
@@ -220,6 +231,7 @@
     font-family:  Helvetica , Arial, sans-serif;
     cursor: default;
     
+    
 }
 .fixedData{
     display: flex;
@@ -228,7 +240,30 @@
     gap: 8rem;
     position: relative;
     padding: 2rem;
+    padding: 1rem  ;
 }
+.leftData h2{
+        font-size: 1.5rem;
+        color: aqua;
+    }
+    .leftData p{
+        font-size: .9rem;
+    }
+    .rightData{
+       padding-top: 5rem;
+       padding-bottom: 5rem;
+    }
+    .rightInfo{
+        padding: 1rem 1.5rem;
+       
+    }
+    .info{
+        margin-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    .info span{
+        font-size: .9rem;
+    }
 
 }
 @media (max-width:767px) {
@@ -259,3 +294,66 @@
         font-size: .9rem;
     }
 }
+@media (max-width:480px) {
+    .Carousel{
+        margin-top: -1rem;
+        height: 35vh;
+        left: 2;
+        display: flex;
+    }
+
+    .carouselData{
+      position: absolute;
+        top: 50%;    
+        left: 20%;  
+    }
+    .fixedData{
+        position: relative;
+        left: 0;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .leftData{
+        height: 7rem;
+        width: 7rem;
+        display: flex;
+        padding: 0;
+        
+    } 
+    .leftData h2{
+        font-size: clamp(1rem, 2.5vw, 3rem);
+        color: aqua;
+        line-height: 1.2;
+        margin-top: 5vh;
+        margin-left: 1VW;
+       
+
+    }
+    .leftData p{
+        font-size: .6rem;
+        line-height: normal;
+        width: 100%;
+        position: absolute;
+        display: none;
+       
+        
+    }
+    .rightData{
+        display: none;
+    }
+    .info{
+       position: absolute;
+        left: clamp(30vw, 55vw, 60vw);
+        bottom: clamp(5vh, 15vw, 18vh);
+        margin-top: 1rem;
+        padding-bottom: 1rem;
+        display: flex;
+        margin-bottom: 3vw;
+        align-items: center;
+        gap: clamp(0.2rem, 0.8vw, 1rem);
+        font-size: clamp(0.8rem, 1vw, 1.2rem);
+    }
+    .info span{
+        font-size: .8rem;
+    }
+}   

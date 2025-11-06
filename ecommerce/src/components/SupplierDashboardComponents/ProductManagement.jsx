@@ -138,6 +138,12 @@ const ProductManagement = () => {
   // search state for product listing
   const [search, setSearch] = useState("");
 
+
+  //   {
+  //   "phone": "9988210022",
+  //   "password": "Password@12345"
+  //   }
+
   // show message
   useEffect(() => {
     let timer;

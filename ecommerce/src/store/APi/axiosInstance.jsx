@@ -6,10 +6,18 @@ const baseURL =
     ? "http://localhost:3000/api"
     : "http://192.168.1.43:3000/api";
 
+    // const baseURL2= "http://192.168.1.48:3000/api"
+
 const baseURL_2 = 
 window.location.hostname === "localhost"
   ? "http://localhost:3001/api"
-  : "http://192.168.1.41:3001/api";
+  : "http://192.168.1.51:3001/api";
+
+
+const baseURL_3 = 
+window.location.hostname === "localhost"
+  ? "http://localhost:3001/api"
+  : "http://192.168.1.43:3001/api";
 
 
 const axiosInstance = axios.create({
@@ -17,11 +25,18 @@ const axiosInstance = axios.create({
     withCredentials:true
 })
 
-const axiosInstance_2 = axios.create({
-  baseURL:baseURL_2,
+
+
+const axiosInstance_2  = axios.create({
+  baseURL_2,
   withCredentials:true
 })
 
-export default axiosInstance;
+const axiosInstance_3  = axios.create({
+  baseURL_3,
+  withCredentials:true
+})
 
-export {axiosInstance_2};
+export default axiosInstance
+
+export {axiosInstance_2,axiosInstance_3}
