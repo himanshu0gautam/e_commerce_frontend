@@ -31,6 +31,7 @@ import React, { Suspense, } from "react";
 import Admin from "../pages/adminDeshbord/Admin.jsx";
 import ProductDetails from "../components/ProductDetails/ProductDetails.jsx";
 import Cart from "../pages/Cart.jsx";
+import { ProductProvider } from "../components/SupplierDashboardComponents/ProductContext.jsx"
 
 const router = createBrowserRouter([
   {
@@ -94,8 +95,12 @@ const router = createBrowserRouter([
         element : <SupplierProfile/>
       },
       {
-        path:'supplierdashboard',
-        element : <SupplierDashboard/>
+        path: "supplierdashboard",
+        element: (
+          <ProductProvider>
+            <SupplierDashboard />
+          </ProductProvider>
+        )
       },
       {
         path:"adminuser",
@@ -133,6 +138,7 @@ const router = createBrowserRouter([
       }
     ]
   },
+
   {
     path: "/seller",
     element: <SignInRoute />,
@@ -163,6 +169,7 @@ const router = createBrowserRouter([
       }
     ]
   },
+  
   {
     path:"/admin",
     element:<SignInRoute/>,

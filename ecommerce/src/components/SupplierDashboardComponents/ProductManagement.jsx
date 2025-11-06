@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState, useCallback } from "react";
 import axios from "axios"
 import styles from "./SupplierDashboardComponents.module.css"
 import { IoMdAdd } from "react-icons/io";
@@ -8,7 +8,8 @@ import { statusColors } from "../statusColors/statusColors"
 import { IoIosArrowDown } from "react-icons/io";
 import Cookies from "js-cookie";
 import Search from "../SearchBar/SearchBar";
-import { axiosInstance_2 } from "../../store/APi/axiosInstance";  
+import { ProductContext } from "./ProductContext";
+import { axiosInstance_2 } from "../../store/APi/axiosInstance"
 
 
 // const filterOpt = ["Category","SubCategory","Advance Details","Image"]
@@ -17,14 +18,19 @@ const ProductManagement = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState("Select Category");
   const [overlayStep, setOverlayStep] = useState('category');
+  const [selected, setSelected] = useState("Select Category")
+  const options = ["fashion", "electronic", "grosery", "other"];
+  const [enabledSteps, setEnabledSteps] = useState({
+    category: true,
+    child: false,
+    image: false,
+  });
 
   // move to next step or finish
   const handleNext = (e) => {
     if (e && e.preventDefault) e.preventDefault();
-    if (overlayStep === 'category') return setOverlayStep('subcategory');
-    if (overlayStep === 'subcategory') return setOverlayStep('child');
+    if (overlayStep === 'category') return setOverlayStep('child');
     if (overlayStep === 'child') return setOverlayStep('image');
     // if on image or unknown, close overlay
     setIsOpen(false);
@@ -32,14 +38,11 @@ const ProductManagement = () => {
 
   // move to previous step (prev/back)
   const handlePrev = () => {
-    if (overlayStep === 'subcategory') return setOverlayStep('category');
-    if (overlayStep === 'child') return setOverlayStep('subcategory');
+    if (overlayStep === 'child') return setOverlayStep('category');
     if (overlayStep === 'image') return setOverlayStep('child');
     // default: go to category
     setOverlayStep('category');
   };
-
-  const options = ["fashion", "electronic", "grosery", "other"];
 
   const handleSelect = (opt) => {
     setSelected(opt);
@@ -107,28 +110,33 @@ const ProductManagement = () => {
 
   const [category_name, setCategoryName] = useState("");
   const [sub_cat_name, setSub_cat_name] = useState("");
-  const [nested_sub_cat_name, setnested_sub_cat_name] = useState("");
-  const [description, setDescription] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [createdCategoryId, setCreatedCategoryId] = useState(null);
-  const [createdProductId, setCreatedProductId] = useState(null);
-  const [createdSubCategoryId, setCreatedSubCategoryId] = useState(null);
-  const [formData, setFormData] = React.useState({
-    product_name: "",
-    sku: "",
-    brand: "",
-    location_city: "",
-    location_state: "",
-    location_country: "",
-    gst_verified: "",
-    product_unit: "",
-    product_price: "",
-    description: "",
-    image: null
-  });
+  // const [createdCategoryId, setCreatedCategoryId] = useState(null);
+  // const [createdProductId, setCreatedProductId] = useState(null);
+  // const [createdSubCategoryId, setCreatedSubCategoryId] = useState(null);
+  // const [imageData, setImageData] = useState([]);
+  // const [nested_sub_cat_name, setnested_sub_cat_name] = useState("");
+  // const [description, setDescription] = useState("");
 
-  const [imageData, setImageData] = useState([]);
+
+  // product form data (top-level so validation and submit handlers can access it)
+  // const [formData, setFormData] = useState({
+  //   product_name: "",
+  //   sku: "",
+  //   brand: "",
+  //   location_city: "",
+  //   location_state: "",
+  //   location_country: "",
+  //   gst_verified: "",
+  //   product_unit: "",
+  //   product_price: "",
+  //   description: "",
+  //   image: null
+  // });
+
+  // search state for product listing
+  const [search, setSearch] = useState("");
 
   // show message
   useEffect(() => {
@@ -157,162 +165,202 @@ const ProductManagement = () => {
     }));
   };
 
-  // add category post api
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  // handle category select from dropdown (used in the category list)
+  // const handleSelect = (opt) => {
+  //   setSelected(opt);
+  //   setOpen(false);
+  // };
+
+
+  // validate category and subcategory 
+  const handleButton = async (e) => {
+    if (e && e.preventDefault) e.preventDefault();
     setMessage("");
 
-    try {
-
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      };
-
-      if (overlayStep === "category") {
-        const res = await axiosInstance_2.post("/seller/seller-category",
-          { category_name: selected || category_name, description },
-          config
-        );
-
-        console.log("category", res.data);
-
-        setCreatedCategoryId(res.data?.id || res.data?.category?.id);
-        setMessage(res.data.message || "Category saved successfully!");
-        setCategoryName("");
-        setOverlayStep("subcategory");
+    if (overlayStep === 'category') {
+      if (!selected || selected === 'Select Category') {
+        setMessage('Please select a category');
+        return;
+      }
+      if (!sub_cat_name || !sub_cat_name.trim()) {
+        setMessage('Please enter a sub category name');
+        return;
       }
 
-      else if (overlayStep === "subcategory") {
-        // create subcategory
-        const subRes = await axiosInstance_2.post(
-          "/seller/seller-subCategory",
-          { sub_cat_name, description, category_id: createdCategoryId },    //category_id: createdCategoryId, // optional link   
-          config
-        );
-
-        console.log("subcategory", subRes.data);
-        const subCategoryId = subRes.data?.id || subRes.data?.subCategory?.id;
-        setCreatedSubCategoryId(subCategoryId);
-
-        if (nested_sub_cat_name) {
-          const childRes = await axios.post(
-            "http://localhost:3001/api/seller/seller-nestedSubCategory",
-            { nested_sub_cat_name, description },
-            config
-          );
-
-          console.log("child-category", childRes.data);
-        }
-
-        setMessage("Subcategory and Child Subcategory added successfully!");
-        setSub_cat_name("");
-        setnested_sub_cat_name("");
-        setDescription("");
-        setOverlayStep("child");
-      }
-
-      else if (overlayStep === "child") {
-
-        const data = new FormData();
-        data.append("product_name", formData.product_name);
-        data.append("sku", formData.sku);
-        data.append("brand", formData.brand);
-        data.append("location_city", formData.location_city);
-        data.append("location_state", formData.location_state);
-        data.append("location_country", formData.location_country);
-        data.append("gst_verified", formData.gst_verified);
-        data.append("product_unit", formData.product_unit);
-        data.append("product_price", formData.product_price);
-        data.append("description", formData.description);
-
-        if (createdCategoryId) {
-          data.append("category_id", createdCategoryId);
-        } else if (selected && selected !== "Select Category") {
-          data.append("category_name", selected);
-        } else if (category_name) {
-          data.append("category_name", category_name);
-        }
-
-        if (createdSubCategoryId) {
-          data.append("sub_category_id", createdSubCategoryId);
-        } else if (sub_cat_name) {
-          data.append("sub_category_name", sub_cat_name);
-        }
-
-        if (selectedDate) data.append("product_date", selectedDate);
-
-        const response = await axiosInstance_2.post("/seller/list-product", data, config);
-
-        console.log("product created", response.data);
-
-        setFormData({ product_name: "", sku: "", brand: "", location_city: "", location_state: "", location_country: "", gst_verified: "", product_unit: "", product_price: "", description: "" });
-        setMessage(response.data.message || "Product saved successfully!");
-        setOverlayStep("image");
-      }
-
-      else if (overlayStep === "image") {
-
-        const formdata = new FormData();
-
-        // 1. Loop over the 'images' state (where your files actually are)
-        images.forEach(imageObj => {
-          // Check if the slot has a file object
-          if (imageObj && imageObj.file) {
-            // Append the actual File object using the key 'image'
-            formdata.append("image", imageObj.file);
-          }
-        });
-
-        if (createdProductId) {
-          formdata.append("product_id", createdProductId);
-        } else if (nested_sub_cat_name) {
-          formdata.append("nested_sub_cat_name", nested_sub_cat_name)
-        }
-
-        const response = await axiosInstance_2.post(
-          "/seller/add-image",
-          formdata,
-          {
-            withCredentials: true,
-          }
-        );
-
-        console.log("image url sucessfull", response.data);
-        setImageData([])
-        setMessage(response.data.message || "image_url successfull")
-        setImages(Array(MAX_IMAGES).fill(null));
-      }
-
-      // add more api else if 
-
-    } catch (error) {
-      console.error("Error:", error);
-      if (error.response) {
-        setMessage(error.response.data.message || "Request failed.");
-      } else {
-        setMessage("Server error. Please try again later.");
-      }
-    } finally {
-      setLoading(false);
+      // enable and move to child (advance details)
+      setEnabledSteps(prev => ({ ...prev, child: true }));
+      setOverlayStep('child');
+      return;
     }
+
+    // CHILD STEP: validate required product fields before enabling image step
+    if (overlayStep === 'child') {
+      if (!formData.product_name || !formData.product_name.trim()) {
+        setMessage('Please enter a product name');
+        return;
+      }
+      if (!formData.sku || !formData.sku.trim()) {
+        setMessage('Please enter SKU');
+        return;
+      }
+
+      // enable and move to image step
+      setEnabledSteps(prev => ({ ...prev, image: true }));
+      setOverlayStep('image');
+      return;
+    }
+
+    // IMAGE STEP: finish / submit (placeholder behavior)
+    if (overlayStep === 'image') {
+      setLoading(true);
+      try {
+        // Here you would construct form data and call API to create the product.
+        // For now, simulate success and close overlay.
+        setMessage('Product added successfully');
+        setTimeout(() => {
+          setIsOpen(false);
+          setOverlayStep('category');
+        }, 700);
+      } catch (err) {
+        setMessage('Error adding product');
+      } finally {
+        setLoading(false);
+      }
+    }
+
   };
 
-  const [product, setProduct] = useState([]);
 
-  useEffect(() => {
-    ; (async () => {
-      const res = await axiosInstance_2.get("/seller/all-product?page=${page}&limit=5",
-        { withCredentials: true }
-      );
-      console.log(res.data);
-      setProduct(res.data.data)
-    })();
-  }, [])
+  // api integrate
+  const [categoryData, setCategoryData] = useState({
+    category_name: selected || category_name,
+    sub_cat_name: "",
+    nested_sub_cat_name: "",
+    description: "",
+  });
 
+  const [productData, setProductData] = useState({
+    product_name: "",
+    sku: "",
+    brand: "",
+    location_city: "",
+    location_state: "",
+    location_country: "",
+    gst_verified: "",
+    product_unit: "",
+    product_price: "",
+    description: "",
+    color: "",
+    size: "",
+    product_Material: "",
+    product_specification: "",
+    image: null
+  })
+
+  const [imageData, setImageData] = useState([])
+
+  const productWithCategoryApi = async (data) => {
+    try {
+      console.log(axiosInstance_2.defaults.baseURL);
+      const res = await axiosInstance_2.post("/seller/list-product", data,
+        {
+          headers: { "Content-Type": "application/json" }
+        })
+      console.log("product created", res.data);
+
+    } catch (error) {
+      console.log("axiosInstance_2 is mein dikkat hai", error);
+    }
+  }
+
+  const handleCategorySubmit = (e) => {
+    e.preventDefault();
+
+    if (!categoryData.category_name || !categoryData.sub_cat_name || !categoryData.nested_sub_cat_name) {
+      setMessage("All fields required!");
+      return;
+    }
+
+    console.log("Category Data Collected:", categoryData);
+    setOverlayStep("child");
+  }
+
+  const handleProductSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!productData.product_name || !productData.product_price) {
+      alert("Product name and price are required!");
+      return;
+    }
+
+    const finalPayload = {
+      ...categoryData,
+      ...productData,
+    };
+
+    console.log("Final Merged Payload:", finalPayload);
+
+    try {
+      const response = productWithCategoryApi(finalPayload, { withCredentials: true });
+
+      console.log(response.data);
+
+      setCategoryData({
+        category_name: "",
+        sub_cat_name: "",
+        nested_sub_cat_name: "",
+        description: "",
+      });
+
+      setProductData({
+        product_name: "",
+        sku: "",
+        brand: "",
+        location_city: "",
+        location_state: "",
+        location_country: "",
+        gst_verified: "",
+        product_unit: "",
+        product_price: "",
+        description: "",
+        color: "",
+        size: "",
+        product_Material: "",
+        product_specification: "",
+        image: null
+      });
+      setOverlayStep("image");
+
+    } catch (error) {
+      console.log("product creation mein dikkat hai ", error);
+
+      console.log("Submission failed, staying on product step.");
+    }
+
+  }
+
+  const handleImageApi = async () => {
+   const formdata = new FormData();
+
+    images.forEach(imageObj => {
+      if (imageObj && imageObj.file) {
+        formdata.append("image", imageObj.file);
+      }
+    });
+
+   try {
+     const response = await axiosInstance_2.post("/seller/add-image", formdata)
+ 
+     console.log("image sucessfull upload", response.data);
+     setImageData([])
+   } catch (error) {
+    console.log("Image upload failed", error.response ? error.response.data : error.message); 
+   }
+  }
+
+
+
+  const { products, loading: productsLoading, setPage } = useContext(ProductContext);
 
   return (
     <div className={styles.productArea}>
@@ -323,43 +371,35 @@ const ProductManagement = () => {
 
         {isOpen && (
           <div className={styles.productOverlay}>
+            
             <div className={styles.productContent}>
 
-              {message && <p className={styles.message}>{message}</p>}
-
+            {message && <p className={styles.message}>{message}</p>}
               <div className={styles.productheading}><h3>Add New Product</h3> <span onClick={() => { setIsOpen(false); setOverlayStep('category'); }}><IoMdClose /></span> </div>
               <p>Fill in the details to add a new product to your catalog</p>
 
-              <form className={styles.form} onSubmit={handleSubmit}>
+              <form className={styles.form} onSubmit={handleCategorySubmit}>
 
                 <nav>
 
                   <div className={styles.navbar}>
                     <h5
-                      onClick={() => { setOverlayStep('category') }}
                       role="button"
                       tabIndex={0}
                       className={overlayStep === 'category' ? styles.activeTab : ''}
-
-                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setOverlayStep('category'); }}
+                      onClick={() => enabledSteps.category && setOverlayStep('category')}
+                      onKeyDown={(e) => { if ((e.key === 'Enter' || e.key === ' ') && enabledSteps.category) setOverlayStep('category'); }}
+                      style={{ opacity: enabledSteps.category ? 1 : 0.5, pointerEvents: enabledSteps.category ? 'auto' : 'none' }}
                     >
                       Category
                     </h5>
                     <h5
                       role="button"
                       tabIndex={0}
-                      className={overlayStep === 'subcategory' ? styles.activeTab : ''}
-                      onClick={() => setOverlayStep('subcategory')}
-                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setOverlayStep('subcategory'); }}
-                    >
-                      Sub Category
-                    </h5>
-                    <h5
-                      role="button"
-                      tabIndex={0}
                       className={overlayStep === 'child' ? styles.activeTab : ''}
-                      onClick={() => setOverlayStep('child')}
-                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setOverlayStep('child'); }}
+                      onClick={() => enabledSteps.child && setOverlayStep('child')}
+                      onKeyDown={(e) => { if ((e.key === 'Enter' || e.key === ' ') && enabledSteps.child) setOverlayStep('child'); }}
+                      style={{ opacity: enabledSteps.child ? 1 : 0.5, pointerEvents: enabledSteps.child ? 'auto' : 'none' }}
                     >
                       Advance Details
                     </h5>
@@ -367,141 +407,86 @@ const ProductManagement = () => {
                       role="button"
                       tabIndex={0}
                       className={overlayStep === 'image' ? styles.activeTab : ''}
-                      onClick={() => setOverlayStep('image')}
-                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setOverlayStep('image'); }}
+                      onClick={() => enabledSteps.image && setOverlayStep('image')}
+                      onKeyDown={(e) => { if ((e.key === 'Enter' || e.key === ' ') && enabledSteps.image) setOverlayStep('image'); }}
+                      style={{ opacity: enabledSteps.image ? 1 : 0.5, pointerEvents: enabledSteps.image ? 'auto' : 'none' }}
                     >
                       Image
                     </h5>
+
                   </div>
+
                 </nav>
 
-                {/* CATEGORY STEP (default) */}
+                {/* SUBCATEGORY STEP */}
                 {overlayStep === 'category' && (
                   <>
-                    <div className={styles.dropdown}>
-                      <h3 className={styles.ContentHeading}>Category Name<span>*</span></h3>
-                      <div>
-                        <button
-                          type="button"
-                          className={styles.dropdownBtn}
-                          onClick={() => setOpen(!open)}
-                        >
-                          {selected}
-                          <span className={styles.arrow}><IoIosArrowDown /></span>
-                        </button>
-
-                      </div>
-                      {open && (
-                        <ul className={styles.dropdownList}>
-                          {options.map((opt) => (
-                            <li
-                              key={opt}
-                              onClick={() => handleSelect(opt)}
-                              className={`${styles.dropdownItem} ${opt === selected ? styles.active : ""}`}
-                            >
-                              {opt}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-
                     <div className={styles.container}>
-                      <h3 className={styles.ContentHeading}>Product Date</h3>
-                      <input
-                        type="text"
-                        readOnly
-                        value={selectedDate}
-                        placeholder="Select a date"
-                        className={styles.inputcalender}
-                        onClick={() => setShowCalendar(!showCalendar)}
-                      />
 
-                      {showCalendar && (
-                        <div className={styles.calendarBox}>
-                          <div className={styles.header}>
-                            <button
-                              type="button"
-                              onClick={() =>
-                                month === 0
-                                  ? (setMonth(11), setYear(year - 1))
-                                  : setMonth(month - 1)
-                              }
-                            >
-                              ‹
-                            </button>
-                            <span>{monthNames[month]} {year}</span>
-                            <button
-                              type="button"
-                              onClick={() =>
-                                month === 11
-                                  ? (setMonth(0), setYear(year + 1))
-                                  : setMonth(month + 1)
-                              }
-                            >
-                              ›
-                            </button>
-                          </div>
+                      <div className={styles.dropdown}>
+                        <h3 className={styles.ContentHeading}>Category Name<span>*</span></h3>
+                        <div>
+                          <button
+                            type="button"
+                            className={styles.dropdownBtn}
+                            onClick={() => setOpen(!open)}
+                          >
+                            {/* {selected} */}
+                            {categoryData.category_name}
+                            <span className={styles.arrow}><IoIosArrowDown /></span>
+                          </button>
 
-                          <div className={styles.days}>
-                            {[...Array(daysInMonth)].map((_, i) => (
-                              <div
-                                key={i}
-                                onClick={() => handleDateClick(i + 1)}
-                                className={styles.day}
-                              >
-                                {i + 1}
-                              </div>
-                            ))}
-                          </div>
                         </div>
-                      )}
-                    </div>
+                        {open && (
+                          <ul className={styles.dropdownList}>
+                            {options.map((opt) => (
+                              // <li
+                              //   key={opt}
+                              //   onClick={() => handleSelect(opt)}
+                              //   className={`${styles.dropdownItem} ${opt === selected ? styles.active : ""}`}
+                              // >
+                              //   {opt}
+                              // </li>
+                              <li
+                                key={opt}
+                                onClick={() => {
+                                  handleSelect(opt);
+                                  setCategoryData(prev => ({ ...prev, category_name: opt }));
+                                  setOpen(false); // Close dropdown after selection
+                                }}
+                                className={`${styles.dropdownItem} ${opt === categoryData.category_name ? styles.active : ""}`}
+                              >
+                                {opt}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
 
-                    <h3 className={styles.ContentHeading}>Product Description</h3>
-                    <input
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      className={styles.des}
-                      type="text"
-                      placeholder="Describe your product in detail. include features and benefits ..." />
-                    <h6 style={{ color: "#9a9a9cff", margin: "6px" }}>Recommended: 100-500 characters</h6>
-
-                    <div className={styles.formbtn}>
-                      <button type="button" onClick={() => { setIsOpen(false) }}>Cancel</button>
-                      {/* Submit will create category and advance to subcategory on success */}
-                      <button type="submit" className={styles.btn} disabled={loading}>
-                        {loading ? "Adding..." : "Next"}
-                      </button>
-                    </div>
-                  </>
-                )}
-
-                {/* SUBCATEGORY STEP */}
-                {overlayStep === 'subcategory' && (
-                  <>
-                    <div className={styles.container}>
                       <h3 className={styles.ContentHeading}>Sub Category Name</h3>
                       <input className={styles.subcatinput}
                         type="text"
-                        value={sub_cat_name}
-                        onChange={(e) => setSub_cat_name(e.target.value)}
-                        placeholder="Enter sub category name like (Men, Women, kids, etc)" />
+                        value={categoryData.sub_cat_name}
+                        onChange={(e) => setCategoryData(prev => ({ ...prev, sub_cat_name: e.target.value }))}
+                        placeholder="Enter sub category name like (Men, Women, kids, etc)"
+                      />
 
                       <h3 className={styles.ContentHeading}>Child Category Name</h3>
                       <input className={styles.subcatinput}
                         type="text"
-                        value={nested_sub_cat_name}
-                        onChange={(e) => setnested_sub_cat_name(e.target.value)}
-                        placeholder="Enter Child category name like (Shirt, Pant, Trouser, etc)" />
+                        value={categoryData.nested_sub_cat_name}
+                        onChange={(e) => setCategoryData(prev => ({ ...prev, nested_sub_cat_name: e.target.value }))}
+                        placeholder="Enter Child category name like (Shirt, Pant, Trouser, etc)"
+                      />
 
                       <h3 className={styles.ContentHeading}>Product Description</h3>
                       <input
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
+                        value={categoryData.description}
+                        onChange={(e) => setCategoryData(prev => ({ ...prev, description: e.target.value }))}
                         className={styles.des}
                         type="text"
-                        placeholder="Describe your product in detail. include features and benefits ..." />
+                        placeholder="Describe the category/product in detail..."
+                      />
                       <h6 style={{ color: "#9a9a9cff", margin: "6px" }}>Recommended: 100-500 characters</h6>
 
 
@@ -509,7 +494,7 @@ const ProductManagement = () => {
                     <div className={styles.formbtn}>
                       <button type="button" onClick={handlePrev}>Back</button>
                       {/* Submitting the form will create subcategory then advance to child */}
-                      <button type="submit">Next</button>
+                      <button type="button" onClick={handleCategorySubmit}>Next</button>
                     </div>
                   </>
                 )}
@@ -518,112 +503,168 @@ const ProductManagement = () => {
                 {overlayStep === 'child' && (
                   <>
                     <div className={styles.productcontainer}>
-                      {/* <div className={styles.product}> */}
-                      <h3 className={styles.ContentHeading}>Product Name</h3>
-                      <input className={styles.productname}
-                        type="text"
-                        name="product_name"
-                        value={formData.product_name}
-                        onChange={handleChange}
-                        placeholder="Enter Your Product Name" />
-                      {/* </div> */}
+                      <div className={styles.product}>
+                        <h3 className={styles.ContentHeading}>Product Name</h3>
+                        <input className={styles.productname}
+                          type="text"
+                          name="product_name"
+                          value={productData.product_name}
+                          onChange={(e) => setProductData(prev => ({ ...prev, product_name: e.target.value }))}
+                          placeholder="Enter Your Product Name"
+                        />
+                      </div>
 
-                      {/* <div className={styles.product}> */}
-                      <h3 className={styles.ContentHeading}>SKU</h3>
-                      <input className={styles.productname}
-                        type="text"
-                        name="sku"
-                        value={formData.sku}
-                        onChange={handleChange}
-                        placeholder="Enter Your SKU" />
-                      {/* </div> */}
+                      <div className={styles.product}>
+                        <h3 className={styles.ContentHeading}>SKU</h3>
+                        <input className={styles.productname}
+                          type="text"
+                          name="sku"
+                          value={productData.sku}
+                          onChange={(e) => setProductData(prev => ({ ...prev, sku: e.target.value }))}
+                          placeholder="Enter Your SKU"
+                        />
+                      </div>
 
-                      {/* <div className={styles.product}> */}
-                      <h3 className={styles.ContentHeading}>Brand</h3>
-                      <input className={styles.productname}
-                        type="text"
-                        name="brand"
-                        value={formData.brand}
-                        onChange={handleChange}
-                        placeholder="Enter Your Brand Name" />
-                      {/* </div> */}
+                      <div className={styles.product}>
+                        <h3 className={styles.ContentHeading}>Brand</h3>
+                        <input className={styles.productname}
+                          type="text"
+                          name="brand"
+                          value={productData.brand}
+                          onChange={(e) => setProductData(prev => ({ ...prev, brand: e.target.value }))}
+                          placeholder="Enter Your Brand Name"
+                        />
+                      </div>
 
-                      {/* <div className={styles.product}> */}
-                      <h3 className={styles.ContentHeading}>City</h3>
-                      <input className={styles.productname}
-                        type="text"
-                        name="location_city"
-                        value={formData.location_city}
-                        onChange={handleChange}
-                        placeholder="Enter Your City" />
-                      {/* </div> */}
-                      {/* <div className={styles.product}> */}
-                      <h3 className={styles.ContentHeading}>State</h3>
-                      <input className={styles.productname}
-                        type="text"
-                        name="location_state"
-                        value={formData.location_state}
-                        onChange={handleChange}
-                        placeholder="Enter Your State" />
-                      {/* </div> */}
+                      <div className={styles.product}>
+                        <h3 className={styles.ContentHeading}>City</h3>
+                        <input className={styles.productname}
+                          type="text"
+                          name="location_city"
+                          value={productData.location_city}
+                          onChange={(e) => setProductData(prev => ({ ...prev, location_city: e.target.value }))}
+                          placeholder="Enter Your City"
+                        />
+                      </div>
 
-                      {/* <div className={styles.product}> */}
-                      <h3 className={styles.ContentHeading}>Country</h3>
-                      <input className={styles.productname}
-                        type="text"
-                        name="location_country"
-                        value={formData.location_country}
-                        onChange={handleChange}
-                        placeholder="Enter Your Country" />
-                      {/* </div> */}
+                      <div className={styles.product}>
+                        <h3 className={styles.ContentHeading}>State</h3>
+                        <input className={styles.productname}
+                          type="text"
+                          name="location_state"
+                          value={productData.location_state}
+                          onChange={(e) => setProductData(prev => ({ ...prev, location_state: e.target.value }))}
+                          placeholder="Enter Your State"
+                        />
+                      </div>
 
-                      {/* <div className={styles.product}> */}
-                      <h3 className={styles.ContentHeading}>GST Number</h3>
-                      <input className={styles.productname}
-                        type="text"
-                        name="gst_verified"
-                        value={formData.gst_verified}
-                        onChange={handleChange}
-                        placeholder="Enter Your GST Number (eg.abcd@1234)" />
-                      {/* </div> */}
+                      <div className={styles.product}>
+                        <h3 className={styles.ContentHeading}>Country</h3>
+                        <input className={styles.productname}
+                          type="text"
+                          name="location_country"
+                          value={productData.location_country}
+                          onChange={(e) => setProductData(prev => ({ ...prev, location_country: e.target.value }))}
+                          placeholder="Enter Your Country"
+                        />
+                      </div>
 
-                      {/* <div className={styles.product}> */}
-                      <h3 className={styles.ContentHeading}>Product Unit</h3>
-                      <input className={styles.productname}
-                        type="text"
-                        name="product_unit"
-                        value={formData.product_unit}
-                        onChange={handleChange}
-                        placeholder="Enter Product Quantity" />
-                      {/* </div> */}
+                      <div className={styles.product}>
+                        <h3 className={styles.ContentHeading}>HSN Number</h3>
+                        <input className={styles.productname}
+                          type="text"
+                          name="gst_verified"
+                          value={productData.gst_verified}
+                          onChange={(e) => setProductData(prev => ({ ...prev, gst_verified: e.target.value }))}
+                          placeholder="Product HSN Number (eg.abcd@1234)"
+                        />
+                      </div>
 
-                      {/* <div className={styles.product}> */}
-                      <h3 className={styles.ContentHeading}>Product Price</h3>
-                      <input className={styles.productname}
-                        type="text"
-                        name="product_price"
-                        value={formData.product_price}
-                        onChange={handleChange}
-                        placeholder="Enter Product Price" />
-                      {/* </div> */}
+                      <div className={styles.product}>
+                        <h3 className={styles.ContentHeading}>Product Unit</h3>
+                        <input className={styles.productname}
+                          type="text"
+                          name="product_unit"
+                          value={productData.product_unit}
+                          onChange={(e) => setProductData(prev => ({ ...prev, product_unit: e.target.value }))}
+                          placeholder="Enter Product Quantity"
+                        />
+                      </div>
+
+                      <div className={styles.product}>
+                        <h3 className={styles.ContentHeading}>Product Price</h3>
+                        <input className={styles.productname}
+                          type="text"
+                          name="product_price"
+                          value={productData.product_price}
+                          onChange={(e) => setProductData(prev => ({ ...prev, product_price: e.target.value }))}
+                          placeholder="Enter Product Price"
+                        />
+                      </div>
+
+                      <div className={styles.product}>
+                        <h3 className={styles.ContentHeading}>Product Colour</h3>
+                        <input className={styles.productname}
+                          type="text"
+                          name="color"
+                          value={productData.color}
+                          onChange={(e) => setProductData(prev => ({ ...prev, color: e.target.value }))}
+                          placeholder="Product Colour"
+                        />
+                      </div>
+
+                      <div className={styles.product}>
+                        <h3 className={styles.ContentHeading}>Product size</h3>
+                        <input className={styles.productname}
+                          type="text"
+                          name="size"
+                          value={productData.size}
+                          onChange={(e) => setProductData(prev => ({ ...prev, size: e.target.value }))}
+                          placeholder="Product size"
+                        />
+                      </div>
+
+                      <div className={styles.product}>
+                        <h3 className={styles.ContentHeading}>Product Material</h3>
+                        <input className={styles.productname}
+                          type="text"
+                          name="product_Material"
+                          value={productData.product_Material}
+                          onChange={(e) => setProductData(prev => ({ ...prev, product_Material: e.target.value }))}
+                          placeholder="Product Material"
+                        />
+                      </div>
+
+                      <div className={styles.product}>
+                        <h3 className={styles.ContentHeading}>Product Specifications</h3>
+                        <input className={styles.productname}
+                          type="text"
+                          name="product_specification"
+                          value={productData.product_specification}
+                          onChange={(e) => setProductData(prev => ({ ...prev, product_specification: e.target.value }))}
+                          placeholder="Product Specifications"
+                        />
+                      </div>
 
 
-                      <h3 className={styles.ContentHeading}>Product Description</h3>
+
+                      {/* <h3 className={styles.ContentHeading}>Product Description</h3>
                       <input
                         name="description"
-                        value={formData.description}
-                        onChange={handleChange}
+                        value={productData.description}
+                        onChange={(e) => setProductData(prev => ({ ...prev, description: e.target.value }))}
                         className={styles.advancedes}
                         type="text"
-                        placeholder="Describe your product in detail. include features and benefits ..." />
-                      <h6 style={{ color: "#9a9a9cff", margin: "6px" }}>Recommended: 100-500 characters</h6>
+                        placeholder="Describe your product in detail. include features and benefits ..."
+                      />
+                      <h6 style={{ color: "#9a9a9cff", margin: "6px" }}>Recommended: 100-500 characters</h6> */}
 
 
                     </div>
                     <div className={styles.formbtn}>
                       <button type="button" onClick={handlePrev}>Back</button>
                       {/* Submit the form on child step so handleSubmit runs and posts product data */}
-                      <button type="submit">Next</button>
+                      <button type="button" onClick={handleProductSubmit}>Next</button>
                     </div>
                   </>
                 )}
@@ -674,7 +715,7 @@ const ProductManagement = () => {
                     </div>
                     <div className={styles.formbtn}>
                       <button type="button" onClick={handlePrev}>Back</button>
-                      <button type="submit">Finish</button>
+                      <button type="submit" onClick={handleImageApi}>Finish</button>
                     </div>
                   </>
                 )}
@@ -689,65 +730,6 @@ const ProductManagement = () => {
         <h4>Manage your product catalog </h4>
       </div>
 
-      {/* <div className={styles.productListing}>
-
-        <div className={styles.dropdown}></div>
-
-        <div className={styles.tableWrapper}>
-          <table className={styles.table}>
-            <thead className={styles.thead}>
-              <tr>
-                <th className={styles.th}>Product ID</th>
-                <th className={styles.th}>Name</th>
-                <th className={styles.th}>SKU</th>
-                <th className={styles.th}>Category</th>
-                <th className={styles.th}>Price (INR)</th>
-                <th className={styles.th}>Stock</th>
-                <th className={styles.th}>Status</th>
-                <th className={styles.th}>Action</th>
-              </tr>
-            </thead>
-            <tbody className={styles.padd}>
-              {sellerproduct.map((item) => {
-                const { bgCol, color } = getStockColors(item.stock);
-                const { colors, bgColor } = statusColors.find(s => s.status === item.status) || {};
-
-                return (
-
-                  <tr key={item.ProductID} className={styles.tr}>
-                    <td className={`${styles.td} ${styles.textDark}`}>{item.ProductID}</td>
-                    <td className={`${styles.td} ${styles.textGray}`}>{item.name}</td>
-                    <td className={`${styles.td} ${styles.textGray}`}>{item.sku}</td>
-                    <td className={`${styles.td} ${styles.textGray}`}>{item.category}</td>
-                    <td className={`${styles.td} ${styles.price}`}>{item.Price}</td>
-                    <td className={styles.td}>
-                      <span className={`${styles.stock}`} style={{
-                        backgroundColor: bgCol,
-                        color: color,
-                        padding: "0.5rem 1rem",
-                        borderRadius: "12px",
-                        marginBottom: "0.5rem"
-                      }}>
-                        {item.stock}
-                      </span>
-                    </td>
-                    <td className={styles.td}>
-                      <span className={`${styles.status}`}
-                        style={{ backgroundColor: bgColor, color: colors, padding: "0.5rem 1rem", borderRadius: "6px", marginBottom: "0.5rem" }}>
-                        {item.status}
-                      </span>
-                    </td>
-                    <td className={styles.td}>
-                      <button className={styles.actionBtn}>{item.action}</button>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
-
-      </div> */}
       <div className={styles.productListing}>
 
         {/* <div className={styles.dropdown}></div> */}
@@ -773,7 +755,7 @@ const ProductManagement = () => {
               </tr>
             </thead>
             <tbody className={styles.padd}>
-              {Array.isArray(product) && product.map((item) => {
+              {Array.isArray(products) && products.map((item) => {
                 const { bgCol, color } = getStockColors(item.stock);
                 const { colors, bgColor } = statusColors.find(s => s.status === item.status) || {};
 
@@ -806,13 +788,13 @@ const ProductManagement = () => {
                       <button type="button" className={styles.actionBtn}>Edit</button>
                     </td>
                   </tr>
-            )
+                )
               })}
-          </tbody>
-        </table>
-      </div>
+            </tbody>
+          </table>
+        </div>
 
-    </div>
+      </div>
 
     </div >
   );

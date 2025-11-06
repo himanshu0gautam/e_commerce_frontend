@@ -358,7 +358,7 @@ tr {
   border-radius: 8px;
   padding: 1.7rem 1rem;
   width: 90%;
-  max-width: 500px;
+  max-width: 450px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   animation: scaleIn 0.2s ease-in-out;
 }
@@ -420,7 +420,7 @@ tr {
   background-color: #ECECF0;
   display: flex;
   padding: 0.3rem;
-  border-radius: 40px;
+  border-radius: 16px;
   justify-content: space-around;
 }
 
@@ -746,10 +746,10 @@ tr {
 }
 
 .productcontainer {
-  /* display: flex; */
+  display: flex;
   flex-wrap: wrap;
   align-items: center;
-  /* justify-content: space-between; */
+  justify-content: space-between;
 }
 
 .productname {
